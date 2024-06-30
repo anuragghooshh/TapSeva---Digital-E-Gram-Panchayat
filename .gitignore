@@ -1,0 +1,7 @@
+# Node.js dependencies
+node_modules/
+
+# General
+*.log
+.DS_Store
+.env
