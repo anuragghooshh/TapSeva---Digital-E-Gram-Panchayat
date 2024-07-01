@@ -60,9 +60,9 @@ const Home = () => {
     ]
 
     return (
-        <div className='page w-full' id='home'>
+        <div className='page w-full bg-light' id='home'>
             <section
-                className="w-full min-h-hero py-10 pb-20 flex items-end bg-img bg-cover"
+                className="w-full min-h-dvh py-10 pb-20 flex items-end bg-img bg-cover"
                 style={{ backgroundImage: `url(${heroBg})` }}
             >
                 <div className='w-full min-h-full px-20 flex flex-col space-y-10 justify-end items-start mx-auto'>
@@ -73,9 +73,9 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-20 px-20">
-                <h2 className='text-5xl font-gyst font-medium text-dark text-center '>Featured Services</h2>
-                <div>
+            <section className="py-20 px-20 pt-32">
+                <h2 className='text-5xl font-gyst font-medium text-dark text-center'>Featured Services</h2>
+                <div className='max-w-dsktp mx-auto mt-20 grid-cols-2 grid gap-5' >
                     {
                         services.map((service: any, index: number) => (
                             <ServiceCard
@@ -88,7 +88,7 @@ const Home = () => {
                     }
                 </div>
             </section>
-            <section className="py-20 px-20">
+            <section className="py-20 px-20 bg-gray">
                 <h2 className='text-5xl font-gyst font-medium text-dark text-center '>Important Updates</h2>
             </section>
         </div>

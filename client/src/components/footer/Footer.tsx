@@ -15,7 +15,7 @@ const Footer = () => {
                     <p className='font-work text-base absolute bottom-0' >©{new Date().getFullYear()} TapSeva. All rights reserved.</p>
                 </div>
             </div>
-            <div className="flex space-x-10">
+            <div className="flex space-x-40">
                 <div className='flex-col space-y-5' >
                     <h3>Quick Links</h3>
                     <ul className='font-work text-base'>

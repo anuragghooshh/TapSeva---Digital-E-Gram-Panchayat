@@ -16,23 +16,16 @@ export default {
         hero : "calc(100vh - 6rem)",
       },
       maxWidth:{
-        dsktp : "1140px"
-      },
-      width: {
-        "4/5": "80%",
-      },
-      left: {
-        "1/2": "50%",
-      },
-      transform: {
-        "x1/2": "translateX(-50%)", 
+        dsktp : "1140px",
+        nav : "calc(100% - 10rem)"
       },
       colors: {
-        light: "#EEF3E5",
+        light: "#FCFFF8",
         dark: "#1F2316",
         primary: "#8AB740",
         secondary: "#8D4B26",
         tertiary: "#ABBE99",
+        gray: "#EDF4E6"
       },
       borderRadius: {
         none: "0",
@@ -48,6 +41,9 @@ export default {
         gyst: ["Gyst", "serif"],
         work: ["Work Sans", "sans-serif"],
       },
+      translate:{
+        nav : "calc(-100% - 1.25rem)"
+      }
     },
   },
   plugins: [],

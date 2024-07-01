@@ -6,14 +6,17 @@ interface ServiceCardProps {
   serviceType: number;
 }
 
-const ServiceCard = ({ serviceName, serviceDescription, serviceType }: ServiceCardProps) => {
+const ServiceCard = ({ serviceName, serviceDescription }: ServiceCardProps) => {
   return (
-    <div className='font-work text-center w-full border border-primary py-6 px-8' >
+    <div className='
+      font-work text-center w-full border border-primary py-14 px-8 rounded-lg bg-gray
+      grid grid-cols-1 gap-10
+    ' >
       <div className='flex-col space-y-4' >
         <h3 className='text-lg font-medium' >{serviceName}</h3>
         <p className='text-base ' >{serviceDescription}</p>
       </div>
-      <button className='mt-10' >View</button>
+      <button>View</button>
     </div>
   )
 }
