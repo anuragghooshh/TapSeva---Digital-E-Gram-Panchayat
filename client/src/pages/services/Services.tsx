@@ -1,6 +1,7 @@
 import React from 'react'
-import { Outlet, useSearchParams } from 'react-router-dom'
-import Tabs, { Tab } from '../../components/tabs/index'
+import { useSearchParams } from 'react-router-dom'
+import Tabs from '../../components/tabs/index'
+import Hero from '../../components/hero/index'
 import ServiceCard from '../../components/serviceCard/ServiceCard'
 
 const ServicesLayout = () => {
@@ -106,16 +107,12 @@ const ServicesLayout = () => {
 
     return (
         <div className='page bg-light' id='services'>
-            <section
-                className="w-full min-h-96 py-10 pb-20 flex items-end bg-img bg-cover bg-secondary"
-            >
-                <div className='w-full min-h-full px-20 flex flex-col space-y-5 justify-end items-start mx-auto'>
-                    <h1 className='text-6xl font-gyst font-medium text-light'>Services</h1>
-                    <p className='text-light font-work font-medium'>Choose from a wide range of services to make your life easier.</p>
-                </div>
-            </section>
+            <Hero>
+                <Hero.Title>Services</Hero.Title>
+                <Hero.SubTitle>Choose from a wide range of services to make your life easier.</Hero.SubTitle>
+            </Hero>
             <section className='py-20' >
-                <div className='max-w-dsktp mx-auto' >
+                <div className='max-w-dsktp mx-auto' > 
                     <Tabs>
                         <Tabs.Tab path='' >All</Tabs.Tab>
                         <Tabs.Tab path='?category=General+Services' >General Services</Tabs.Tab>
