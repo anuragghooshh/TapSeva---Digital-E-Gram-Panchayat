@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../../components/button/Button'
 import heroBg from '../../assets/images/heroBG.jpg'
 import ServiceCard from '../../components/serviceCard/ServiceCard';
+import servicesList from '../../seeds/Services';
 
 const Home = () => {
     // const [services, setServices] = React.useState([]);
@@ -16,51 +17,11 @@ const Home = () => {
     //     fetchServices();
     // }, []);
 
-    const services = [
-        {
-            "_id": "667ff8727b60fc99aeabfd24",
-            "service_name": "Marriage Certificate Application",
-            "description": "Apply for a marriage certificate. Required documents may include marriage invitation, wedding photographs, ID proofs of bride and groom etc.",
-            "category": "General Services",
-            "DownloadableForm": "",
-            "featured": true,
-            "applicants": 0,
-            "__v": 0
-        },
-        {
-            "_id": "667ff8727b60fc99aeabfd26",
-            "service_name": "Ration Card Application",
-            "description": "Apply for a new ration card or update an existing one. Required documents may include address proof, ID proofs of family members etc.",
-            "category": "Citizen Services",
-            "DownloadableForm": "NA",
-            "featured": true,
-            "applicants": 0,
-            "__v": 0
-        },
-        {
-            "_id": "667ff8727b60fc99aeabfd23",
-            "service_name": "Death Certificate Application",
-            "description": "Apply for a death certificate. Required documents may include death certificate from hospital, deceased ID proof etc.",
-            "category": "General Services",
-            "DownloadableForm": "",
-            "featured": true,
-            "applicants": 0,
-            "__v": 0
-        },
-        {
-            "_id": "667ff8727b60fc99aeabfd22",
-            "service_name": "Birth Certificate Application",
-            "description": "Apply for a new birth certificate or a duplicate copy. Required documents may include hospital birth records, parent ID proofs etc.",
-            "category": "General Services",
-            "DownloadableForm": "",
-            "featured": true,
-            "applicants": 0,
-            "__v": 0
-        }
-    ]
+    const featuredServices =
+        servicesList.filter(service => service.featured === true);
 
     return (
-        <div className='page w-full bg-light' id='home'>
+        <div className='page w-full' id='home'>
             <section
                 className="w-full min-h-dvh py-10 pb-20 flex items-end bg-img bg-cover"
                 style={{ backgroundImage: `url(${heroBg})` }}
@@ -69,7 +30,7 @@ const Home = () => {
                     <h1 className='text-6xl font-gyst font-medium text-light'>
                         Empowering Your Village<br />with Digital Convenience.
                     </h1>
-                    <Button>Browse Services</Button>
+                    <Button color='light' design='stroked'>Browse Services</Button>
                 </div>
             </section>
 
@@ -77,12 +38,13 @@ const Home = () => {
                 <h2 className='text-5xl font-gyst font-medium text-dark text-center'>Featured Services</h2>
                 <div className='max-w-dsktp mx-auto mt-20 grid-cols-2 grid gap-5' >
                     {
-                        services.map((service: any, index: number) => (
+                        featuredServices.map((service: any, index: number) => (
                             <ServiceCard
                                 key={index}
                                 serviceName={service.service_name}
                                 serviceDescription={service.description}
                                 serviceType={service.category}
+                                DownloadableForm={service.DownloadableForm != 'NA' ? true : false}
                             />
                         ))
                     }

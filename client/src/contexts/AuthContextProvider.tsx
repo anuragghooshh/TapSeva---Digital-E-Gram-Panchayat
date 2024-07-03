@@ -17,3 +17,4 @@ const AuthContextProvider = ({children} : {children : React.ReactNode}) => {
 }
 
 export default AuthContextProvider
+export{ AuthContext }

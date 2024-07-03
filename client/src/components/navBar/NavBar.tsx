@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../button/Button'
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 const NavBar = () => {
+    // Scroll Navbar Animation
     const [showNavbar, setShowNavbar] = React.useState(true);
     let prevScrollPos = window.scrollY;
 
@@ -22,7 +24,9 @@ const NavBar = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    // w-full h-nav bg-primary sticky top-0 flex justify-between items-center px-10
+
+    // Auth based Navbar
+    const { userType, isLoggedIn } = React.useContext(AuthContext);
 
     return (
         <nav className={`
@@ -37,11 +41,23 @@ const NavBar = () => {
             <div className='flex gap-10 items-center'>
                 <ul className='flex space-x-10'>
                     <li className='text-light font-work font-medium'>
-                        <Link to='services'>Services</Link>
+                        <Link to='/'>Home</Link>
                     </li>
                     <li className='text-light font-work font-medium'>
-                        <Link to='downloads'>Downloads</Link>
+                        <Link to='services'>Services</Link>
                     </li>
+                    {
+                        isLoggedIn ?
+                            <li className='text-light font-work font-medium'>
+                                <Link to='applications'>Applications</Link>
+                            </li> : null
+                    }
+                    {
+                        userType !== 'admin' ?
+                            <li className='text-light font-work font-medium'>
+                                <Link to='downloads'>Downloads</Link>
+                            </li> : null
+                    }
                     <li className='text-light font-work font-medium'>
                         <Link to='about'>About</Link>
                     </li>
@@ -49,7 +65,11 @@ const NavBar = () => {
                         <Link to='contact'>Contact</Link>
                     </li>
                 </ul>
-                <Button>Log In</Button>
+                {
+                    isLoggedIn ?
+                        <Button color='light' design='filled'>Sign Out</Button> :
+                        <Button color='light' design='filled'>Sign In</Button>
+                }
             </div>
         </nav>
     )
