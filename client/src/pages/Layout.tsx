@@ -5,6 +5,8 @@ import Footer from '../components/footer/Footer'
 import AuthContextProvider from '../contexts/AuthContextProvider'
 
 const Layout = () => {
+
+    
     return (
         <AuthContextProvider>
             <div id='container' className='w-full bg-light'>

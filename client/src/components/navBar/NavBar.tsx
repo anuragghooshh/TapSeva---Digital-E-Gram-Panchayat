@@ -68,7 +68,7 @@ const NavBar = () => {
                 {
                     isLoggedIn ?
                         <Button color='light' design='filled'>Sign Out</Button> :
-                        <Button color='light' design='filled'>Sign In</Button>
+                        <Button link={true} path='auth/signin' color='light' design='filled'>Sign In</Button>
                 }
             </div>
         </nav>
