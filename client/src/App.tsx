@@ -6,12 +6,13 @@ import Home from "./pages/home/Home"
 import About from "./pages/about/About"
 import Contact from "./pages/contact/Contact"
 import Downloads from "./pages/downloads/Downloads"
-import SignIn from "./pages/authenticate/SignIn"
 import SignUp from "./pages/authenticate/SignUp"
 import AuthLayout from "./pages/authenticate/AuthLayout"
 import SignInLayout from "./pages/authenticate/sign-in/SignInLayout"
 import SignInWithEmail from "./pages/authenticate/sign-in/SignInWithEmail"
 import SignInWithPhone from "./pages/authenticate/sign-in/SignInWithPhone"
+import { AuthContext } from "./contexts/AuthContextProvider"
+import Applications from "./pages/applications/Applications"
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
   // }, []);
 
   // console.log(data);
+  const { isLoggedIn } = React.useContext(AuthContext);
 
   return (
     <BrowserRouter>
@@ -34,6 +36,10 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="downloads" element={<Downloads />} />
+          {
+            isLoggedIn ?
+            <Route path="applications" element={<Applications />} /> :  null
+          }
         </Route>
         <Route path="auth" element={<AuthLayout />}>
           <Route path="signin" element={<SignInLayout />}>
