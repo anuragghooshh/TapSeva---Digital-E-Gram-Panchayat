@@ -1,19 +1,19 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { buttonDesign } from './buttonDesign';
 import { Link } from 'react-router-dom';
 
 export interface ButtonProps {
-  children: ReactNode;
+  children: React.ReactNode;
   design?: 'stroked' | 'filled';
   color?: 'dark' | 'light' | 'color';
   type?: "button" | "submit" | "reset" | undefined;
   link?: boolean;
   path?: string;
   onClick?: () => void;
-  onSubmit?: () => void;
+  onSubmit?: (e: any) => void;
 }
 
-const Button = ({ children, design, color, type, onClick, onSubmit, link, path }: ButtonProps) => {
+const Button = ({ children, design, color, type, onClick, onSubmit, link=false, path }: ButtonProps) => {
 
   if (link) {
     return (

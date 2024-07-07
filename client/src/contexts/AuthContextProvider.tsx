@@ -6,7 +6,7 @@ const AuthContext = React.createContext({
 })
 
 const AuthContextProvider = ({children} : {children : React.ReactNode}) => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [userType, setUserType] = React.useState('user');
 
   return (

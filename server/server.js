@@ -1,3 +1,5 @@
+const bodyParser = require("body-parser");
+
 require("dotenv").config();
 const connectDB = require("./config/db");
 const services = require("./seed");
@@ -18,7 +20,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
-); 
+);
 
 // Connect to MongoDB
 // connectDB();
@@ -39,13 +41,20 @@ const addService = async (serviceData) => {
 // });
 
 app.get("/api", (req, res) => {
-  res.json({ 
+  res.json({
     title: "Hello from server!",
     message: "Hello from server!",
   });
 });
 
-app.use('/api/services', require('./routes/serviceRoutes'));
+
+//For Retrieving Services
+app.use("/api/services", require("./routes/serviceRoutes"));
+
+//For Registering Users
+app.use("/api/auth", require("./routes/authRoutes"));
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -10,15 +10,16 @@ export interface InputProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: React.FC<InputProps> = ({ type, placeholder, id, name, required, value }) => {
+const Input: React.FC<InputProps> = ({ type, placeholder, id, name, required, value, onChange }) => {
     return (
         <input   
-            type='text'
+            type={type}
             placeholder={placeholder}
             id={id}
             name={name}
             required={required}
             value={value}
+            onChange={onChange}
             className='mt-1 block w-full py-2 px-4 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
         />
     )
