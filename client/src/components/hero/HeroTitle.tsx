@@ -6,7 +6,7 @@ export interface HeroTitleProps{
 
 const HeroTitle : React.FC<HeroTitleProps> = ({children}) => {
   return (
-    <h1 className='text-6xl font-gyst font-medium text-light'>
+    <h1 className='text-6xl font-gyst font-medium'>
       {children}
     </h1>
   )

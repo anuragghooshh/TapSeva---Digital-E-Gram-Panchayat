@@ -41,7 +41,7 @@ const NavBar = () => {
             <div className='flex gap-10 items-center'>
                 <ul className='flex space-x-10'>
                     <li className='text-light font-work font-medium'>
-                        <Link to='/'>Home</Link>
+                        <Link to='/'>{userType !== 'admin' ? 'Home' : 'Dashboard'}</Link>
                     </li>
                     <li className='text-light font-work font-medium'>
                         <Link to='services'>Services</Link>
@@ -67,7 +67,7 @@ const NavBar = () => {
                 </ul>
                 {
                     isLoggedIn ?
-                        <Button color='light' design='filled'>Sign Out</Button> :
+                        <Button link={true} path='profile' color='light' design='filled'>Profile</Button> :
                         <Button link={true} path='auth/signin' color='light' design='filled'>Sign In</Button>
                 }
             </div>

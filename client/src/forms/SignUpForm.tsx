@@ -9,8 +9,8 @@ const SignUpForm = () => {
         name: '',
         dob: '',
         address: '',
-        maritialStatus: '',
-        aadhaar: '',
+        maritalStatus: '',
+        aadhaarNo: '',
         email: '',
         phone: '',
         password: '',
@@ -29,8 +29,8 @@ const SignUpForm = () => {
             name: '',
             dob: '',
             address: '',
-            maritialStatus: '',
-            aadhaar: '',
+            maritalStatus: '',
+            aadhaarNo: '',
             email: '',
             phone: '',
             password: '',
@@ -46,14 +46,14 @@ const SignUpForm = () => {
         postData.name = input.name;
         postData.dob = input.dob;
         postData.address = input.address;
-        postData.maritialStatus = input.maritialStatus;
-        postData.aadhaar = input.aadhaar;
+        postData.maritalStatus = input.maritalStatus;
+        postData.aadhaarNo = input.aadhaarNo;
         postData.email = input.email;
         postData.phone = input.phone;
         postData.password = input.password;
 
         try {
-          const response = await fetch('/api/auth', {
+          const response = await fetch('/api/auth/newuser', {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -88,15 +88,15 @@ const SignUpForm = () => {
                     <Input type='text' placeholder='Enter your Address' id='address' name='address' required={false} value={input.address} onChange={handleChange} />
                 </InputAndLabel>
                 <InputAndLabel>
-                    <Label htmlFor='maritialStatus'>Maritial Status</Label>
-                    <Input type='text' placeholder='Enter your Maritial Status' id='maritialStatus' name='maritialStatus' required={false} value={input.maritialStatus} onChange={handleChange} />
+                    <Label htmlFor='maritalStatus'>marital Status</Label>
+                    <Input type='text' placeholder='Enter your marital Status' id='maritalStatus' name='maritalStatus' required={false} value={input.maritalStatus} onChange={handleChange} />
                 </InputAndLabel>
             </div>
 
             <div className="space-y-5 border-b-2 border-b-gray py-10">
                 <InputAndLabel>
-                    <Label htmlFor='aadhaar'>Aaadhar No.</Label>
-                    <Input type='text' placeholder='Enter your Aadhar Number' id='aadhaar' name='aadhaar' required={false} value={input.aadhaar} onChange={handleChange} />
+                    <Label htmlFor='aadhaarNo'>Aaadhaar No.</Label>
+                    <Input type='text' placeholder='Enter your aadhaar Number' id='aadhaarNo' name='aadhaarNo' required={false} value={input.aadhaarNo} onChange={handleChange} />
                 </InputAndLabel>
                 <InputAndLabel>
                     <Label htmlFor='email'>Email</Label>

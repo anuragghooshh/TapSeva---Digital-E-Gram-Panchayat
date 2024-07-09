@@ -6,7 +6,7 @@ export interface HeroSubTitleProps{
 
 const HeroSubTitle : React.FC<HeroSubTitleProps> = ({children}) => {
   return (
-    <p className='text-light font-work font-medium'>
+    <p className='font-work font-medium'>
       {children}
     </p>
   )

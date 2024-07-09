@@ -23,7 +23,7 @@ app.use(
 );
 
 // Connect to MongoDB
-// connectDB();
+connectDB();
 
 const addService = async (serviceData) => {
   console.log(serviceData);
@@ -54,7 +54,8 @@ app.use("/api/services", require("./routes/serviceRoutes"));
 //For Registering Users
 app.use("/api/auth", require("./routes/authRoutes"));
 
-
+//For fetching user details
+app.use("/api/auth", require("./routes/userRoutes"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

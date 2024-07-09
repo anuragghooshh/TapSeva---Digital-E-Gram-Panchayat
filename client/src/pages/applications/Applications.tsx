@@ -6,7 +6,7 @@ import ApplicationCard from '../../application/ApplicationCard'
 const Applications = () => {
   return (
     <div className='page' id='applications'>
-      <Hero>
+      <Hero design='clean'>
         <Hero.Title>Applications</Hero.Title>
         <Hero.SubTitle>Applications</Hero.SubTitle>
       </Hero>

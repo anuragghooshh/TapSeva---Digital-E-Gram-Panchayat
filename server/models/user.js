@@ -23,11 +23,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  maritialStatus: {
+  maritalStatus: {
     type: String,
     required: true
   },
-  aadharNo:{
+  aadhaarNo:{
     type: String,
     required: true
   },

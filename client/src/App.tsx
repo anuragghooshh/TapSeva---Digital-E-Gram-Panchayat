@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import Layout from "./pages/Layout"
 import ServicesLayout from "./pages/services/Services"
 import Home from "./pages/home/Home"
@@ -13,6 +13,8 @@ import SignInWithEmail from "./pages/authenticate/sign-in/SignInWithEmail"
 import SignInWithPhone from "./pages/authenticate/sign-in/SignInWithPhone"
 import { AuthContext } from "./contexts/AuthContextProvider"
 import Applications from "./pages/applications/Applications"
+import Profile from "./pages/profile/Profile"
+import Dashboard from "./pages/dashboard/Dashboard"
 
 
 function App() {
@@ -25,31 +27,33 @@ function App() {
   // }, []);
 
   // console.log(data);
-  const { isLoggedIn } = React.useContext(AuthContext);
+  const { isLoggedIn, userType } = React.useContext(AuthContext);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="services" element={<ServicesLayout />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="downloads" element={<Downloads />} />
-          {
-            isLoggedIn ?
-            <Route path="applications" element={<Applications />} /> :  null
-          }
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={ userType != 'admin' ? <Home /> : <Dashboard/> } />
+        <Route path="services" element={<ServicesLayout />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="downloads" element={<Downloads />} />
+        {
+          isLoggedIn ?
+            <Route path="applications" element={<Applications />} /> : null
+        }
+        {
+          isLoggedIn ?
+            <Route path="profile" element={<Profile />} /> : null
+        }
+      </Route>
+      <Route path="auth" element={<AuthLayout />}>
+        <Route path="signin" element={<SignInLayout />}>
+          <Route path="email" element={<SignInWithEmail />} />
+          <Route index element={<SignInWithPhone />} />
         </Route>
-        <Route path="auth" element={<AuthLayout />}>
-          <Route path="signin" element={<SignInLayout />}>
-            <Route path="email" element={<SignInWithEmail />} />
-            <Route index element={<SignInWithPhone />} />
-          </Route>
-          <Route path="signup" element={<SignUp />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        <Route path="signup" element={<SignUp />} />
+      </Route>
+    </Routes>
   )
 }
 
