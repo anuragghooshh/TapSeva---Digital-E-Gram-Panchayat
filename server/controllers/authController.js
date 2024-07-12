@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
       name: name,
       dob: dob,
       address: address,
-      aadhaarNo: aadhaar,
+      aadharNo: aadhaar,
       phone: phone,
       maritalStatus: maritalStatus,
       password: password,

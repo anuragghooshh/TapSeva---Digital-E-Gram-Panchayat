@@ -3,15 +3,16 @@ import Hero from '../../components/hero/index'
 import ServiceCard from '../../components/serviceCard/ServiceCard';
 import Tabs from '../../components/tabs/index';
 import { useSearchParams } from 'react-router-dom';
-import servicesList from '../../seeds/Services';
+import ServiceContext from '../../contexts/service/ServiceContext';
 
 const Downloads = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const categoryFilter = searchParams.get('category');
+  const { services } = React.useContext(ServiceContext);
 
   const displayedServices = categoryFilter ?
-    servicesList.filter(service => service.category === categoryFilter && service.DownloadableForm != 'NA')
-    : servicesList;
+    services.filter(service => service.category === categoryFilter && service.DownloadableForm != 'NA')
+    : services.filter(service => service.DownloadableForm != 'NA');
 
   return (
     <div className='page' id='downloads' >
@@ -38,6 +39,7 @@ const Downloads = () => {
                   serviceDescription={service.description}
                   serviceType={service.category}
                   DownloadableForm={service.DownloadableForm != 'NA' ? true : false}
+                  _id={service._id}
                 />
               ))
             }

@@ -1,8 +1,8 @@
 import React from 'react'
-import InputAndLabel from '../components/inputAndLabel/InputAndLabel'
-import Label from '../components/inputAndLabel/Label'
-import Input from '../components/inputAndLabel/Input'
-import Button from '../components/button/Button'
+import InputAndLabel from '../inputAndLabel/InputAndLabel'
+import Label from '../inputAndLabel/Label'
+import Input from '../inputAndLabel/Input'
+import Button from '../button/Button'
 
 const SignUpForm = () => {
     const [input, setInput] = React.useState({

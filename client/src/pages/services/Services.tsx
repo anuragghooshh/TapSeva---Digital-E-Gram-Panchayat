@@ -3,15 +3,17 @@ import { useSearchParams } from 'react-router-dom'
 import Tabs from '../../components/tabs/index'
 import Hero from '../../components/hero/index'
 import ServiceCard from '../../components/serviceCard/ServiceCard'
-import servicesList from '../../seeds/Services'
+import ServiceContext from '../../contexts/service/ServiceContext'
 
 const ServicesLayout = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const categoryFilter = searchParams.get('category');
 
-    const displayedServices = categoryFilter ? 
-        servicesList.filter(service => service.category === categoryFilter) 
-        : servicesList;
+    const { services } = React.useContext(ServiceContext);
+
+    const filteredServices = categoryFilter ?
+        services.filter(service => service.category === categoryFilter)
+        : services;
 
     return (
         <div className='page' id='services'>
@@ -20,7 +22,7 @@ const ServicesLayout = () => {
                 <Hero.SubTitle>Choose from a wide range of services to make your life easier.</Hero.SubTitle>
             </Hero>
             <section className='py-20' >
-                <div className='max-w-dsktp mx-auto' > 
+                <div className='max-w-dsktp mx-auto' >
                     <Tabs>
                         <Tabs.Tab path='' >All</Tabs.Tab>
                         <Tabs.Tab path='?category=General+Services' >General Services</Tabs.Tab>
@@ -31,13 +33,14 @@ const ServicesLayout = () => {
                     </Tabs>
                     <div className='max-w-dsktp mx-auto mt-20 grid-cols-2 grid gap-5'>
                         {
-                            displayedServices.map((service: any, index: number) => (
+                            filteredServices.map((service: any, index: number) => (
                                 <ServiceCard
                                     key={index}
                                     serviceName={service.service_name}
                                     serviceDescription={service.description}
                                     serviceType={service.category}
-                                    DownloadableForm = {service.DownloadableForm != 'NA' ? true : false}
+                                    DownloadableForm={service.DownloadableForm != 'NA' ? true : false}
+                                    _id={service._id}
                                 />
                             ))
                         }

@@ -57,5 +57,11 @@ app.use("/api/auth", require("./routes/authRoutes"));
 //For fetching user details
 app.use("/api/auth", require("./routes/userRoutes"));
 
+//For Controlling Applications
+app.use("/api/applications", require("./routes/applicationRoutes"));
+
+
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

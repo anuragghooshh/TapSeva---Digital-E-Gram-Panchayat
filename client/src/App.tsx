@@ -11,10 +11,10 @@ import AuthLayout from "./pages/authenticate/AuthLayout"
 import SignInLayout from "./pages/authenticate/sign-in/SignInLayout"
 import SignInWithEmail from "./pages/authenticate/sign-in/SignInWithEmail"
 import SignInWithPhone from "./pages/authenticate/sign-in/SignInWithPhone"
-import { AuthContext } from "./contexts/AuthContextProvider"
 import Applications from "./pages/applications/Applications"
 import Profile from "./pages/profile/Profile"
 import Dashboard from "./pages/dashboard/Dashboard"
+import AuthContext from "./contexts/auth/AuthContext"
 
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={ userType != 'admin' ? <Home /> : <Dashboard/> } />
+        <Route index element={userType != 'admin' ? <Home /> : <Dashboard />} />
         <Route path="services" element={<ServicesLayout />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
@@ -46,13 +46,16 @@ function App() {
             <Route path="profile" element={<Profile />} /> : null
         }
       </Route>
-      <Route path="auth" element={<AuthLayout />}>
-        <Route path="signin" element={<SignInLayout />}>
-          <Route path="email" element={<SignInWithEmail />} />
-          <Route index element={<SignInWithPhone />} />
-        </Route>
-        <Route path="signup" element={<SignUp />} />
-      </Route>
+      {
+        !isLoggedIn ?
+          <Route path="auth" element={<AuthLayout />}>
+            <Route path="signin" element={<SignInLayout />}>
+              <Route path="email" element={<SignInWithEmail />} />
+              <Route index element={<SignInWithPhone />} />
+            </Route>
+            <Route path="signup" element={<SignUp />} />
+          </Route> : null
+      }
     </Routes>
   )
 }

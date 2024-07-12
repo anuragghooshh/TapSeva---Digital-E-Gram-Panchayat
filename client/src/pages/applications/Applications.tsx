@@ -1,9 +1,12 @@
 import React from 'react'
 import Hero from '../../components/hero/index'
 import Button from '../../components/button/Button'
-import ApplicationCard from '../../application/ApplicationCard'
+import ApplicationCard from '../../components/application/ApplicationCard'
+import ApplicationContext from '../../contexts/application/ApplicationContext'
 
 const Applications = () => {
+  const { applications } = React.useContext(ApplicationContext);
+
   return (
     <div className='page' id='applications'>
       <Hero design='clean'>
@@ -16,7 +19,18 @@ const Applications = () => {
           <Button>Filter</Button>
         </div>
         <div className='space-y-5' >
-          <ApplicationCard/>
+          {
+            applications.map((application, index) => (
+              <ApplicationCard
+                key={application._id}
+                userId={application.userId}
+                serviceName={application.serviceName}
+                createdAt={application.createdAt}
+                status={application.status}
+                applicationId={application._id}
+              />
+            ))
+          }
         </div>
       </section>
     </div>

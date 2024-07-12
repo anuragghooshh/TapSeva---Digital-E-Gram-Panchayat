@@ -1,55 +1,33 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import AuthContext from './AuthContext';
 
-const AuthContext = React.createContext({
-  isLoggedIn: false,
-  userType: 'default' || 'admin',
-  userData: {
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    aadhaarNo: '',
-    dob: '',
-    maritalStatus: '',
-  },
-  logout: () => { }
-})
+interface userDataInterface {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  aadhaarNo: string;
+  dob: string;
+  maritalStatus: 'Single' | 'Married' | 'Divorced' | 'Widowed';
+}
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [userType, setUserType] = React.useState('villager');
-  const [userData, setUserData] = React.useState({
-    _id: '',
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    aadhaarNo: '',
-    dob: '',
-    maritalStatus: 'Single',
-  });
+  const [userData, setUserData] = React.useState({} as userDataInterface);
 
   const navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    setUserData({
-      _id: '',
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      aadhaarNo: '',
-      dob: '',
-      maritalStatus: 'Single',
-    });
+    setUserData({} as userDataInterface);
     navigate('/');
   };
 
   const login = (token: string, data: any) => {
-    localStorage.setItem('token', token);
     setIsLoggedIn(true);
     setUserData({
       _id: data._id,
@@ -62,7 +40,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       maritalStatus: data.maritalStatus,
     });
     setUserType(data.role);
-    navigate('/');
+    localStorage.setItem('token', token);
   }
 
 
@@ -101,4 +79,4 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export { AuthContext, AuthContextProvider } 
+export default AuthContextProvider; 

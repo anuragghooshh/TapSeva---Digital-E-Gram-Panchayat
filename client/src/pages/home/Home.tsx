@@ -2,23 +2,11 @@ import React from 'react'
 import Button from '../../components/button/Button'
 import heroBg from '../../assets/images/heroBG.jpg'
 import ServiceCard from '../../components/serviceCard/ServiceCard';
-import servicesList from '../../seeds/Services';
+import ServiceContext from '../../contexts/service/ServiceContext';
 
 const Home = () => {
-    // const [services, setServices] = React.useState([]);
-
-    // const fetchServices = async () => {
-    //     const res = await fetch('/api/services?featured=true')
-    //     const data = await res.json()
-    //     setServices(data);
-    // }
-
-    // React.useEffect(() => {
-    //     fetchServices();
-    // }, []);
-
-    const featuredServices =
-        servicesList.filter(service => service.featured === true);
+    const { services } = React.useContext(ServiceContext);
+    const featuredServices = services.filter(service => service.featured === true);
 
     return (
         <div className='page w-full' id='home'>
@@ -40,6 +28,7 @@ const Home = () => {
                     {
                         featuredServices.map((service: any, index: number) => (
                             <ServiceCard
+                                _id={service._id}
                                 key={index}
                                 serviceName={service.service_name}
                                 serviceDescription={service.description}

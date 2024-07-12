@@ -1,7 +1,7 @@
 import React from 'react'
 import Hero from '../../components/hero/index'
-import { AuthContext } from '../../contexts/AuthContextProvider';
 import Button from '../../components/button/Button';
+import AuthContext from '../../contexts/auth/AuthContext';
 
 const Profile = () => {
     const { userData, logout } = React.useContext(AuthContext);

@@ -4,7 +4,7 @@ import Button from '../../components/button/Button'
 
 const AuthLayout = () => {
     return (
-        <div id='page' className='authenticatec w-full bg-light'>
+        <div id='page' className='authenticate w-full bg-light'>
             <section className="py-20">
                 <div className='max-w-dsktp mx-auto space-y-8' >
                     <Button

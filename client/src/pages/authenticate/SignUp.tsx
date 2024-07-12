@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '../../components/button/Button'
-import SignUpForm from '../../forms/SignUpForm'
+import SignUpForm from '../../components/forms/SignUpForm'
 
 const SignUp = () => {
   return (

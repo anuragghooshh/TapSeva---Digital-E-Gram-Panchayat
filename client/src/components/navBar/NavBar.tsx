@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../button/Button'
-import { AuthContext } from '../../contexts/AuthContextProvider';
+import AuthContext from '../../contexts/auth/AuthContext'
 
 const NavBar = () => {
     // Scroll Navbar Animation

@@ -30,20 +30,6 @@ const SignInWithGoogle = () => {
         } catch (error) {
             console.error('Error during sign-in:', error);
         }
-
-        //Testing
-        // const response = await fetch('/api/auth/google',{
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     }
-        // });
-
-        // const data = await response.json();
-
-        // if(response.ok){
-        //     console.log('BACKEND WORKING', data);
-        // }
     };
 
 
