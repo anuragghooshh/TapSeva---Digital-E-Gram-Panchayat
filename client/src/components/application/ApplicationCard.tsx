@@ -23,6 +23,8 @@ const ApplicationCard: React.FC<ApplicationCardInterface> = ({ applicationId, us
     updateApplication(applicationId, 'Rejected');
   }
 
+  //Add view Details (Message, Occupation, User Details)
+
   return (
     <div className='w-full max-w-dsktp border mx-auto mt-5 p-8 space-y-10'>
       {/* Top Portion  */}

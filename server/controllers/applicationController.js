@@ -1,19 +1,26 @@
 const Application = require("../models/application");
+const Service = require("../models/service");
+const mongoose = require("mongoose");
 
 exports.createApplication = async (req, res) => {
   const { message, currentOccupation, serviceId, serviceName } = req.body;
   const userId = req.user.id;
 
   try {
-    const application = new Application({ 
-        userId : userId,
-        serviceId : serviceId,
-        serviceName : serviceName,
-        message : message,
-        currentOccupation : currentOccupation,
-     });
+    const application = new Application({
+      userId: userId,
+      serviceId: serviceId,
+      serviceName: serviceName,
+      message: message,
+      currentOccupation: currentOccupation,
+    });
 
     await application.save();
+    await Service.findOneAndUpdate(
+      { _id: serviceId },
+      { $inc: { applicants: 1 } }
+    );
+
     res.status(201).json(application);
   } catch (err) {
     res.status(500).json({ error: "Error creating application" });
@@ -41,16 +48,38 @@ exports.getAllApplications = async (req, res) => {
 };
 
 exports.updateApplication = async (req, res) => {
-  const { id, status } = req.body;
+  const { applicationId, status } = req.body;
 
   try {
-    const application = await Application.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true }
+    const application = await Application.findOneAndUpdate(
+      { _id: applicationId },
+      { status: status }
     );
-    res.json(application);
+
+    if (application) {
+      const allApplications = await Application.find();
+      res.json(allApplications);
+    }
   } catch (error) {
     res.status(500).json({ error: "Error updating application" });
+  }
+};
+
+exports.getApplicationStats = async (req, res) => {
+  try {
+    const totalApplications = await Application.countDocuments();
+    const totalApproved = await Application.countDocuments({ status: "Approved" });
+    const totalRejected = await Application.countDocuments({ status: "Rejected" });
+    const totalPending = await Application.countDocuments({ status: "Pending" });
+
+    res.json({
+      totalApplications,
+      totalApproved,
+      totalRejected,
+      totalPending,
+    });
+
+  } catch (err) {
+    console.log(err);
   }
 };

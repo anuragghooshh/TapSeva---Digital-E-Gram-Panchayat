@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from './AuthContext';
 
-interface userDataInterface {
+interface UserDataInterface {
   _id: string;
   name: string;
   email: string;
@@ -11,72 +11,71 @@ interface userDataInterface {
   aadhaarNo: string;
   dob: string;
   maritalStatus: 'Single' | 'Married' | 'Divorced' | 'Widowed';
+  role: 'villager' | 'admin';
 }
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [userType, setUserType] = React.useState('villager');
-  const [userData, setUserData] = React.useState({} as userDataInterface);
+  const [userData, setUserData] = React.useState({} as UserDataInterface);
 
   const navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    setUserData({} as userDataInterface);
+    setUserData({} as UserDataInterface);
+    setUserType('villager');
     navigate('/');
   };
 
-  const login = (token: string, data: any) => {
+  const login = (data: UserDataInterface, token : string ) => {
     setIsLoggedIn(true);
-    setUserData({
-      _id: data._id,
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      address: data.address,
-      aadhaarNo: data.aadhaarNo,
-      dob: data.dob,
-      maritalStatus: data.maritalStatus,
-    });
+    setUserData(data);
     setUserType(data.role);
     localStorage.setItem('token', token);
-  }
+  };
 
+  const loginWithGoogle = async () => {
+    navigate('/');
+    await fetchUserData();
+  };
 
-  React.useEffect(() => {
-    const fetchUserData = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) return;
+  const fetchUserData = React.useCallback(async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
 
-      try {
-        const response = await fetch('/api/auth/me', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          login(token, data);
-        } else {
-          console.error('Failed to fetch user details:', data.msg);
+    try {
+      const response = await fetch('/api/auth/me', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         }
-      } catch (error) {
-        console.error('Error fetching user details:', error);
-      }
-    };
+      });
 
-    fetchUserData();
+      const data = await response.json();
+      if (response.ok) {
+        login(data,token);
+      } else {
+        console.error('Failed to fetch user details:', data.msg);
+        logout();
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+      logout();
+    }
   }, []);
 
+  React.useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData]);
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userType, userData, logout }} >
+    <AuthContext.Provider value={{ isLoggedIn, userType, userData, logout, loginWithGoogle }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
-export default AuthContextProvider; 
+export default AuthContextProvider;

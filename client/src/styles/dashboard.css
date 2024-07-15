@@ -1,0 +1,15 @@
+.totalA { grid-area: totalA; } 
+.pendingA { grid-area: pendingA; } 
+.totalS { grid-area: totalS; } 
+.approvedA { grid-area: approvedA; } 
+.rejectedA { grid-area: rejectedA; }
+
+.overview {
+  grid-gap: 1rem;
+  grid-template-areas:
+    "totalA totalA totalA pendingA pendingA pendingA"
+    "totalS totalS approvedA approvedA rejectedA rejectedA"
+  ;
+  /* grid-template-rows: 100px 200px; */
+}
+

@@ -7,15 +7,22 @@ interface ApplicationContextProvider {
     children: React.ReactNode;
 }
 
+interface NewApplicationInterface {
+    serviceId: string;
+    serviceName: string;
+    message: string;
+    currentOccupation: string;
+}
+
 const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ children }) => {
     const [applications, setApplications] = React.useState([] as ApplicationInterface[]);
-    const { isLoggedIn } = React.useContext(AuthContext);
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            fetchApplications();
-        }
-    }, [isLoggedIn]);
+    const [applicationStats, setApplicationStats] = React.useState({
+        totalApplications: 0,
+        pendingApplications: 0,
+        approvedApplications: 0,
+        rejectedApplications: 0,
+    })
+    const { isLoggedIn, userType } = React.useContext(AuthContext);
 
     const fetchApplications = async () => {
         const token = localStorage.getItem('token');
@@ -29,9 +36,10 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
             });
 
             const data = await response.json();
+            const tempApplications = [...data];
 
             if (response.ok) {
-                setApplications(data);
+                setApplications(tempApplications);
             } else {
                 console.log('Failed to fetch applications', data.msg);
             }
@@ -40,7 +48,29 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         }
     }
 
-    const createApplication = async (ApplicationData: ApplicationInterface) => {
+    const fetchAllApplications = async () => {
+        try {
+            const response = await fetch('/api/applications/all', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const data = await response.json();
+            const tempApplications = [...data];
+
+            if (response.ok) {
+                setApplications(tempApplications);
+            } else {
+                console.log('Failed to fetch applications', data.msg);
+            }
+        } catch (err) {
+            console.log('Error Fetching Applications: ', err);
+        }
+    }
+
+    const createApplication = async (ApplicationData: NewApplicationInterface) => {
         const token = localStorage.getItem('token');
 
         try {
@@ -65,30 +95,73 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
     }
 
     const updateApplication = async (applicationId: string, status: string) => {
-        try{
-            await fetch(`/api/applications/update-status}`, {
+        console.log(`Updating application ${applicationId} with status ${status}`);
+
+        const applicationDetails = {
+            applicationId: applicationId,
+            status: status
+        }
+
+        try {
+            await fetch('/api/applications/update-status', {
                 method: 'put',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({applicationId, status}),
+                body: JSON.stringify(applicationDetails),
             }).
-            then((res) => res.json()).
-            then((data) => {
-                const updatedApplications = data;
-                setApplications(updatedApplications);
-            }).
-            catch((err) => {
-                console.log('Error updating application status', err);
-            });
-        }catch(err){
+                then((res) => res.json()).
+                then((data) => {
+                    const tempApplications = [...data];
+                    setApplications(tempApplications);
+                }).
+                catch((err) => {
+                    console.log('Error updating application status', err);
+                });
+        } catch (err) {
             console.log('Error updating application status', err);
         }
     }
 
+    const fetchStats = async () => {
+        try{
+            await fetch('/api/applications/stats',{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).
+            then((res) => res.json()).
+            then((data) => {
+                const tempStats = {
+                    totalApplications: data.totalApplications,
+                    pendingApplications: data.totalPending,
+                    approvedApplications: data.totalApproved,
+                    rejectedApplications: data.totalRejected,
+                };
+                setApplicationStats(tempStats);
+            }).
+            catch((err) => {
+                console.log('Error fetching stats', err);
+            });
+        }
+        catch(err){
+            console.log('Error fetching stats', err);
+        }
+    }
+
+    useEffect(() => {
+        if (isLoggedIn && userType === 'villager') {
+            fetchApplications();
+        } else if (isLoggedIn && userType === 'admin') {
+            fetchAllApplications();
+            fetchStats();
+        }
+    }, [isLoggedIn]);
+
     return (
         <ApplicationContext.Provider
-            value={{ applications, createApplication, updateApplication }}
+            value={{ applications, createApplication, updateApplication, applicationStats }}
         >
             {children}
         </ApplicationContext.Provider>

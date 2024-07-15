@@ -25,7 +25,25 @@ export default {
         primary: "#8AB740",
         secondary: "#8D4B26",
         tertiary: "#ABBE99",
-        gray: "#EDF4E6"
+        gray: "#EDF4E6",
+        positive: {
+          100: "#C8E69A",
+          200: "#B2D77A",
+          300: "#95BD59",
+          400: "#84A94D",
+        },
+        negative: {
+          100: "#FFC9C9",
+          200: "#F5AEAE",
+          300: "#F09696",
+          400: "#DB6464",
+        },
+        neutral: {
+          100: "#F2F2F2",
+          200: "#E6E6E6",
+          300: "#D9D9D9",
+          400: "#BFBFBF",
+        },
       },
       borderRadius: {
         none: "0",

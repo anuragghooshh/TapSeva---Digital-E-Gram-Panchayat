@@ -2,7 +2,7 @@ import React from 'react'
 
 const AuthContext = React.createContext({
     isLoggedIn: false,
-    userType: 'default' || 'admin',
+    userType: 'villager' || 'admin',
     userData: {
         _id: '',
         name: '',
@@ -13,7 +13,8 @@ const AuthContext = React.createContext({
         dob: '',
         maritalStatus: '',
     },
-    logout: () => { }
+    logout: () => { },
+    loginWithGoogle: () => { },
 })
 
 export default AuthContext;

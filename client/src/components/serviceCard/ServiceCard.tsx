@@ -26,7 +26,7 @@ const ServiceCard = ({ _id, serviceName, serviceDescription, DownloadableForm }:
           <h3 className='text-lg font-medium' >{serviceName}</h3>
           <p className='text-base ' >{serviceDescription}</p>
         </div>
-        <div className='flex justify-center space-x-3' >
+        <div className='flex justify-center gap-5' >
           {
             DownloadableForm && <Button color='dark' design='stroked'>Download</Button>
           }

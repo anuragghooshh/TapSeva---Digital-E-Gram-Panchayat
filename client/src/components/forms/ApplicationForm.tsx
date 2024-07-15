@@ -33,7 +33,7 @@ const ApplicationForm = () => {
       currentOccupation: input.currentOccupation,
     };
 
-    await createApplication(applicationData);
+    createApplication(applicationData);
     closeForm();
   }
 

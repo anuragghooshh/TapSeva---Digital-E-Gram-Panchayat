@@ -16,46 +16,43 @@ import Profile from "./pages/profile/Profile"
 import Dashboard from "./pages/dashboard/Dashboard"
 import AuthContext from "./contexts/auth/AuthContext"
 
-
 function App() {
-  // const [data, setData] = React.useState<object>({});
-
-  // React.useEffect(() => {
-  //   fetch("/api/services")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, []);
-
-  // console.log(data);
   const { isLoggedIn, userType } = React.useContext(AuthContext);
+
+  const publicRoutes = (
+    <>
+      <Route path="services" element={<ServicesLayout />} />
+      <Route path="about" element={<About />} />
+      <Route path="contact" element={<Contact />} />
+      <Route path="downloads" element={<Downloads />} />
+    </>
+  );
+
+  const privateRoutes = isLoggedIn && (
+    <>
+      <Route path="applications" element={<Applications />} />
+      <Route path="profile" element={<Profile />} />
+    </>
+  );
+
+  const authRoutes = !isLoggedIn && (
+    <Route path="auth" element={<AuthLayout />}>
+      <Route path="signin" element={<SignInLayout />}>
+        <Route path="email" element={<SignInWithEmail />} />
+        <Route index element={<SignInWithPhone />} />
+      </Route>
+      <Route path="signup" element={<SignUp />} />
+    </Route>
+  );
 
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={userType != 'admin' ? <Home /> : <Dashboard />} />
-        <Route path="services" element={<ServicesLayout />} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="downloads" element={<Downloads />} />
-        {
-          isLoggedIn ?
-            <Route path="applications" element={<Applications />} /> : null
-        }
-        {
-          isLoggedIn ?
-            <Route path="profile" element={<Profile />} /> : null
-        }
+        <Route index element={userType !== 'admin' ? <Home /> : <Dashboard />} />
+        {publicRoutes}
+        {privateRoutes}
       </Route>
-      {
-        !isLoggedIn ?
-          <Route path="auth" element={<AuthLayout />}>
-            <Route path="signin" element={<SignInLayout />}>
-              <Route path="email" element={<SignInWithEmail />} />
-              <Route index element={<SignInWithPhone />} />
-            </Route>
-            <Route path="signup" element={<SignUp />} />
-          </Route> : null
-      }
+      {authRoutes}
     </Routes>
   )
 }

@@ -13,15 +13,17 @@ export interface ButtonProps {
   onSubmit?: (e: any) => void;
 }
 
-const Button = ({ children, design, color, type, onClick, onSubmit, link=false, path }: ButtonProps) => {
+const Button = ({ children, design, color, type, onClick, onSubmit, link = false, path }: ButtonProps) => {
 
   if (link) {
     return (
-      <Link to={path ? path : '/'} className={
-        `px-6 py-3 min-w-28 rounded-md flex w-fit ${design && color ? buttonDesign[`${design}_${color}`] :
-          design ? buttonDesign[design] : color ? buttonDesign[color] : 'bg-dark text-light'
-        } `
-      }>
+      <Link to={path ? path : '/'}
+        className={
+          `px-6 py-3 min-w-28 rounded-md ${design && color ? buttonDesign[`${design}_${color}`] :
+            design ? buttonDesign[design] : color ? buttonDesign[color] : 'bg-dark text-light'
+          } `
+        }
+      >
         {children}
       </Link>
     );
