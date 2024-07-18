@@ -1,7 +1,7 @@
 import React from 'react'
 import Hero from '../../components/hero/index'
 import ServiceCard from '../../components/serviceCard/ServiceCard';
-import Tabs from '../../components/tabs/index';
+import Tabs from '../../components/tabs/Tabs';
 import { useSearchParams } from 'react-router-dom';
 import ServiceContext from '../../contexts/service/ServiceContext';
 
@@ -14,6 +14,15 @@ const Downloads = () => {
     services.filter(service => service.category === categoryFilter && service.DownloadableForm != 'NA')
     : services.filter(service => service.DownloadableForm != 'NA');
 
+  const tabsData = [
+    { label: 'All', path: '' },
+    { label: 'General Services', path: '?category=General+Services' },
+    { label: 'Citizen Services', path: '?category=Citizen+Services' },
+    { label: 'Construction', path: '?category=Construction' },
+    { label: 'Payments', path: '?category=Payments' },
+    { label: 'Business Services', path: '?category=Business+Services' },
+  ];
+
   return (
     <div className='page' id='downloads' >
       <Hero>
@@ -23,25 +32,30 @@ const Downloads = () => {
       <section className='py-20' >
         <div className='max-w-dsktp mx-auto' >
           <Tabs>
-            <Tabs.Tab path='' >All</Tabs.Tab>
-            <Tabs.Tab path='?category=General+Services' >General Services</Tabs.Tab>
-            <Tabs.Tab path='?category=Citizen+Services' >Citizen Services</Tabs.Tab>
-            <Tabs.Tab path='?category=Construction' >Construction</Tabs.Tab>
-            <Tabs.Tab path='?category=Payments' >Payments</Tabs.Tab>
-            <Tabs.Tab path='?category=Business+Services' >Business Services</Tabs.Tab>
+            {
+              tabsData.map((tab, index) => (
+                <Tabs.Tab
+                  key={index}
+                  name={tab.label}
+                  path={tab.path}
+                >
+                  {tab.label}
+                </Tabs.Tab>
+              ))
+            }
           </Tabs>
           <div className='max-w-dsktp mx-auto mt-20 grid-cols-2 grid gap-5'>
             {
-              displayedServices.map((service: any, index: number) => (
+              displayedServices.length > 0 ? displayedServices.map((service, index) => (
                 <ServiceCard
                   key={index}
                   serviceName={service.service_name}
                   serviceDescription={service.description}
                   serviceType={service.category}
-                  DownloadableForm={service.DownloadableForm != 'NA' ? true : false}
+                  DownloadableForm={service.DownloadableForm !== 'NA'}
                   _id={service._id}
                 />
-              ))
+              )) : <h1>No such Services</h1>
             }
           </div>
         </div>

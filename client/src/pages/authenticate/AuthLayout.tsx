@@ -6,7 +6,7 @@ const AuthLayout = () => {
     return (
         <div id='page' className='authenticate w-full bg-light'>
             <section className="py-20">
-                <div className='max-w-dsktp mx-auto space-y-8' >
+                <div className='max-w-dsktp mx-auto flex flex-col gap-10 items-start' >
                     <Button
                         link={true}
                         path='/'
@@ -15,7 +15,7 @@ const AuthLayout = () => {
                     >
                         Go Back
                     </Button>
-                    <div className="toggle flex border p-4 space-x-4">
+                    <div className="toggle flex space-x-4 w-full">
                         <NavLink
                             to="/auth/signin"
                             className={({ isActive }) =>

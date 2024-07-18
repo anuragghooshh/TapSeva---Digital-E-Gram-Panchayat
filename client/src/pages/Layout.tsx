@@ -6,11 +6,11 @@ import ApplicationForm from '../components/forms/ApplicationForm'
 
 const Layout = () => {
     return (
-        <div id='container' className='w-full bg-light'>
+        <div id='container' className='w-full bg-light px-5'>
             <ApplicationForm/>
             <NavBar />
             <Outlet />
-            <Footer />
+            {/* <Footer />  */}
         </div>
     )
 }

@@ -13,13 +13,15 @@ export interface ButtonProps {
   onSubmit?: (e: any) => void;
 }
 
+const commonBtnStyle = 'px-6 min-h-14 min-w-36 flex items-center justify-center gap-2 font-regular text-base';
+
 const Button = ({ children, design, color, type, onClick, onSubmit, link = false, path }: ButtonProps) => {
 
   if (link) {
     return (
       <Link to={path ? path : '/'}
         className={
-          `px-6 py-3 min-w-28 rounded-md ${design && color ? buttonDesign[`${design}_${color}`] :
+          `${commonBtnStyle} ${design && color ? buttonDesign[`${design}_${color}`] :
             design ? buttonDesign[design] : color ? buttonDesign[color] : 'bg-dark text-light'
           } `
         }
@@ -32,7 +34,7 @@ const Button = ({ children, design, color, type, onClick, onSubmit, link = false
   return (
     <button
       className={
-        `px-6 py-3 min-w-28 rounded-md ${design && color ? buttonDesign[`${design}_${color}`] :
+        `${commonBtnStyle} ${design && color ? buttonDesign[`${design}_${color}`] :
           design ? buttonDesign[design] : color ? buttonDesign[color] : 'bg-dark text-light'
         } `
       }

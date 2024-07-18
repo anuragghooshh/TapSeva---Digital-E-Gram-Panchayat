@@ -1,7 +1,5 @@
 import React from 'react'
 import InputAndLabel from '../../../components/inputAndLabel/InputAndLabel'
-import Label from '../../../components/inputAndLabel/Label'
-import Input from '../../../components/inputAndLabel/Input'
 import Button from '../../../components/button/Button'
 import { Link } from 'react-router-dom'
 
@@ -12,10 +10,10 @@ const SignInWithEmail = () => {
         <div className='space-y-2'>
           <InputAndLabel>
             <div className='flex justify-between'>
-              <Label htmlFor='email'>Email</Label>
+              <InputAndLabel.Label htmlFor='email'>Email</InputAndLabel.Label>
               <Link to="../" className='text-xs underline font-work text-dark' >Log In with phone instead</Link>
             </div>
-            <Input type='email' placeholder='Enter your Email ID' id='email' name='email' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
+            <InputAndLabel.Input type='email' placeholder='Enter your Email ID' id='email' name='email' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
               throw new Error('Function not implemented.')
             }} />
           </InputAndLabel>
@@ -32,8 +30,8 @@ const SignInWithEmail = () => {
 
       <div className='space-y-5'>
         <InputAndLabel>
-          <Label htmlFor='otp' >Enter your Verification Code</Label>
-          <Input type='text' placeholder='Write here' id='otp' name='otp' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
+          <InputAndLabel.Label htmlFor='otp' >Enter your Verification Code</InputAndLabel.Label>
+          <InputAndLabel.Input type='text' placeholder='Write here' id='otp' name='otp' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
             throw new Error('Function not implemented.')
           }} />
         </InputAndLabel>

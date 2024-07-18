@@ -22,16 +22,16 @@ const Dashboard = () => {
         <HeroTitle>Welcome back {userData.name.split(' ')[0]}!</HeroTitle>
         <HeroSubTitle>Here's what's happening with your applications today</HeroSubTitle>
       </Hero>
-      <section className='py-20 px-20'>
-        <div>
+      <section className='py-5 px-20'>
+        <div className='max-w-dsktp mx-auto'>
           <div className='overview grid'>
-            <div className="bg-neutral-200 text-dark border border-neutral-400 rounded-md px-5 py-5 totalA">
+            <div className="bg-neutral-100 text-dark border border-neutral-400 rounded-md px-5 py-5 totalA">
               <DashboardValue value={applicationStats.totalApplications} label='Total Applications' />
             </div>
-            <div className="bg-neutral-200 text-dark border border-neutral-400 rounded-md px-5 py-5 pendingA">
+            <div className="bg-neutral-100 text-dark border border-neutral-400 rounded-md px-5 py-5 pendingA">
               <DashboardValue value={applicationStats.pendingApplications} label='Pending Applications' />
             </div>
-            <div className="bg-neutral-200 text-dark border border-neutral-400 rounded-md px-5 py-5 totalS">
+            <div className="bg-neutral-100 text-dark border border-neutral-400 rounded-md px-5 py-5 totalS">
               <DashboardValue value={totalServices} label='Total Services' />
             </div>
             <div className="bg-positive-300 text-light border border-positive-400 rounded-md px-5 py-5 approvedA">

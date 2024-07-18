@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
     dob,
     address,
     maritalStatus,
-    aadhaar,
+    aadhaarNo,
     password,
     phone,
   } = req.body;
@@ -27,19 +27,22 @@ const registerUser = async (req, res) => {
       name: name,
       dob: dob,
       address: address,
-      aadharNo: aadhaar,
+      aadhaarNo: aadhaarNo,
       phone: phone,
       maritalStatus: maritalStatus,
       password: password,
       role: "villager",
     });
 
-    console.log(user);
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
-    await user.save();
+    await user.save().then(() => {
+      console.log("User Registered");
+    }).catch((err) => {
+      console.log(err);
+    });
 
     const payload = {
       user: {

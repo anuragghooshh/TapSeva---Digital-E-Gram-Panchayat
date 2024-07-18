@@ -1,10 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Button from '../button/Button';
 import AuthContext from '../../contexts/auth/AuthContext';
+import Ham from '../ham/Ham';
 
 const NavBar = () => {
   const [showNavbar, setShowNavbar] = React.useState(true);
+  const [sideBar, setSideBar] = React.useState(false);
   const { userType, isLoggedIn } = React.useContext(AuthContext);
   let prevScrollPos = React.useRef(window.scrollY).current;
 
@@ -23,56 +25,120 @@ const NavBar = () => {
 
   const renderLinks = () => (
     <>
-      <li className='text-light font-work font-medium'>
-        <Link to='/'>{userType !== 'admin' ? 'Home' : 'Dashboard'}</Link>
+      <li className='font-work font-medium'>
+        <NavLink
+          className={
+            ({ isActive }) =>
+              isActive ? 'text-primary' : 'text-dark'
+          }
+          to='/'
+        >{userType !== 'admin' ? 'Home' : 'Dashboard'}</NavLink>
       </li>
-      <li className='text-light font-work font-medium'>
-        <Link to='services'>Services</Link>
+      <li className='font-work font-medium'>
+        <NavLink
+          className={
+            ({ isActive }) =>
+              isActive ? 'text-primary' : 'text-dark'
+          }
+          to='services'
+        >Services</NavLink>
       </li>
       {isLoggedIn && (
-        <li className='text-light font-work font-medium'>
-          <Link to='applications'>Applications</Link>
+        <li className='font-work font-medium'>
+          <NavLink
+            className={
+              ({ isActive }) =>
+                isActive ? 'text-primary' : 'text-dark'
+            }
+            to='applications'
+          >Applications</NavLink>
         </li>
       )}
       {userType !== 'admin' && (
-        <li className='text-light font-work font-medium'>
-          <Link to='downloads'>Downloads</Link>
+        <li className='font-work font-medium'>
+          <NavLink
+            className={
+              ({ isActive }) =>
+                isActive ? 'text-primary' : 'text-dark'
+            }
+            to='downloads'
+          >Downloads</NavLink>
         </li>
       )}
-      <li className='text-light font-work font-medium'>
-        <Link to='about'>About</Link>
+      <li className='font-work font-medium'>
+        <NavLink
+          className={
+            ({ isActive }) =>
+              isActive ? 'text-primary' : 'text-dark'
+          }
+          to='about'
+        >About</NavLink>
       </li>
-      <li className='text-light font-work font-medium'>
-        <Link to='contact'>Contact</Link>
+      <li className='font-work font-medium'>
+        <NavLink
+          className={
+            ({ isActive }) =>
+              isActive ? 'text-primary' : 'text-dark'
+          }
+          to='contact'
+        >Contact</NavLink>
       </li>
     </>
   );
 
   const renderAuthButton = () => (
     isLoggedIn ? (
-      <Button link={true} path='profile' color='light' design='filled'>Profile</Button>
+      <Button link={true} path='profile' color='dark' design='filled'>Profile</Button>
     ) : (
-      <Button link={true} path='auth/signin' color='light' design='filled'>Sign In</Button>
+      <Button link={true} path='auth/signin' color='dark' design='filled'>Sign In</Button>
     )
   );
 
   return (
-    <nav className={`
-      w-full max-w-nav left-1/2 -translate-x-1/2 h-nav bg-dark fixed top-5 rounded-lg border border-opacity-50 border-light
-      flex justify-between items-center px-10 
-      ${!showNavbar ? 'translate-y-nav' : 'translate-y-0'} 
-      transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1)
-    `}>
-      <Link to='/'>
-        <h2 className='font-gyst text-3xl font-bold text-light'>TapSeva</h2>
-      </Link>
-      <div className='flex gap-10 items-center'>
-        <ul className='flex space-x-10'>
-          {renderLinks()}
-        </ul>
-        {renderAuthButton()}
-      </div>
-    </nav>
+    <>
+      {/* <nav
+        className={`
+          hidden w-full left-1/2 -translate-x-1/2 h-nav bg-light fixed top-0 z-50
+          justify-between items-center px-5 
+          ${!showNavbar ? 'translate-y-nav' : 'translate-y-0'} 
+          transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1)
+          md:flex
+        `}
+      >
+        <Link to='/'>
+          <h2 className='font-gyst text-3xl font-bold text-primary'>TapSeva</h2>
+        </Link>
+        <div className='flex gap-10 items-center'>
+          <ul className='flex space-x-10 text-dark'>
+            {renderLinks()}
+          </ul>
+          {renderAuthButton()}
+          <Ham task={() => { setSideBar(!sideBar) }} activeStatus={sideBar ? 'active' : ''} />
+        </div>
+      </nav> */}
+      <nav
+        className={`
+          flex w-full left-1/2 -translate-x-1/2 h-nav bg-light fixed top-0 z-50
+          justify-between items-center px-5 
+          ${!showNavbar ? 'translate-y-nav' : 'translate-y-0'} 
+          transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1)
+          md:hidden
+        `}
+      >
+        <Link to='/'>
+          <h2 className='font-gyst text-lg font-bold text-primary'>TapSeva</h2>
+        </Link>
+        <div className='flex gap-10 items-center'>
+          {renderAuthButton()}
+          <Ham task={() => { setSideBar(!sideBar) }} activeStatus={sideBar ? 'active' : ''} />
+        </div>
+        <div className={`sidebar fixed h-screen bg-light left-0 top-0 p-5 w-3/4 ease-in-out duration-500 ${sideBar ? 'translate-x-0' : '-translate-x-full'} `}>
+          <ul className='flex-col space-y-10 text-dark'>
+            {renderLinks()}
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 };
 

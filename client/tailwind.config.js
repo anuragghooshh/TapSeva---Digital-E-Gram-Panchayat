@@ -12,6 +12,9 @@ export default {
         nav: "6rem",
         footer : "30rem"
       },
+      padding:{
+        navdsktp : "7.25rem",
+      },
       minHeight: {
         hero : "calc(100vh - 6rem)",
       },

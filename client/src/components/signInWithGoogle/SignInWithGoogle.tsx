@@ -3,6 +3,7 @@ import Button from '../button/Button';
 import { auth, provider } from '../../firebase';
 import { signInWithPopup } from 'firebase/auth';
 import AuthContext from '../../contexts/auth/AuthContext';
+import { FaGoogle } from 'react-icons/fa'
 
 const SignInWithGoogle = () => {
   const { loginWithGoogle } = React.useContext(AuthContext);
@@ -39,6 +40,7 @@ const SignInWithGoogle = () => {
 
   return (
     <Button color='light' onClick={handleSignIn}>
+      <FaGoogle />
       Sign in with Google
     </Button>
   );

@@ -11,26 +11,35 @@ const Home = () => {
     return (
         <div className='page w-full' id='home'>
             <section
-                className="w-full min-h-dvh py-10 pb-20 flex items-end bg-img bg-cover"
-                style={{ backgroundImage: `url(${heroBg})` }}
+                className="w-full min-h-screen pb-20 pt-navdsktp flex md:min-h-0 md:pb-0 lg:min-h-screen lg:pb-5"
             >
-                <div className='w-full min-h-full px-20 flex flex-col space-y-10 justify-end items-start mx-auto'>
-                    <h1 className='text-6xl font-gyst font-medium text-light'>
+                <div
+                    className='
+                        w-full min-h-full flex flex-col p-10 space-y-10 justify-center items-center mx-auto
+                        bg-cover bg-center bg-no-repeat md:py-24
+                    '
+                    style={{ backgroundImage: `url(${heroBg})`, backgroundAttachment: 'fixed' }}
+                >
+                    <h1 className='text-lg text-center font-gyst font-medium text-light md:text-6xl'>
                         Empowering Your Village<br />with Digital Convenience.
                     </h1>
                     <Button color='light' design='stroked'>Browse Services</Button>
                 </div>
+
             </section>
 
-            <section className="py-20 px-20 pt-32">
-                <h2 className='text-5xl font-gyst font-medium text-dark text-center'>Featured Services</h2>
-                <div className='max-w-dsktp mx-auto mt-20 grid-cols-2 grid gap-5' >
+            <section className="py-20 pt-32">
+                <div>
+                    <h2 className='text-5xl font-gyst font-medium text-dark text-center'>Featured Services</h2>
+                    <p className='font-work text-center text-dark mt-5'>Check out our most popular services</p>
+                </div>
+                <div className='max-w-dsktp mx-auto mt-20 grid-cols-1 grid gap-5 md:grid-cols-2' >
                     {
                         featuredServices.map((service: any, index: number) => (
                             <ServiceCard
                                 _id={service._id}
                                 key={index}
-                                serviceName={service.service_name}
+                                serviceName={service.service_name} 
                                 serviceDescription={service.description}
                                 serviceType={service.category}
                                 DownloadableForm={service.DownloadableForm != 'NA' ? true : false}
@@ -39,8 +48,10 @@ const Home = () => {
                     }
                 </div>
             </section>
-            <section className="py-20 px-20 bg-gray">
-                <h2 className='text-5xl font-gyst font-medium text-dark text-center '>Important Updates</h2>
+            <section className="">
+                <div className='w-full py-20 bg-gray'>
+                    <h2 className='text-5xl font-gyst font-medium text-dark text-center '>Important Updates</h2>
+                </div>
             </section>
         </div>
     )

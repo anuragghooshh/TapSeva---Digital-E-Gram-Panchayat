@@ -12,10 +12,10 @@ const SignInWithPhone = () => {
         <div className='space-y-2'>
           <InputAndLabel>
             <div className='flex justify-between'>
-              <Label htmlFor='phone'>Phone</Label>
+              <InputAndLabel.Label htmlFor='phone'>Phone</InputAndLabel.Label>
               <Link to="email" className='text-xs underline font-work text-dark' >Log In with email instead</Link>
             </div>
-            <Input type='tel' placeholder='Enter your phone number' id='phone' name='phone' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
+            <InputAndLabel.Input type='tel' placeholder='Enter your phone number' id='phone' name='phone' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
               throw new Error('Function not implemented.')
             }} />
           </InputAndLabel>
@@ -32,8 +32,8 @@ const SignInWithPhone = () => {
 
       <div className='space-y-5'>
         <InputAndLabel>
-          <Label htmlFor='otp' >Enter your OTP</Label>
-          <Input type='text' placeholder='Write here' id='otp' name='otp' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
+          <InputAndLabel.Label htmlFor='otp' >Enter your OTP</InputAndLabel.Label>
+          <InputAndLabel.Input type='text' placeholder='Write here' id='otp' name='otp' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
             throw new Error('Function not implemented.')
           }} />
         </InputAndLabel>

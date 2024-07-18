@@ -2,8 +2,8 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <footer className='px-20 py-10'>
-            <div className='w-full flex h-footer justify-between p-20 rounded-xl bg-secondary text-light'>
+        <footer className='py-5'>
+            <div className='w-full flex h-footer justify-between p-20 bg-secondary text-light'>
                 <div className="flex-col relative space-y-10">
                     <div>
                         <h3 className='font-gyst text-3xl font-medium'>TapSeva</h3>
