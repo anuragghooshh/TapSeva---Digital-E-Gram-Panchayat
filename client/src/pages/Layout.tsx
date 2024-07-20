@@ -6,7 +6,7 @@ import ApplicationForm from '../components/forms/ApplicationForm'
 
 const Layout = () => {
     return (
-        <div id='container' className='w-full bg-light px-5'>
+        <div id='container' className='w-full bg-light-100 px-4'>
             <ApplicationForm/>
             <NavBar />
             <Outlet />

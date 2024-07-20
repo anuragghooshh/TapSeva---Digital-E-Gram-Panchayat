@@ -5,7 +5,7 @@ import Tabs from '../../components/tabs/Tabs';
 import Hero from '../../components/hero/index';
 import ServiceCard from '../../components/serviceCard/ServiceCard';
 import ServiceContext from '../../contexts/service/ServiceContext';
-import TabsContextProvider from '../../contexts/tabs/TabsContextProvider';
+import servicesBG from '../../assets/images/servicesBG.jpg';
 
 const ServicesLayout = () => {
     const [searchParams] = useSearchParams();
@@ -28,11 +28,11 @@ const ServicesLayout = () => {
 
     return (
         <div className='page' id='services'>
-            <Hero>
+            <Hero imgSrc={servicesBG}>
                 <Hero.Title>Services</Hero.Title>
                 <Hero.SubTitle>Choose from a wide range of services to make your life easier.</Hero.SubTitle>
             </Hero>
-            <section className='py-20'>
+            <section className="py-10 md:py-16 lg:py-20">
                 <div className='max-w-dsktp mx-auto'>
                     <Tabs>
                         {
@@ -47,18 +47,28 @@ const ServicesLayout = () => {
                             ))
                         }
                     </Tabs>
-                    <div className='max-w-dsktp mx-auto mt-20 grid-cols-2 grid gap-5'>
-                        {
-                            filteredServices.length > 0 ? filteredServices.map((service, index) => (
-                                <ServiceCard
-                                    key={index}
-                                    serviceName={service.service_name}
-                                    serviceDescription={service.description}
-                                    serviceType={service.category}
-                                    DownloadableForm={service.DownloadableForm !== 'NA'}
-                                    _id={service._id}
-                                />
-                            )) : <h1>No such Services</h1>
+                    <div className='max-w-dsktp mx-auto mt-16 lg:mt-20'>
+                        {filteredServices.length > 0 ?
+                            (
+                                <div className='grid-cols-1 grid gap-5 md:grid-cols-2'>
+                                    {
+                                        filteredServices.map((service, index) => (
+                                            <ServiceCard
+                                                key={index}
+                                                serviceName={service.service_name}
+                                                serviceDescription={service.description}
+                                                serviceType={service.category}
+                                                DownloadableForm={service.DownloadableForm !== 'NA'}
+                                                _id={service._id}
+                                            />
+                                        ))
+                                    }
+                                </div>
+                            ) : (
+                                <div className="text-center">
+                                    <h1 className="text-xl font-semibold text-gray-700">No Services Available</h1>
+                                </div>
+                            )
                         }
                     </div>
                 </div>

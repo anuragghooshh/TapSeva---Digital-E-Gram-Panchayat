@@ -11,16 +11,16 @@ const Home = () => {
     return (
         <div className='page w-full' id='home'>
             <section
-                className="w-full min-h-screen pb-20 pt-navdsktp flex md:min-h-0 md:pb-0 lg:min-h-screen lg:pb-5"
+                className="w-full min-h-0 pt-navmob lg:pt-navdsktp flex lg:min-h-screen lg:pb-5"
             >
                 <div
                     className='
-                        w-full min-h-full flex flex-col p-10 space-y-10 justify-center items-center mx-auto
-                        bg-cover bg-center bg-no-repeat md:py-24
+                        w-full min-h-full flex flex-col px-5 py-16 space-y-10 justify-center items-center mx-auto
+                        bg-cover bg-center bg-no-repeat md:py-24 md:px-10 rounded-md
                     '
-                    style={{ backgroundImage: `url(${heroBg})`, backgroundAttachment: 'fixed' }}
+                    style={{ backgroundImage: `url(${heroBg})` }}
                 >
-                    <h1 className='text-lg text-center font-gyst font-medium text-light md:text-6xl'>
+                    <h1 className='text-3xl text-center font-gyst text-light-100 md:text-6xl font-medium'>
                         Empowering Your Village<br />with Digital Convenience.
                     </h1>
                     <Button color='light' design='stroked'>Browse Services</Button>
@@ -28,12 +28,12 @@ const Home = () => {
 
             </section>
 
-            <section className="py-20 pt-32">
+            <section className="py-10 md:py-16 lg:py-20">
                 <div>
-                    <h2 className='text-5xl font-gyst font-medium text-dark text-center'>Featured Services</h2>
-                    <p className='font-work text-center text-dark mt-5'>Check out our most popular services</p>
+                    <h2 className='text-3xl font-gyst font-medium text-dark text-center md:text-5xl'>Featured Services</h2>
+                    <p className='font-work text-center text-sm md:text-base text-dark mt-5'>Check out our most popular services</p>
                 </div>
-                <div className='max-w-dsktp mx-auto mt-20 grid-cols-1 grid gap-5 md:grid-cols-2' >
+                <div className='max-w-dsktp mx-auto mt-16 lg:mt-20 grid-cols-1 grid gap-5 md:grid-cols-2' >
                     {
                         featuredServices.map((service: any, index: number) => (
                             <ServiceCard
@@ -48,9 +48,9 @@ const Home = () => {
                     }
                 </div>
             </section>
-            <section className="">
+            <section className="py-10 md:py-16 lg:py-20">
                 <div className='w-full py-20 bg-gray'>
-                    <h2 className='text-5xl font-gyst font-medium text-dark text-center '>Important Updates</h2>
+                    <h2 className='text-3xl md:text-5xl font-gyst font-medium text-dark text-center '>Important Updates</h2>
                 </div>
             </section>
         </div>

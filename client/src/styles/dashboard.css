@@ -10,6 +10,36 @@
     "totalA totalA totalA pendingA pendingA pendingA"
     "totalS totalS approvedA approvedA rejectedA rejectedA"
   ;
-  /* grid-template-rows: 100px 200px; */
 }
 
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .overview {
+    grid-template-areas:
+      "totalA totalA totalA"
+      "pendingA pendingA approvedA"
+      "totalS totalS rejectedA";
+  }
+}
+
+@media (max-width: 768px) {
+  .overview {
+    grid-template-areas:
+      "totalA totalA"
+      "pendingA pendingA"
+      "totalS totalS"
+      "approvedA approvedA"
+      "rejectedA rejectedA";
+  }
+}
+
+@media (max-width: 480px) {
+  .overview {
+    grid-template-areas:
+      "totalA"
+      "pendingA"
+      "totalS"
+      "approvedA"
+      "rejectedA";
+  }
+}

@@ -4,6 +4,7 @@ import ServiceCard from '../../components/serviceCard/ServiceCard';
 import Tabs from '../../components/tabs/Tabs';
 import { useSearchParams } from 'react-router-dom';
 import ServiceContext from '../../contexts/service/ServiceContext';
+import downloadsBG from '../../assets/images/downloadsBG.jpg';
 
 const Downloads = () => {
   const [searchParams] = useSearchParams();
@@ -25,11 +26,11 @@ const Downloads = () => {
 
   return (
     <div className='page' id='downloads' >
-      <Hero>
+      <Hero imgSrc={downloadsBG}>
         <Hero.Title>Downloads</Hero.Title>
         <Hero.SubTitle>Download printable service forms which can be submitted offline to the Panchayat.</Hero.SubTitle>
       </Hero>
-      <section className='py-20' >
+      <section className="py-10 md:py-16 lg:py-20" >
         <div className='max-w-dsktp mx-auto' >
           <Tabs>
             {
@@ -44,18 +45,28 @@ const Downloads = () => {
               ))
             }
           </Tabs>
-          <div className='max-w-dsktp mx-auto mt-20 grid-cols-2 grid gap-5'>
-            {
-              displayedServices.length > 0 ? displayedServices.map((service, index) => (
-                <ServiceCard
-                  key={index}
-                  serviceName={service.service_name}
-                  serviceDescription={service.description}
-                  serviceType={service.category}
-                  DownloadableForm={service.DownloadableForm !== 'NA'}
-                  _id={service._id}
-                />
-              )) : <h1>No such Services</h1>
+          <div className='max-w-dsktp mx-auto mt-16 lg:mt-20'>
+            {displayedServices.length > 0 ?
+              (
+                <div className='grid-cols-1 grid gap-5 md:grid-cols-2'>
+                  {
+                    displayedServices.map((service, index) => (
+                      <ServiceCard
+                        key={index}
+                        serviceName={service.service_name}
+                        serviceDescription={service.description}
+                        serviceType={service.category}
+                        DownloadableForm={service.DownloadableForm !== 'NA'}
+                        _id={service._id}
+                      />
+                    ))
+                  }
+                </div>
+              ) : (
+                <div className="text-center">
+                  <h1 className="text-xl font-semibold text-gray-700">No Services Available</h1>
+                </div>
+              )
             }
           </div>
         </div>

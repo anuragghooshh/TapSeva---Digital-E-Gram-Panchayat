@@ -8,8 +8,8 @@ interface DashboardValueProps {
 const DashboardValue: React.FC<DashboardValueProps> = ({ value, label }) => {
     return (
         <>
-            <h3 className='font-work text-6xl' >{value}</h3>
-            <p className='font-work mt-2 text-base font-mediu'>{label}</p>
+            <h3 className="font-work text-4xl md:text-6xl">{value}</h3>
+            <p className="font-work mt-2 text-sm md:text-base font-medium">{label}</p>
         </>
     )
 }

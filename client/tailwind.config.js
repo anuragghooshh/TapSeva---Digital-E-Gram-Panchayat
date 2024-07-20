@@ -14,6 +14,7 @@ export default {
       },
       padding:{
         navdsktp : "7.25rem",
+        navmob : "6rem"
       },
       minHeight: {
         hero : "calc(100vh - 6rem)",
@@ -23,12 +24,20 @@ export default {
         nav : "calc(100% - 10rem)"
       },
       colors: {
-        light: "#FCFFF8",
+        light: {
+          100 : "#FCFFF8",
+          200 : "#F7FFEE",
+          300 : "#F1FFDF",
+        },
         dark: "#1F2316",
         primary: "#8AB740",
         secondary: "#8D4B26",
         tertiary: "#ABBE99",
-        gray: "#EDF4E6",
+        gray: {
+          100 : "#EDF4E6",
+          200 : "#B0C38F",
+          300 : "#7F8D4F",
+        },
         positive: {
           100: "#C8E69A",
           200: "#B2D77A",

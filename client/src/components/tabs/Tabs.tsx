@@ -2,6 +2,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import TabsContext from '../../contexts/tabs/TabsContext';
 import TabsContextProvider from '../../contexts/tabs/TabsContextProvider';
+import Button from '../button/Button';
 
 interface TabsProps {
     children: React.ReactNode;
@@ -10,7 +11,7 @@ interface TabsProps {
 const Tabs = ({ children }: TabsProps) => {
     return (
         <TabsContextProvider>
-            <div className='space-x-3'>{children}</div>
+            <div className='flex flex-wrap gap-2'>{children}</div>
         </TabsContextProvider>
     );
 };
@@ -31,9 +32,9 @@ const Tab = ({ name, path, children }: TabProps) => {
     };
 
     return (
-        <button onClick={handleClick} className={`px-6 py-3 min-w-28 ${activeTab === name ? 'bg-dark text-light' : 'bg-none border text-dark'}`}>
+        <Button onClick={handleClick} design={activeTab === name ? 'filled' : 'stroked'} color='color'>
             {children}
-        </button>
+        </Button>
     );
 };
 

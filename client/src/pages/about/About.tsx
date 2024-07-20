@@ -10,9 +10,9 @@ const About = () => {
         <Hero.Title>About Us</Hero.Title>
         <Hero.SubTitle>Empowering villagers through transparency and efficient service delivery.</Hero.SubTitle>
       </Hero>
-      <section className='py-20' >
-        <div className='max-w-dsktp mx-auto'>
-          <p className='font-work text-dark text-base'>
+      <section className="py-10 md:py-16 lg:py-20" >
+        <div className="max-w-7xl mx-auto">
+          <p className="font-work text-dark text-base md:text-lg lg:text-xl">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, libero sit amet
             aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec purus.
             Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec
@@ -23,24 +23,13 @@ const About = () => {
             ultricies sapien turpis nec purus.
           </p>
         </div>
-        <div className="mt-20 max-w-dsktp mx-auto flex space-x-5">
-          <div className='w-full h-96 bg-cover bg-no-repeat bg-center basis-4/12' style={{ backgroundImage: `url('${about1}')` }} />
-          <div className='w-full h-96 bg-cover bg-no-repeat bg-center basis-9/12' style={{ backgroundImage: `url('${about2}')` }} />
+        <div className="mt-20 max-w-7xl mx-auto flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5">
+          <div className='w-full h-72 md:h-96 bg-cover bg-no-repeat bg-center' style={{ backgroundImage: `url('${about1}')` }} />
+          <div className='w-full h-72 md:h-96 bg-cover bg-no-repeat bg-center' style={{ backgroundImage: `url('${about2}')` }} />
         </div>
-        <div className='max-w-dsktp mx-auto mt-20'>
-          <p className='font-work text-dark text-base'>
-            Nullam auctor, libero sit amet aliquam lacinia, nunc
-            ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero
-            sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec
-            purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec
-            ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc
-            ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero
-            sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec
-            purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec
-            ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc
-            ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero
-            sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec
-            pur
+        <div className="max-w-7xl mx-auto mt-20">
+          <p className="font-work text-dark text-base md:text-lg lg:text-xl">
+            Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec purus. Nullam auctor, libero sit amet aliquam lacinia, nunc ligula condimentum purus, nec ultricies sapien turpis nec pur.
           </p>
         </div>
       </section>

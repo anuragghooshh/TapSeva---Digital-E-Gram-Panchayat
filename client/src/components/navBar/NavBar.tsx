@@ -23,62 +23,70 @@ const NavBar = () => {
     };
   }, []);
 
+  const renderLinksCommonStyle = 'w-full px-5 py-5 lg:p-0 active:bg-primary active:text-light-100';
+
   const renderLinks = () => (
     <>
-      <li className='font-work font-medium'>
+      <li className='font-work font-medium flex'>
         <NavLink
           className={
+            
             ({ isActive }) =>
-              isActive ? 'text-primary' : 'text-dark'
+              isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
           }
           to='/'
         >{userType !== 'admin' ? 'Home' : 'Dashboard'}</NavLink>
       </li>
-      <li className='font-work font-medium'>
+      <li className='font-work font-medium flex'>
         <NavLink
           className={
+            
             ({ isActive }) =>
-              isActive ? 'text-primary' : 'text-dark'
+              isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
           }
           to='services'
         >Services</NavLink>
       </li>
       {isLoggedIn && (
-        <li className='font-work font-medium'>
+        <li className='font-work font-medium flex'>
           <NavLink
             className={
+              
               ({ isActive }) =>
-                isActive ? 'text-primary' : 'text-dark'
+                isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
             }
             to='applications'
           >Applications</NavLink>
         </li>
       )}
       {userType !== 'admin' && (
-        <li className='font-work font-medium'>
+        <li className='font-work font-medium flex'>
           <NavLink
             className={
+              
               ({ isActive }) =>
-                isActive ? 'text-primary' : 'text-dark'
+                isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
             }
             to='downloads'
           >Downloads</NavLink>
         </li>
       )}
-      <li className='font-work font-medium'>
+      <li className='font-work font-medium flex'>
         <NavLink
           className={
+            
             ({ isActive }) =>
-              isActive ? 'text-primary' : 'text-dark'
+              isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
           }
           to='about'
         >About</NavLink>
       </li>
-      <li className='font-work font-medium'>
+      <li className='font-work font-medium flex'>
         <NavLink
           className={
+            
             ({ isActive }) =>
-              isActive ? 'text-primary' : 'text-dark'
+              isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
           }
           to='contact'
         >Contact</NavLink>
@@ -96,9 +104,9 @@ const NavBar = () => {
 
   return (
     <>
-      {/* <nav
+      <nav
         className={`
-          hidden w-full left-1/2 -translate-x-1/2 h-nav bg-light fixed top-0 z-50
+          hidden w-full left-1/2 -translate-x-1/2 h-nav bg-light-100 fixed top-0 z-50
           justify-between items-center px-5 
           ${!showNavbar ? 'translate-y-nav' : 'translate-y-0'} 
           transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1)
@@ -113,13 +121,12 @@ const NavBar = () => {
             {renderLinks()}
           </ul>
           {renderAuthButton()}
-          <Ham task={() => { setSideBar(!sideBar) }} activeStatus={sideBar ? 'active' : ''} />
         </div>
-      </nav> */}
+      </nav>
       <nav
         className={`
-          flex w-full left-1/2 -translate-x-1/2 h-nav bg-light fixed top-0 z-50
-          justify-between items-center px-5 
+          flex w-full left-1/2 -translate-x-1/2 h-nav bg-light-100 fixed top-0 z-50
+          justify-between items-center px-5
           ${!showNavbar ? 'translate-y-nav' : 'translate-y-0'} 
           transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1)
           md:hidden
@@ -128,14 +135,14 @@ const NavBar = () => {
         <Link to='/'>
           <h2 className='font-gyst text-lg font-bold text-primary'>TapSeva</h2>
         </Link>
-        <div className='flex gap-10 items-center'>
-          {renderAuthButton()}
-          <Ham task={() => { setSideBar(!sideBar) }} activeStatus={sideBar ? 'active' : ''} />
-        </div>
-        <div className={`sidebar fixed h-screen bg-light left-0 top-0 p-5 w-3/4 ease-in-out duration-500 ${sideBar ? 'translate-x-0' : '-translate-x-full'} `}>
-          <ul className='flex-col space-y-10 text-dark'>
+        <Ham task={() => { setSideBar(!sideBar) }} activeStatus={sideBar ? 'active' : ''} />
+        <div className={`sidebar fixed h-screen flex flex-col items-start justify-between bg-light-100 left-0 top-0 pb-20 w-3/4 ease-in-out duration-500 ${sideBar ? 'translate-x-0' : '-translate-x-full'} `}>
+          <ul className='flex-col text-dark'>
             {renderLinks()}
           </ul>
+          <div className="px-5">
+          {renderAuthButton()}
+          </div>
         </div>
       </nav>
     </>

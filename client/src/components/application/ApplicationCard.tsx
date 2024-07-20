@@ -26,48 +26,49 @@ const ApplicationCard: React.FC<ApplicationCardInterface> = ({ applicationId, us
   //Add view Details (Message, Occupation, User Details)
 
   return (
-    <div className='w-full max-w-dsktp border mx-auto mt-5 p-8 space-y-10'>
-      {/* Top Portion  */}
-      <div className='w-full grid grid-flow-col grid-cols-5'>
-        {
-          userType == 'admin' ?
-            <div className='inline'>
-              <h4 className='font-work text-sm text-dark'>User ID</h4>
-              <p className='font-work text-lg font-medium text-dark'>{userId}</p>
-            </div> : null
-        }
-        <div className='inline'>
-          <h4 className='font-work text-sm text-dark'>Application ID</h4>
-          <p className='font-work text-lg font-medium text-dark'>{applicationId}</p>
+    <div className="w-full max-w-7xl border mx-auto mt-5 p-6 sm:p-8 md:p-10 space-y-8 md:space-y-10 rounded-md shadow-lg">
+      {/* Top Portion */}
+      {/* Top Portion */}
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        {userType === 'admin' && (
+          <div>
+            <h4 className="text-sm font-medium text-gray-700">User ID</h4>
+            <p className="text-base md:text-lg font-semibold text-gray-900 truncate">{userId}</p>
+          </div>
+        )}
+        <div>
+          <h4 className="text-sm font-medium text-gray-700">Application ID</h4>
+          <p className="text-base md:text-lg font-semibold text-gray-900 truncate">{applicationId}</p>
         </div>
-        <div className='inline'>
-          <h4 className='font-work text-sm text-dark'>Application Date</h4>
-          <p className='font-work text-lg font-medium text-dark'>{createdAt?.toString()}</p>
+        <div>
+          <h4 className="text-sm font-medium text-gray-700">Application Date</h4>
+          <p className="text-base md:text-lg font-semibold text-gray-900">{new Date(createdAt).toDateString()}</p>
         </div>
-        <div className='inline'>
-          <h4 className='font-work text-sm text-dark'>Service Name</h4>
-          <p className='font-work text-lg font-medium text-dark'>{serviceName}</p>
+        <div>
+          <h4 className="text-sm font-medium text-gray-700">Service Name</h4>
+          <p className="text-base md:text-lg font-semibold text-gray-900">{serviceName}</p>
         </div>
-        <div className='inline'>
-          <h4 className='font-work text-sm text-dark'>Status</h4>
-          <p className='font-work text-lg font-medium text-dark'>{status}</p>
+        <div>
+          <h4 className="text-sm font-medium text-gray-700">Status</h4>
+          <p className="text-base md:text-lg font-semibold text-gray-900">{status}</p>
         </div>
       </div>
       {/* Bottom Portion */}
-      <div className='flex'>
-        <p className='w-full basis-3/6'>Please visit your nearest panchayat office to retrieve your documents by mentioning your User ID.</p>
-
-        {
-          userType == 'admin' ?
-            <div className='w-full basis-3/6 flex justify-end gap-5'>
-              <Button design='stroked'>View Details</Button>
-              <Button design='stroked' onClick={reject}>Reject</Button>
-              <Button onClick={approve} >Approve</Button>
-            </div> :
-            <div className='w-full basis-3/6 flex justify-end gap-5'>
-              <Button>Withdraw</Button>
-            </div>
-        }
+      <div className="flex flex-col md:flex-row gap-4">
+        <p className="w-full md:basis-3/6 text-base md:text-lg text-gray-800">
+          Please visit your nearest panchayat office to retrieve your documents by mentioning your User ID.
+        </p>
+        <div className="w-full md:basis-3/6 flex flex-col md:flex-row justify-end gap-2 md:gap-4">
+          {userType === 'admin' ? (
+            <>
+              <Button design="stroked">View Details</Button>
+              <Button design="stroked" onClick={reject}>Reject</Button>
+              <Button onClick={approve}>Approve</Button>
+            </>
+          ) : (
+            <Button>Withdraw</Button>
+          )}
+        </div>
       </div>
     </div>
   )

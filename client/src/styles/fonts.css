@@ -1,27 +1,27 @@
 @font-face {
   font-family: "Gyst";
-  src: url("./assets/fonts/Gyst-Light.woff2") format("woff2");
+  src: url("../assets/fonts/Gyst-Light.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Gyst";
-  src: url("./assets/fonts/Gyst-Regular.woff2") format("woff2");
+  src: url("../assets/fonts/Gyst-Regular.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Gyst";
-  src: url("./assets/fonts/Gyst-Medium.woff2") format("woff2");
+  src: url("../assets/fonts/Gyst-Medium.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Gyst";
-  src: url("./assets/fonts/Gyst-Bold.woff2") format("woff2");
+  src: url("../assets/fonts/Gyst-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
 }

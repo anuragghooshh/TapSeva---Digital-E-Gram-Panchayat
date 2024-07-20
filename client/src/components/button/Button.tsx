@@ -13,7 +13,7 @@ export interface ButtonProps {
   onSubmit?: (e: any) => void;
 }
 
-const commonBtnStyle = 'px-6 min-h-14 min-w-36 flex items-center justify-center gap-2 font-regular text-base';
+const commonBtnStyle = 'px-6 min-h-14 min-w-36 flex items-center justify-center gap-2 font-regular text-base rounded-md';
 
 const Button = ({ children, design, color, type, onClick, onSubmit, link = false, path }: ButtonProps) => {
 
@@ -22,7 +22,7 @@ const Button = ({ children, design, color, type, onClick, onSubmit, link = false
       <Link to={path ? path : '/'}
         className={
           `${commonBtnStyle} ${design && color ? buttonDesign[`${design}_${color}`] :
-            design ? buttonDesign[design] : color ? buttonDesign[color] : 'bg-dark text-light'
+            design ? buttonDesign[design] : color ? buttonDesign[color] : 'bg-dark text-light-100'
           } `
         }
       >
@@ -35,7 +35,7 @@ const Button = ({ children, design, color, type, onClick, onSubmit, link = false
     <button
       className={
         `${commonBtnStyle} ${design && color ? buttonDesign[`${design}_${color}`] :
-          design ? buttonDesign[design] : color ? buttonDesign[color] : 'bg-dark text-light'
+          design ? buttonDesign[design] : color ? buttonDesign[color] : 'bg-dark text-light-100'
         } `
       }
       type={type ? type : 'button'}
