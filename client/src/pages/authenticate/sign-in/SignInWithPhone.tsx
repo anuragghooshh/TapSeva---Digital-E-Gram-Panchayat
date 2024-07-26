@@ -1,13 +1,11 @@
 import React from 'react'
 import InputAndLabel from '../../../components/inputAndLabel/InputAndLabel'
-import Label from '../../../components/inputAndLabel/Label'
-import Input from '../../../components/inputAndLabel/Input'
 import Button from '../../../components/button/Button'
 import { Link } from 'react-router-dom'
 
 const SignInWithPhone = () => {
   return (
-    <form className='w-full basis-3/5 space-y-10 p-10 px-12' >
+    <form className='w-full basis-3/5 space-y-10 px-5 py-10 lg:p-10 lg:px-12' >
       <div className='space-y-5'>
         <div className='space-y-2'>
           <InputAndLabel>
@@ -19,12 +17,12 @@ const SignInWithPhone = () => {
               throw new Error('Function not implemented.')
             }} />
           </InputAndLabel>
-          <p className='text-xs font-work text-dark' >Enter your mobile number and we'll send you an OTP to confirm it's you. Then enter it below.</p>
+          <p className='text-xs font-work text-gray-300' >Enter your mobile number and we'll send you an OTP to confirm it's you. Then enter it below.</p>
         </div>
         <div className='space-y-2'>
           <Button>Send OTP</Button>
           <div className='space-x-1'>
-            <p className='inline text-xs font-work text-dark'>Didn't receive?</p>
+            <p className='inline text-xs font-work text-gray-300'>Didn't receive?</p>
             <button className='text-xs underline font-work text-dark' >Resend</button>
           </div>
         </div>
@@ -37,7 +35,7 @@ const SignInWithPhone = () => {
             throw new Error('Function not implemented.')
           }} />
         </InputAndLabel>
-        <div className='space-x-1'>
+        <div className='grid grid-cols-1 gap-5 lg:flex'>
           <Button design='stroked' >Clear</Button>
           <Button>Verify and Log In</Button>
         </div>

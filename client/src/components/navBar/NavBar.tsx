@@ -3,11 +3,12 @@ import { Link, NavLink } from 'react-router-dom';
 import Button from '../button/Button';
 import AuthContext from '../../contexts/auth/AuthContext';
 import Ham from '../ham/Ham';
+import { CgProfile } from 'react-icons/cg';
 
 const NavBar = () => {
   const [showNavbar, setShowNavbar] = React.useState(true);
   const [sideBar, setSideBar] = React.useState(false);
-  const { userType, isLoggedIn } = React.useContext(AuthContext);
+  const { userType, userData, isLoggedIn } = React.useContext(AuthContext);
   let prevScrollPos = React.useRef(window.scrollY).current;
 
   const handleScroll = () => {
@@ -24,23 +25,24 @@ const NavBar = () => {
   }, []);
 
   const renderLinksCommonStyle = 'w-full px-5 py-5 lg:p-0 active:bg-primary active:text-light-100';
+  const liCommonStyle = 'font-work font-medium flex';
 
   const renderLinks = () => (
     <>
-      <li className='font-work font-medium flex'>
+      <li className={liCommonStyle}>
         <NavLink
           className={
-            
+
             ({ isActive }) =>
               isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
           }
           to='/'
         >{userType !== 'admin' ? 'Home' : 'Dashboard'}</NavLink>
       </li>
-      <li className='font-work font-medium flex'>
+      <li className={liCommonStyle}>
         <NavLink
           className={
-            
+
             ({ isActive }) =>
               isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
           }
@@ -48,10 +50,10 @@ const NavBar = () => {
         >Services</NavLink>
       </li>
       {isLoggedIn && (
-        <li className='font-work font-medium flex'>
+        <li className={liCommonStyle}>
           <NavLink
             className={
-              
+
               ({ isActive }) =>
                 isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
             }
@@ -60,10 +62,10 @@ const NavBar = () => {
         </li>
       )}
       {userType !== 'admin' && (
-        <li className='font-work font-medium flex'>
+        <li className={liCommonStyle}>
           <NavLink
             className={
-              
+
               ({ isActive }) =>
                 isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
             }
@@ -71,20 +73,20 @@ const NavBar = () => {
           >Downloads</NavLink>
         </li>
       )}
-      <li className='font-work font-medium flex'>
+      <li className={liCommonStyle}>
         <NavLink
           className={
-            
+
             ({ isActive }) =>
               isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
           }
           to='about'
         >About</NavLink>
       </li>
-      <li className='font-work font-medium flex'>
+      <li className={liCommonStyle}>
         <NavLink
           className={
-            
+
             ({ isActive }) =>
               isActive ? `text-primary ${renderLinksCommonStyle}` : `text-dark ${renderLinksCommonStyle}`
           }
@@ -94,9 +96,26 @@ const NavBar = () => {
     </>
   );
 
+  const [glanceProfile, setGlanceProfile] = React.useState(false);
+
+
   const renderAuthButton = () => (
     isLoggedIn ? (
-      <Button link={true} path='profile' color='dark' design='filled'>Profile</Button>
+      <div className='relative' onMouseEnter={()=>{setGlanceProfile(true)}} onMouseLeave={()=>{setGlanceProfile(false)}}>
+        <Link to="profile" className='w-12 h-12 grid place-items-center rounded-full bg-gray-100'><CgProfile size={32} color='#8AB740' /></Link>
+        <div onMouseEnter={()=>{setGlanceProfile(true)}} onMouseLeave={()=>{setGlanceProfile(false)}} className={`absolute p-4 right-1/2 space-y-5 border border-gray-200 shadow-lg bg-gray-100 rounded-md origin-top-right ease-in-out duration-150 ${ glanceProfile ? 'visible scale-100 opacity-100' : 'invisible scale-0 opacity-0'} `}>
+          <p className='font-work text-lg text-center text-secondary'>Hello, <span className='font-semibold'>{userData.name.split(' ')[0]}</span>!</p>
+          <div className='space-y-2 grid grid-rows-1 place-items-center'>
+            <Button link={true} path='profile' color='color'>View Profile</Button>
+            <div className='grid grid-cols-3 w-full place-items-center'>
+              <div className='bg-gray-200 h-0.5 w-full'/>
+              <p className='font-gyst font-bold text-gray-200'>Or</p>
+              <div className='bg-gray-200 h-0.5 w-full'/>
+            </div>
+            <Button color='color'>Logout</Button>
+          </div>
+        </div>
+      </div>
     ) : (
       <Button link={true} path='auth/signin' color='dark' design='filled'>Sign In</Button>
     )
@@ -137,11 +156,11 @@ const NavBar = () => {
         </Link>
         <Ham task={() => { setSideBar(!sideBar) }} activeStatus={sideBar ? 'active' : ''} />
         <div className={`sidebar fixed h-screen flex flex-col items-start justify-between bg-light-100 left-0 top-0 pb-20 w-3/4 ease-in-out duration-500 ${sideBar ? 'translate-x-0' : '-translate-x-full'} `}>
-          <ul className='flex-col text-dark'>
+          <ul className='flex-col text-dark w-full'>
             {renderLinks()}
           </ul>
           <div className="px-5">
-          {renderAuthButton()}
+            {renderAuthButton()}
           </div>
         </div>
       </nav>

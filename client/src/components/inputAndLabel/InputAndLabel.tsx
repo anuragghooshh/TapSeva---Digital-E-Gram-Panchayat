@@ -1,41 +1,44 @@
 import React from 'react'
 
-// Input interface
-
-interface Input {
-  type: string;
-  placeholder: string;
-  id: string;
-  name: string;
-  required: boolean;
-  value: string;
+// InputAndLabel interface
+interface ApexInterface {
+  placeholder?: string;
+  id?: string;
+  name?: string;
+  required?: boolean;
+  value?: string;
   disabled?: boolean;
+  htmlFor?: string;
+}
+
+// Label interface
+interface LabelProps extends ApexInterface {
+  children: React.ReactNode
 }
 
 // Label component
-interface LabelProps {
-  children: React.ReactNode;
-  htmlFor: string;
-}
-
 const Label: React.FC<LabelProps> = ({ children, htmlFor }) => {
   return (
-    <label
-      className="block font-work text-base md:text-lg lg:text-xl font-regular text-dark uppercase"
-      htmlFor={htmlFor}
-    >
-      {children}
-    </label>
+    <>
+      <label
+        className="block font-work text-base font-regular text-dark uppercase"
+        htmlFor={htmlFor}
+      >
+        {children}
+      </label>
+    </>
   )
 }
 
-// Input component
 
-interface InputProps extends Input {
+// Input interface
+interface InputProps extends ApexInterface {
+  type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: React.FC<InputProps> = ({ type, placeholder, id, name, required, value, onChange }) => {
+// Input component
+const Input: React.FC<InputProps> = ({ type, placeholder, id, name, required=false, value, onChange }) => {
   return (
     <input
       type={type}
@@ -45,17 +48,18 @@ const Input: React.FC<InputProps> = ({ type, placeholder, id, name, required, va
       required={required}
       value={value}
       onChange={onChange}
-      className="block w-full font-work text-dark py-3 px-4 sm:py-4 sm:px-6 lg:py-5 lg:px-7 bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+      className="block rounded-sm w-full font-work text-dark py-3 px-4 sm:py-4 sm:px-6 lg:py-5 lg:px-7 bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
     />
   )
 }
 
-// TextArea component
+// TextArea Interface
 
-interface TextAreaProps extends Input {
+interface TextAreaProps extends ApexInterface {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
+// TextArea Component
 const TextArea: React.FC<TextAreaProps> = ({ placeholder, id, name, required, value, onChange }) => {
   return (
     <textarea
@@ -72,9 +76,8 @@ const TextArea: React.FC<TextAreaProps> = ({ placeholder, id, name, required, va
 
 
 // Option Component
-
-interface OptionProps extends Input {
-  children: React.ReactNode;
+interface OptionProps extends ApexInterface {
+  children: React.ReactNode
 }
 
 const Option: React.FC<OptionProps> = ({ children, value, disabled }) => {
@@ -92,9 +95,9 @@ const Option: React.FC<OptionProps> = ({ children, value, disabled }) => {
 
 // Select component
 
-interface SelectProps extends Input {
-  children: React.ReactNode;
+interface SelectProps extends ApexInterface {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  children: React.ReactNode
 }
 
 const Select: React.FC<SelectProps> & { Option: React.FC<OptionProps> } = ({ children, name, id, value, onChange }) => {
@@ -104,7 +107,7 @@ const Select: React.FC<SelectProps> & { Option: React.FC<OptionProps> } = ({ chi
       id={id}
       value={value}
       onChange={onChange}
-      className="w-full font-work text-dark py-3 px-4 sm:py-4 sm:px-6 lg:py-5 lg:px-7 bg-gray-100 border border-tertiary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+      className="w-full rounded-sm font-work text-dark py-3 px-4 sm:py-4 sm:px-6 lg:py-5 lg:px-7 bg-gray-100 border border-tertiary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
     >
       {children}
     </select>
@@ -113,20 +116,21 @@ const Select: React.FC<SelectProps> & { Option: React.FC<OptionProps> } = ({ chi
 
 Select.Option = Option;
 
-// Compund component
 
-interface InputAndLabelProps {
-  children: React.ReactNode
+// Compound component interface
+interface CompoundProps extends ApexInterface {
+  children: React.ReactNode;
 }
 
-const InputAndLabel: React.FC<InputAndLabelProps> & {
+// Compund component
+const InputAndLabel: React.FC<CompoundProps> & {
   Label: React.FC<LabelProps>,
   Input: React.FC<InputProps>,
   TextArea: React.FC<TextAreaProps>,
   Select: React.FC<SelectProps> & { Option: React.FC<OptionProps> }
 } = ({ children }) => {
   return (
-    <div className='space-y-2'>
+    <div className='space-y-2 relative'>
       {children}
     </div>
   )

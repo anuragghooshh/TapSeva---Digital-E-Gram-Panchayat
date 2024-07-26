@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Tabs from '../../components/tabs/Tabs';
-import Hero from '../../components/hero/index';
+import Hero from '../../components/hero/Hero';
 import ServiceCard from '../../components/serviceCard/ServiceCard';
 import ServiceContext from '../../contexts/service/ServiceContext';
 import servicesBG from '../../assets/images/servicesBG.jpg';
@@ -30,7 +30,7 @@ const ServicesLayout = () => {
         <div className='page' id='services'>
             <Hero imgSrc={servicesBG}>
                 <Hero.Title>Services</Hero.Title>
-                <Hero.SubTitle>Choose from a wide range of services to make your life easier.</Hero.SubTitle>
+                <Hero.Subtitle>Choose from a wide range of services to make your life easier.</Hero.Subtitle>
             </Hero>
             <section className="py-10 md:py-16 lg:py-20">
                 <div className='max-w-dsktp mx-auto'>

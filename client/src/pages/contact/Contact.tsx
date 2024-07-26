@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from '../../components/hero/index'
+import Hero from '../../components/hero/Hero'
 import InputAndLabel from '../../components/inputAndLabel/InputAndLabel'
 import Input from '../../components/inputAndLabel/Input'
 import Label from '../../components/inputAndLabel/Label'
@@ -11,7 +11,7 @@ const Contact = () => {
     <div className='page' id='contact' >
       <Hero>
         <Hero.Title>Contact Us</Hero.Title>
-        <Hero.SubTitle>We're here to help! Reach out to us with any questions or concerns.</Hero.SubTitle>
+        <Hero.Subtitle>We're here to help! Reach out to us with any questions or concerns.</Hero.Subtitle>
       </Hero>
       <section className="py-10 md:py-16 lg:py-20">
         <div className="max-w-dsktp mx-auto flex border flex-col-reverse lg:flex-row">

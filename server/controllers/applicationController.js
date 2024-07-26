@@ -1,6 +1,6 @@
 const Application = require("../models/application");
 const Service = require("../models/service");
-const mongoose = require("mongoose");
+const User = require("../models/user");
 
 exports.createApplication = async (req, res) => {
   const { message, currentOccupation, serviceId, serviceName } = req.body;
@@ -29,9 +29,22 @@ exports.createApplication = async (req, res) => {
 
 exports.getUserApplications = async (req, res) => {
   const userId = req.user.id;
+  const { status, sortBy, order = "asc" } = req.query;
+
+  let query = {};
+  if (status) {
+    query.status = status;
+    query.userId = userId;
+  }
+
+  // Build sort object
+  let sort = {};
+  if (sortBy) {
+    sort[sortBy] = order === "asc" ? 1 : -1;
+  }
 
   try {
-    const applications = await Application.find({ userId: userId });
+    const applications = await Application.find(query).sort(sort);
     res.json(applications);
   } catch (error) {
     res.status(500).json({ error: "Error getting applications" });
@@ -40,7 +53,20 @@ exports.getUserApplications = async (req, res) => {
 
 exports.getAllApplications = async (req, res) => {
   try {
-    const applications = await Application.find();
+    const { status, sortBy, order = "asc" } = req.query;
+
+    let query = {};
+    if (status) {
+      query.status = status;
+    }
+
+    // Build sort object
+    let sort = {};
+    if (sortBy) {
+      sort[sortBy] = order === "asc" ? 1 : -1;
+    }
+
+    const applications = await Application.find(query).sort(sort);
     res.json(applications);
   } catch (error) {
     res.status(500).json({ error: "Error getting applications" });
@@ -68,9 +94,15 @@ exports.updateApplication = async (req, res) => {
 exports.getApplicationStats = async (req, res) => {
   try {
     const totalApplications = await Application.countDocuments();
-    const totalApproved = await Application.countDocuments({ status: "Approved" });
-    const totalRejected = await Application.countDocuments({ status: "Rejected" });
-    const totalPending = await Application.countDocuments({ status: "Pending" });
+    const totalApproved = await Application.countDocuments({
+      status: "Approved",
+    });
+    const totalRejected = await Application.countDocuments({
+      status: "Rejected",
+    });
+    const totalPending = await Application.countDocuments({
+      status: "Pending",
+    });
 
     res.json({
       totalApplications,
@@ -78,8 +110,26 @@ exports.getApplicationStats = async (req, res) => {
       totalRejected,
       totalPending,
     });
-
   } catch (err) {
     console.log(err);
+  }
+};
+
+exports.getApplicationById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const application = await Application.findById(id).populate(
+      "userId",
+      "_id name sex address aadhaarNo dob maritalStatus"
+    );
+
+    if (!application) {
+      return res.status(404).json({ error: "Application not found" });
+    }
+    res.json(application);
+    console.log(application);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Error getting application" });
   }
 };

@@ -12,12 +12,16 @@ export default {
         nav: "6rem",
         footer : "30rem"
       },
+      margin: {
+        navdsktp : "6rem",
+      },
       padding:{
         navdsktp : "7.25rem",
         navmob : "6rem"
       },
       minHeight: {
         hero : "calc(100vh - 6rem)",
+        footer : "30rem",
       },
       maxWidth:{
         dsktp : "1140px",

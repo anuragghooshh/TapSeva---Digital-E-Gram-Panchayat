@@ -8,6 +8,7 @@ const registerUser = async (req, res) => {
   const {
     email,
     name,
+    sex,
     dob,
     address,
     maritalStatus,
@@ -25,6 +26,7 @@ const registerUser = async (req, res) => {
     user = new User({
       email: email,
       name: name,
+      sex: sex,
       dob: dob,
       address: address,
       aadhaarNo: aadhaarNo,

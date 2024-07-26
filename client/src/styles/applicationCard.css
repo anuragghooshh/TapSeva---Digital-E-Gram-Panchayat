@@ -1,0 +1,118 @@
+/* Define Details grid areas */
+.user-id {
+  grid-area: userId;
+}
+.application-id {
+  grid-area: appId;
+}
+.application-date {
+  grid-area: appDate;
+}
+.service-name {
+  grid-area: serviceName;
+}
+.status {
+  grid-area: status;
+}
+.view-more {
+  grid-area: viewMore;
+}
+.message {
+  grid-area: message;
+}
+.current-occupation {
+  grid-area: currentOccupation;
+}
+.user-details {
+  grid-area: userDetails;
+}
+
+/* Overview grid layout */
+.details {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "appId serviceName status"
+    "userId appDate appDate"
+    "viewMore viewMore viewMore";
+  transition: all 0.5s ease-in-out;
+}
+
+.details.viewAll {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "appId serviceName status"
+    "userId appDate viewMore"
+    "message message message"
+    "currentOccupation currentOccupation currentOccupation"
+    "userDetails userDetails userDetails";
+}
+
+/* Define User Details grid areas */
+.user-name {
+  grid-area: userName;
+}
+.user-aadhaar {
+  grid-area: userAadhaar;
+}
+.user-address {
+  grid-area: userAddress;
+}
+.user-dob {
+  grid-area: userDob;
+}
+.user-marital-status {
+  grid-area: userMaritalStatus;
+}
+
+.sex{
+  grid-area : sex;
+}
+
+.user-details > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  grid-template-areas:
+    "userName sex userMaritalStatus userMaritalStatus userDob"
+    "userAddress userAddress userAddress userAadhaar viewMore"
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .details {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "appId"
+      "serviceName"
+      "status"
+      "userId"
+      "appDate"
+      "viewMore";
+  }
+
+  .details.viewAll {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "appId"
+      "serviceName"
+      "status"
+      "userId"
+      "appDate"
+      "message"
+      "currentOccupation"
+      "userDetails"
+      "viewMore";
+  }
+
+  .user-details > div {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "userName"
+      "userAadhaar"
+      "userMaritalStatus"
+      "userDob"
+      "userAddress";
+  }
+}

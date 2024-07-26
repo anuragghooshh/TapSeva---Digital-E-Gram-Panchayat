@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from '../../components/hero/index'
+import Hero from '../../components/hero/Hero'
 import Button from '../../components/button/Button';
 import AuthContext from '../../contexts/auth/AuthContext';
 
@@ -26,7 +26,7 @@ const Profile = () => {
         <div className='page' id='profile'>
             <Hero design='clean'>
                 <Hero.Title>Good {getTimeOfDay()}, {userData.name.split(' ')[0]}!</Hero.Title>
-                <Hero.SubTitle>View and manage your profile details here.</Hero.SubTitle>
+                <Hero.Subtitle>View and manage your profile details here.</Hero.Subtitle>
             </Hero>
 
             <section className="py-10 md:py-16 lg:py-20">
@@ -36,6 +36,10 @@ const Profile = () => {
                             <li className='flex flex-col sm:flex-row items-start sm:items-center gap-4'>
                                 <p className='text-lg font-semibold text-dark flex-shrink-0 w-36'>Name:</p>
                                 <p className='text-lg font-medium text-dark'>{userData.name}</p>
+                            </li>
+                            <li className='flex flex-col sm:flex-row items-start sm:items-center gap-4'>
+                                <p className='text-lg font-semibold text-dark flex-shrink-0 w-36'>Sex:</p>
+                                <p className='text-lg font-medium text-dark'>{userData.sex}</p>
                             </li>
                             <li className='flex flex-col sm:flex-row items-start sm:items-center gap-4'>
                                 <p className='text-lg font-semibold text-dark flex-shrink-0 w-36'>Email:</p>

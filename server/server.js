@@ -55,12 +55,13 @@ app.use("/api/services", require("./routes/serviceRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
 
 //For fetching user details
-app.use("/api/auth", require("./routes/userRoutes"));
+app.use("/api/user", require("./routes/userRoutes"));
 
 //For Controlling Applications
 app.use("/api/applications", require("./routes/applicationRoutes"));
 
-
+//For Admin
+app.use("/api/admin", require("./routes/adminRoutes"));
 
 
 const PORT = process.env.PORT || 5000;

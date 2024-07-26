@@ -1,22 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from './AuthContext';
-
-interface UserDataInterface {
-  _id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  aadhaarNo: string;
-  dob: string;
-  maritalStatus: 'Single' | 'Married' | 'Divorced' | 'Widowed';
-  role: 'villager' | 'admin';
-}
+import UserDataInterface from '../../interfaces/UserDataInterface';
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [userType, setUserType] = React.useState('villager');
+  const [userType, setUserType] = React.useState<'villager' | 'admin' | 'staff'>('villager');
   const [userData, setUserData] = React.useState({} as UserDataInterface);
 
   const navigate = useNavigate();
@@ -46,7 +35,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     if (!token) return;
 
     try {
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch('/api/user/me', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

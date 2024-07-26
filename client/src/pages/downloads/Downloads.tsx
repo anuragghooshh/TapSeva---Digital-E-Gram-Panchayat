@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from '../../components/hero/index'
+import Hero from '../../components/hero/Hero'
 import ServiceCard from '../../components/serviceCard/ServiceCard';
 import Tabs from '../../components/tabs/Tabs';
 import { useSearchParams } from 'react-router-dom';
@@ -28,7 +28,7 @@ const Downloads = () => {
     <div className='page' id='downloads' >
       <Hero imgSrc={downloadsBG}>
         <Hero.Title>Downloads</Hero.Title>
-        <Hero.SubTitle>Download printable service forms which can be submitted offline to the Panchayat.</Hero.SubTitle>
+        <Hero.Subtitle>Download printable service forms which can be submitted offline to the Panchayat.</Hero.Subtitle>
       </Hero>
       <section className="py-10 md:py-16 lg:py-20" >
         <div className='max-w-dsktp mx-auto' >

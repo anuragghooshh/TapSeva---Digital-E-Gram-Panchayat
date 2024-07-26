@@ -1,6 +1,7 @@
 import React from 'react'
 import DropdownContextProvider from '../../contexts/dropdown/DropdownContextProvider'
 import DropdownContext from '../../contexts/dropdown/DropdownContext';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa'
 
 interface DropdownProps {
     children: React.ReactNode;
@@ -10,7 +11,7 @@ interface DropdownProps {
 const dropDownCommonStyle = 'px-6 min-h-14 min-w-36';
 
 const DropdownToggle: React.FC<DropdownProps> = ({ children }) => {
-    const { setIsOpen } = React.useContext(DropdownContext);
+    const { setIsOpen, isOpen } = React.useContext(DropdownContext);
 
     const open = () => {
         setIsOpen(true);
@@ -23,8 +24,11 @@ const DropdownToggle: React.FC<DropdownProps> = ({ children }) => {
     }
 
     return (
-        <button className={`${dropDownCommonStyle} relative border`} onMouseEnter={open} onMouseLeave={close}>
+        <button className={`${dropDownCommonStyle} relative border flex items-center justify-between rounded-md`} onMouseEnter={open} onMouseLeave={close}>
             {children}
+            {
+                isOpen ? <FaAngleUp /> : <FaAngleDown />
+            }
         </button>
     )
 }
@@ -44,8 +48,8 @@ const DropdownMenu: React.FC<DropdownProps> = ({ children }) => {
 
     return (
         isOpen ? (
-            <div className='flex flex-col absolute left-0 pt-4 ' onMouseEnter={open} onMouseLeave={close}>
-                <div className='bg-gray-100 border'>
+            <div className='flex flex-col absolute left-0 pt-4' onMouseEnter={open} onMouseLeave={close}>
+                <div className='bg-gray-100 border shadow-lg rounded-md overflow-hidden'>
                     {children}
                 </div>
             </div>

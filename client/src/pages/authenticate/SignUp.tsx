@@ -1,14 +1,19 @@
-import React from 'react'
-import Button from '../../components/button/Button'
 import SignUpForm from '../../components/forms/signUpForm/SignUpForm'
+import SignInWithGoogle from '../../components/signInWithGoogle/SignInWithGoogle';
+import signInBG from '../../assets/images/signInBg.jpg';
 
 const SignUp = () => {
   return (
-    <section className="py-10 md:py-16 lg:py-20" id='signIn'>
-      <div className='max-w-dsktp h-screen mx-auto flex border-2 border-gray'>
-        <SignUpForm/>
-        <div className='bg-dark p-10 basis-2/5 w-full flex items-start justify-start'>
-          <Button color='light'>Sign in with Google</Button>
+    <section className="py-10" id='signUp'>
+      <div className='max-w-dsktp mx-auto flex flex-col-reverse md:flex-row border-2 border-gray-100 rounded-md overflow-hidden'>
+        <SignUpForm />
+        <div
+          className='p-10 basis-2/5 w-full flex items-center justify-center bg-img'
+          style={{
+            backgroundImage: `url('${signInBG}')`
+          }}
+        >
+          <SignInWithGoogle />
         </div>
       </div>
     </section>

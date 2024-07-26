@@ -7,6 +7,7 @@ import SignUp3 from './SignUp3';
 export interface SignUpProps {
     input: {
         name: string,
+        sex: string,
         dob: string,
         address: string,
         maritalStatus: string,
@@ -17,11 +18,14 @@ export interface SignUpProps {
         confirmPassword: string,
     };
     handleChange: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    errors: any;
 }
+
 
 const SignUpForm = () => {
     const [input, setInput] = React.useState({
         name: '',
+        sex: '',
         dob: '',
         address: '',
         maritalStatus: '',
@@ -49,6 +53,7 @@ const SignUpForm = () => {
     const clear = () => {
         setInput({
             name: '',
+            sex: '',
             dob: '',
             address: '',
             maritalStatus: '',
@@ -61,10 +66,11 @@ const SignUpForm = () => {
     };
 
     const validate = () => {
-        let newErrors = {};
+        let newErrors = {} as any;
 
         if (!input.name) newErrors.name = 'Name is required';
         if (!input.dob) newErrors.dob = 'Date of Birth is required';
+        if (!input.sex) newErrors.sex = 'You must enter your sex';
         if (!input.address) newErrors.address = 'Address is required';
         if (!input.maritalStatus) newErrors.maritalStatus = 'Marital status is required';
         if (!input.aadhaarNo || !/^\d{12}$/.test(input.aadhaarNo)) newErrors.aadhaarNo = 'Aadhaar number must be 12 digits';
@@ -85,6 +91,7 @@ const SignUpForm = () => {
         const postData = new Object() as any;
 
         postData.name = input.name;
+        postData.sex = input.sex;
         postData.dob = input.dob;
         postData.address = input.address;
         postData.maritalStatus = input.maritalStatus;
@@ -111,23 +118,25 @@ const SignUpForm = () => {
             console.log(result);
         } catch (error) {
             console.error('Error:', error);
+        } finally {
+            clear();
         }
     };
 
 
     const nextStep = () => {
-        setStep(step + 1);
+        if (validateStep(step)) setStep(step + 1);
     };
 
     const prevStep = () => {
         setStep(step - 1);
     };
 
-    const validateStep = (currentStep) => {
-        let newErrors = {};
+    const validateStep = (currentStep : number) => {
+        let newErrors = {} as any;
 
         if (currentStep === 1) {
-            if (!input.name) newErrors.name = 'Name is required';
+            if (!input.name) newErrors.name = 'Required*';
             if (!input.dob) newErrors.dob = 'Date of Birth is required';
             if (!input.address) newErrors.address = 'Address is required';
             if (!input.maritalStatus) newErrors.maritalStatus = 'Marital status is required';
@@ -157,8 +166,8 @@ const SignUpForm = () => {
     const progressWidth = `${calculateCompletion()}%`;
 
     return (
-        <form className='w-full basis-3/5 p-10 px-12' onSubmit={handleSubmit}>
-            <div className="progressbar h-5 w-full bg-gray p-1">
+        <form className='w-full basis-3/5 space-y-10 py-10 px-5 lg:px-12' onSubmit={handleSubmit}>
+            <div className="progressbar h-5 w-full bg-gray p-1 border">
                 <div className='h-full w-full bg-tertiary transition-transform ease-in-out duration-500'
                     style={{
                         transform: `scaleX(${progressWidth})`,
@@ -167,11 +176,11 @@ const SignUpForm = () => {
                 />
             </div>
 
-            {step === 1 && <SignUp1 input={input} handleChange={handleChange} />}
-            {step === 2 && <SignUp2 input={input} handleChange={handleChange} />}
-            {step === 3 && <SignUp3 input={input} handleChange={handleChange} />}
+            {step === 1 && <SignUp1 input={input} handleChange={handleChange} errors={errors}/>}
+            {step === 2 && <SignUp2 input={input} handleChange={handleChange} errors={errors}/>}
+            {step === 3 && <SignUp3 input={input} handleChange={handleChange} errors={errors}/>}
 
-            <div className='w-full flex justify-end gap-5'>
+            <div className='grid grid-cols-1 w-full md:flex justify-end gap-5'>
                 {step > 1 && <Button design='stroked' onClick={prevStep}>Previous</Button>}
                 {step < 3 && <Button color='dark' onClick={nextStep}>Next</Button>}
                 {   step == 3 ? 

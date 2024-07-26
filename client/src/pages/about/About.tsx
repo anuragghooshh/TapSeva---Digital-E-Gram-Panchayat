@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from '../../components/hero/index'
+import Hero from '../../components/hero/Hero'
 import about1 from '../../assets/images/aboutImg/about1.jpg'
 import about2 from '../../assets/images/aboutImg/about2.jpg'
 
@@ -8,7 +8,7 @@ const About = () => {
     <div className='page' id='about'>
       <Hero>
         <Hero.Title>About Us</Hero.Title>
-        <Hero.SubTitle>Empowering villagers through transparency and efficient service delivery.</Hero.SubTitle>
+        <Hero.Subtitle>Empowering villagers through transparency and efficient service delivery.</Hero.Subtitle>
       </Hero>
       <section className="py-10 md:py-16 lg:py-20" >
         <div className="max-w-7xl mx-auto">

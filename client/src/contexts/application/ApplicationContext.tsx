@@ -1,7 +1,7 @@
 import React from 'react'
 import ApplicationInterface from '../../interfaces/ApplicationInterface';
 
-const ApplicationContext = React.createContext<{
+interface ApplicationContextInterface {
     applications: ApplicationInterface[];
     createApplication: (applicationData: any) => void;
     updateApplication: (applicationId: string, status: string) => void;
@@ -10,9 +10,11 @@ const ApplicationContext = React.createContext<{
         pendingApplications: number;
         approvedApplications: number;
         rejectedApplications: number;
-    
     };
-}>({
+    setFiltersAndSorts: (filters: object, sorts: object) => Promise<void>;
+}
+
+const ApplicationContext = React.createContext<ApplicationContextInterface>({
     applications: [],
     createApplication: () => { },
     updateApplication: () => { },
@@ -21,7 +23,8 @@ const ApplicationContext = React.createContext<{
         pendingApplications: 0,
         approvedApplications: 0,
         rejectedApplications: 0,
-    }
+    },
+    setFiltersAndSorts: () => Promise.resolve(),
 });
 
 export default ApplicationContext;

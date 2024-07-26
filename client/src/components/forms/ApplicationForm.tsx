@@ -6,25 +6,52 @@ import Label from '../inputAndLabel/Label'
 import ApplicationContext from '../../contexts/application/ApplicationContext'
 import ApplicationFormContext from '../../contexts/applicationForm/ApplicationFormContext'
 
+interface InputState {
+  message: string;
+  currentOccupation: string;
+}
+
+interface ErrorsState {
+  message?: string;
+  currentOccupation?: string;
+}
+
 const ApplicationForm = () => {
   const { createApplication } = React.useContext(ApplicationContext);
   const { isFormOpen, selectedService, closeForm } = React.useContext(ApplicationFormContext);
 
-  const [input, setInput] = React.useState({
+  const [input, setInput] = React.useState<InputState>({
     message: '',
     currentOccupation: ''
   })
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const [errors, setErrors] = React.useState<ErrorsState>({
+    message: '',
+    currentOccupation: ''
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput({
       ...input,
       [event.target.name]: event.target.value
-    })
-  }
+    });
+  };
+
+  const validate = () => {
+    let newErrors: ErrorsState = {};
+
+    if (!input.currentOccupation) newErrors.currentOccupation = 'Current occupation is required';
+    if (!input.message) newErrors.message = 'Message is required';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!selectedService) return;
+
+    if (!validate()) return;
 
     const applicationData = {
       serviceId: selectedService._id,
@@ -35,7 +62,7 @@ const ApplicationForm = () => {
 
     createApplication(applicationData);
     closeForm();
-  }
+  };
 
   if (!isFormOpen) return null;
 
@@ -52,15 +79,24 @@ const ApplicationForm = () => {
           <InputAndLabel.Label htmlFor='currentOccupation'>
             Current Occupation
           </InputAndLabel.Label>
-          <InputAndLabel.Input
-            type='text'
-            id='currentOccupation'
-            name='currentOccupation'
-            value={input.currentOccupation}
-            onChange={handleChange}
-            placeholder='Enter your current occupation'
-            required
-          />
+          <InputAndLabel.Select id='currentOccupation' name='currentOccupation' value={input.currentOccupation} onChange={handleChange}>
+            <InputAndLabel.Select.Option value='' disabled={true}>
+              Select Current Occupation
+            </InputAndLabel.Select.Option>
+            <InputAndLabel.Select.Option value='Student'>
+              Student
+            </InputAndLabel.Select.Option>
+            <InputAndLabel.Select.Option value='Employed'>
+              Employed
+            </InputAndLabel.Select.Option>
+            <InputAndLabel.Select.Option value='Unemployed'>
+              Unemployed
+            </InputAndLabel.Select.Option>
+            <InputAndLabel.Select.Option value='Retired'>
+              Retired
+            </InputAndLabel.Select.Option>
+          </InputAndLabel.Select>
+          {errors.currentOccupation && <p className="text-red-500">{errors.currentOccupation}</p>}
         </InputAndLabel>
         <InputAndLabel>
           <InputAndLabel.Label htmlFor='message'>
@@ -75,14 +111,15 @@ const ApplicationForm = () => {
             type='text'
             required={true}
           />
+          {errors.message && <p className="text-red-500">{errors.message}</p>}
         </InputAndLabel>
       </div>
       <div className='flex flex-col gap-4 mt-6 sm:flex-row sm:gap-6'>
-        <Button type='submit'>
-          Submit
+        <Button onClick={closeForm} design='stroked' color='color'>
+          Cancel
         </Button>
-        <Button onClick={closeForm}>
-          Close
+        <Button type='submit' design='filled' color='color'>
+          Submit
         </Button>
       </div>
     </form>

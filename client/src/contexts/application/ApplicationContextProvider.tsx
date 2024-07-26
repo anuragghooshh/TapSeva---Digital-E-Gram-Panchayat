@@ -14,20 +14,69 @@ interface NewApplicationInterface {
     currentOccupation: string;
 }
 
+interface ApplicationFilterInterface {
+    status?: 'Approved' | 'Pending' | 'Rejected' | '';
+}
+
+interface ApplicationSortInterface {
+    sortBy?: string;
+    order?: 'asc' | 'desc' | '';
+}
+
 const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ children }) => {
+
+    // Get the logged in status and user type from AuthContext 
+    const { isLoggedIn, userType } = React.useContext(AuthContext);
+
+    // Initialize applications state
     const [applications, setApplications] = React.useState([] as ApplicationInterface[]);
+
+    // Initialize application stats state
     const [applicationStats, setApplicationStats] = React.useState({
         totalApplications: 0,
         pendingApplications: 0,
         approvedApplications: 0,
         rejectedApplications: 0,
-    })
-    const { isLoggedIn, userType } = React.useContext(AuthContext);
+    });
 
-    const fetchApplications = async () => {
+    // Initialize Filters and Sorts
+    const [filters, setFilters] = React.useState<ApplicationFilterInterface>({
+        status: ''
+    });
+
+    const [sorts, setSorts] = React.useState<ApplicationSortInterface>({
+        sortBy: '',
+        order: ''
+    });
+
+    // Set Filters and Sorts
+    const setFiltersAndSorts = (filters: ApplicationFilterInterface, sorts: ApplicationSortInterface): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            setFilters(filters)
+            setSorts(sorts);
+            resolve();
+        });
+    }
+
+
+    // Fetch applications based on user type
+    const fetchApplications = React.useCallback(async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('/api/applications/user', {
+            const query = new URLSearchParams();
+
+            // Add filters to query params
+            if (filters.status) {
+                query.append('status', filters.status);
+            }
+
+            // Add sorting to query params
+            if (sorts.sortBy) {
+                query.append('sortBy', sorts.sortBy);
+                query.append('order', sorts.order || 'asc');
+            }
+
+            const response = await fetch(`/api/applications/user?${query.toString()}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,11 +95,25 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         } catch (err) {
             console.log('Error Fetching Applications: ', err);
         }
-    }
+    }, [filters, sorts]);
 
-    const fetchAllApplications = async () => {
+    // Fetch all applications for admin
+    const fetchAllApplications = React.useCallback(async () => {
         try {
-            const response = await fetch('/api/applications/all', {
+            const query = new URLSearchParams();
+
+            // Add filters to query params
+            if (filters.status) {
+                query.append('status', filters.status);
+            }
+
+            // Add sorting to query params
+            if (sorts.sortBy) {
+                query.append('sortBy', sorts.sortBy);
+                query.append('order', sorts.order || 'asc');
+            }
+
+            const response = await fetch(`/api/applications/all?${query.toString()}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,8 +131,9 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         } catch (err) {
             console.log('Error Fetching Applications: ', err);
         }
-    }
+    }, [filters, sorts]);
 
+    // Create a new application
     const createApplication = async (ApplicationData: NewApplicationInterface) => {
         const token = localStorage.getItem('token');
 
@@ -94,6 +158,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         }
     }
 
+    // Update application status
     const updateApplication = async (applicationId: string, status: string) => {
         console.log(`Updating application ${applicationId} with status ${status}`);
 
@@ -123,45 +188,52 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         }
     }
 
-    const fetchStats = async () => {
-        try{
-            await fetch('/api/applications/stats',{
+    // Fetch application stats
+    const fetchStats = React.useCallback(async () => {
+        try {
+            await fetch('/api/applications/stats', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).
-            then((res) => res.json()).
-            then((data) => {
-                const tempStats = {
-                    totalApplications: data.totalApplications,
-                    pendingApplications: data.totalPending,
-                    approvedApplications: data.totalApproved,
-                    rejectedApplications: data.totalRejected,
-                };
-                setApplicationStats(tempStats);
-            }).
-            catch((err) => {
-                console.log('Error fetching stats', err);
-            });
+                then((res) => res.json()).
+                then((data) => {
+                    const tempStats = {
+                        totalApplications: data.totalApplications,
+                        pendingApplications: data.totalPending,
+                        approvedApplications: data.totalApproved,
+                        rejectedApplications: data.totalRejected,
+                    };
+                    setApplicationStats(tempStats);
+                }).
+                catch((err) => {
+                    console.log('Error fetching stats', err);
+                });
         }
-        catch(err){
+        catch (err) {
             console.log('Error fetching stats', err);
         }
-    }
+    }, []);
 
-    useEffect(() => {
+
+    React.useEffect(() => {
         if (isLoggedIn && userType === 'villager') {
             fetchApplications();
         } else if (isLoggedIn && userType === 'admin') {
             fetchAllApplications();
+        }
+    }, [isLoggedIn, userType, fetchAllApplications, fetchApplications]);
+
+    React.useEffect(() => {
+        if (isLoggedIn && userType === 'admin') {
             fetchStats();
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, userType, fetchStats]);
 
     return (
         <ApplicationContext.Provider
-            value={{ applications, createApplication, updateApplication, applicationStats }}
+            value={{ applications, createApplication, updateApplication, applicationStats, setFiltersAndSorts }}
         >
             {children}
         </ApplicationContext.Provider>
