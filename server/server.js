@@ -1,10 +1,5 @@
-const bodyParser = require("body-parser");
-
 require("dotenv").config();
 const connectDB = require("./config/db");
-const services = require("./seed");
-
-const Service = require("./models/service");
 
 const cors = require("cors");
 const express = require("express");
@@ -16,7 +11,7 @@ app.use(express.json({ extended: false }));
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // URL of your Vite React frontend
+    origin: "https://tap-seva-digital-e-gram-panchayat-api.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -46,6 +41,13 @@ connectDB();
 //     message: "Hello from server!",
 //   });
 // });
+
+api.get("/api", (req, res) => {
+  res.json({
+    title: "Hello from server!",
+    message: "Hello from server!",
+  });
+});
 
 
 //For Retrieving Services
