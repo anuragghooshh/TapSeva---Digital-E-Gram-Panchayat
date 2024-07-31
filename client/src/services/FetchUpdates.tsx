@@ -2,7 +2,7 @@ import UpdateInterface from '../interfaces/UpdateInterface';
 
 const fetchUpdates = async (): Promise<UpdateInterface[]> => {
     try {
-        const response = await fetch('/api/updates', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/updates`, {
             headers: {
                 'Content-Type': 'application/json',
             },

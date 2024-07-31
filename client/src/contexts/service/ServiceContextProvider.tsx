@@ -20,7 +20,7 @@ const ServiceContextProvider: React.FC<ServiceContextProviderInterface> = ({ chi
 
     const fetchServices = async () => {
         try {
-            const response = await fetch(`/api/services`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services`);
             const data = await response.json();
             const tempServices = [...data];
             setServices(tempServices);
@@ -30,7 +30,7 @@ const ServiceContextProvider: React.FC<ServiceContextProviderInterface> = ({ chi
     };
 
     const fetchStats = async () => {
-        await fetch('/api/services/stats', {
+        await fetch(`${import.meta.env.VITE_API_URL}/api/services/stats`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

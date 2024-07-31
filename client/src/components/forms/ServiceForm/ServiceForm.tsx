@@ -72,7 +72,7 @@ const ServiceForm = () => {
         };
 
         try {
-            const response = await fetch('/api/services/new', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services/new`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

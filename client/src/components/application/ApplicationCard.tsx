@@ -69,7 +69,7 @@ const ApplicationCard: React.FC<ApplicationInterface> = ({ _id, userId, serviceN
 
   const viewMoreDetails = () => {
     try {
-      fetch(`/api/applications/${_id}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/api/applications/${_id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

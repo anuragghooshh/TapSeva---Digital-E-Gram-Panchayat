@@ -1,6 +1,6 @@
 const SignInWithGoogleApi = async (idToken: string) => {
     try {
-        const response = await fetch('/api/auth/google', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

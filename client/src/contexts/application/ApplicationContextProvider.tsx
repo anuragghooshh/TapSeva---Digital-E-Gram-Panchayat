@@ -76,7 +76,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
                 query.append('order', sorts.order || 'asc');
             }
 
-            const response = await fetch(`/api/applications/user?${query.toString()}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications/user?${query.toString()}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
                 query.append('order', sorts.order || 'asc');
             }
 
-            const response = await fetch(`/api/applications/all?${query.toString()}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications/all?${query.toString()}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch('/api/applications/apply', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications/apply`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         }
 
         try {
-            const response = await fetch('/api/applications/update-status', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications/update-status`, {
                 method: 'put',
                 headers: {
                     'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
     const withdrawApplication = React.useCallback(async (applicationId: string) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`/api/applications/${applicationId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications/${applicationId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -210,7 +210,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
     // Fetch application stats
     const fetchStats = React.useCallback(async () => {
         try {
-            await fetch('/api/applications/stats', {
+            await fetch(`${import.meta.env.VITE_API_URL}/api/applications/stats`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

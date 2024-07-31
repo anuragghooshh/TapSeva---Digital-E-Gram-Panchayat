@@ -35,7 +35,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     if (!token) return;
 
     try {
-      const response = await fetch('/api/user/me', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/me`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

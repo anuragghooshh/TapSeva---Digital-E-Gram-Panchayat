@@ -15,7 +15,7 @@ const SignInWithGoogle = () => {
       const token = await result.user.getIdToken();
 
       // Send the token to your backend
-      const response = await fetch('/api/auth/google', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import UserDataInterface from '../interfaces/UserDataInterface';
 
 const fetchUsers = async (): Promise<UserDataInterface[]> => {
     try {
-        const response = await fetch('/api/admin/users', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/users`, {
             headers: {
                 'Content-Type': 'application/json',
             },

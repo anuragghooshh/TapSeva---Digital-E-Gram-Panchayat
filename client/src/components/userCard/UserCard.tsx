@@ -16,7 +16,7 @@ const UserCard: React.FC<userCardProps> = ({ user }) => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`/api/updates/${user._id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/updates/${user._id}`, {
                 method: 'DELETE',
             });
 

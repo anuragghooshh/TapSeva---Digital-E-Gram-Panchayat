@@ -20,7 +20,7 @@ const Dashboard = () => {
   React.useEffect(() => {
     const fetchUserCounts = async () => {
       try {
-        fetch('/api/admin/user-counts').
+        fetch(`${import.meta.env.VITE_API_URL}/api/admin/user-counts`).
         then((res) => res.json()).
         then((data) => {
           const tempUserCounts = {

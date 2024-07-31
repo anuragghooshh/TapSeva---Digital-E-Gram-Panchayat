@@ -36,7 +36,7 @@ const UpdateForm = () => {
         }
 
         try{
-            const response = await fetch('/api/updates/new', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/updates/new`, {
                 headers:{
                     'Content-Type': 'application/json',
                 },

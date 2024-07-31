@@ -16,7 +16,7 @@ const UpdateCard: React.FC<UpdateInterface> = ({ update, date, _id }) => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`/api/updates/${_id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/updates/${_id}`, {
                 method: 'DELETE',
             });
 
