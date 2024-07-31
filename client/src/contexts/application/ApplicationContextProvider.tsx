@@ -19,8 +19,8 @@ interface ApplicationFilterInterface {
 }
 
 interface ApplicationSortInterface {
-    sortBy?: string;
-    order?: 'asc' | 'desc' | '';
+    sortBy?: string | undefined;
+    order?: 'asc' | 'desc' | '' ;
 }
 
 const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ children }) => {
@@ -41,12 +41,12 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
 
     // Initialize Filters and Sorts
     const [filters, setFilters] = React.useState<ApplicationFilterInterface>({
-        status: ''
+        status: undefined
     });
 
     const [sorts, setSorts] = React.useState<ApplicationSortInterface>({
-        sortBy: '',
-        order: ''
+        sortBy: undefined,
+        order: undefined
     });
 
     // Set Filters and Sorts
@@ -255,7 +255,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
 
     return (
         <ApplicationContext.Provider
-            value={{ applications, createApplication, updateApplication, applicationStats, setFiltersAndSorts, withdrawApplication }}
+            value={{ applications, createApplication, updateApplication, applicationStats, setFiltersAndSorts, withdrawApplication, filters, sorts }}
         >
             {children}
         </ApplicationContext.Provider>

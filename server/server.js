@@ -11,7 +11,7 @@ app.use(express.json({ extended: false }));
 
 app.use(
   cors({
-    origin: "https://tap-seva.vercel.app",
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -42,7 +42,7 @@ connectDB();
 //   });
 // });
 
-api.get("/api", (req, res) => {
+app.get("/api", (req, res) => {
   res.json({
     title: "Hello from server!",
     message: "Hello from server!",

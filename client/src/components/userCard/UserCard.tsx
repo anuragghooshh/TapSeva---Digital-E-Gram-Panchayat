@@ -37,7 +37,7 @@ const UserCard: React.FC<userCardProps> = ({ user }) => {
     }
 
     return (
-        <div className="p-6 bg-light-100 border-2 border-gray-100 rounded-lg h-full grid grid-flow-rown gap-10">
+        <div className="p-6 bg-light-100 border-2 border-neutral-200 rounded-lg h-full grid grid-flow-rown gap-10">
             <div className="space-y-4 font-work">
                 <div className="flex flex-col md:flex-row md:space-x-2 items-start md:items-center">
                     <h3 className="text-lg md:text-xl font-medium text-primary truncate">{user.name}</h3>

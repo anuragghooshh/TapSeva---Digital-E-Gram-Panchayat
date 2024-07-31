@@ -16,7 +16,6 @@ const Dashboard = () => {
     staff: 0,
     admin: 0,
   });
-  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const fetchUserCounts = async () => {
@@ -34,8 +33,6 @@ const Dashboard = () => {
         catch((err) => console.log(err));
       } catch (err: any) {
         console.log(err.message);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -73,32 +70,27 @@ const Dashboard = () => {
         <div className="w-full max-w-dsktp mx-auto">
           <div className="overview grid">
             <Link to="applications" title="Check Total Applications" className={
-              " text-dark rounded-md px-4 py-5 ease-in-out duration-200 totalA" + 
-              `${loading ? ' bg-neutral-400' : 'bg-neutral-100 hover:bg-neutral-200'}`
+              " text-dark rounded-md px-4 py-5 ease-in-out duration-200 bg-neutral-100 hover:bg-neutral-200 totalA" 
             } replace={true}>
               <DashboardValue value={applicationStats.totalApplications} label="Total Applications" />
             </Link>
             <div title="Check Pending Applications" className={
-              " text-dark  rounded-md px-4 py-5  ease-in-out duration-200 cursor-pointer pendingA" + 
-              `${loading ? ' bg-neutral-400' : 'bg-neutral-100 hover:bg-neutral-200'}`
+              " text-dark  rounded-md px-4 py-5  ease-in-out duration-200 cursor-pointer pendingA bg-neutral-100 hover:bg-neutral-200"
             } onClick={goToPendingApplications}>
               <DashboardValue value={applicationStats.pendingApplications} label="Pending Applications" />
             </div>
             <Link to="services" title="Check Total Services" className={
-              " text-dark  rounded-md px-4 py-5  ease-in-out duration-200 totalS" + 
-              `${loading ? ' bg-neutral-400' : 'bg-neutral-100 hover:bg-neutral-200'}`
+              " text-dark  rounded-md px-4 py-5  ease-in-out duration-200 bg-neutral-100 hover:bg-neutral-200 totalS"
             }>
               <DashboardValue value={totalServices} label="Total Services" /> 
             </Link>
             <div title="Check Approved Applications" className={
-              " text-light-100 rounded-md px-4 py-5 ease-in-out duration-200 cursor-pointer approvedA" +
-              `${loading ? ' bg-neutral-400' : 'bg-positive-300 hover:bg-positive-400'}`
+              " text-light-100 rounded-md px-4 py-5 ease-in-out duration-200 cursor-pointer approvedA bg-positive-300 hover:bg-positive-400"
             } onClick={goToApprovedApplications}>
               <DashboardValue value={applicationStats.approvedApplications} label="Approved Applications" />
             </div>
             <div title="Check Rejected Applications" className={
-              " text-light-100 rounded-md px-4 py-5  ease-in-out duration-200 cursor-pointer rejectedA" +
-              `${loading ? ' bg-neutral-400' : 'bg-negative-300 hover:bg-negative-400'}`
+              " text-light-100 rounded-md px-4 py-5  ease-in-out duration-200 cursor-pointer bg-negative-300 hover:bg-negative-400 rejectedA"
             } 
             onClick={goToRejectedApplications}>
               <DashboardValue value={applicationStats.rejectedApplications} label="Rejected Applications" />
@@ -107,8 +99,7 @@ const Dashboard = () => {
 
           <div className="grid mt-5 gap-5 grid-cols-1 md:grid-cols-2">
             <div className={
-              "w-full rounded-md px-4 py-5" +
-              `${loading ? ' bg-neutral-400' : ' bg-gray-100'}`
+              "w-full rounded-md px-4 py-5 bg-gray-100"
             }>
               <h3 className="font-work text-xl md:text-2xl font-medium">User Management</h3>
               <div className="mt-5 grid gap-4">
@@ -118,8 +109,7 @@ const Dashboard = () => {
               </div>
             </div>
             <div className={
-              "w-full rounded-md px-4 py-5 flex flex-col items-end gap-4" +
-              `${loading ? ' bg-neutral-400' : ' bg-gray-100'}`
+              "w-full rounded-md px-4 py-5 flex flex-col items-end gap-4 bg-gray-100" 
             }>
               <h3 className="font-work text-xl md:text-2xl font-medium w-full">Service Management</h3>
               <ul className="space-y-3 w-full">

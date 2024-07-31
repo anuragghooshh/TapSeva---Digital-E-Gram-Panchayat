@@ -144,7 +144,7 @@ const NavBar = () => {
         <div
           onMouseEnter={() => setGlanceProfile(true)}
           onMouseLeave={() => setGlanceProfile(false)}
-          className={`absolute p-4 right-1/2 space-y-5 mt-2 border border-neutral-200 bg-light-100 rounded-md origin-top-right ease-bounce duration-300 
+          className={`absolute p-4 right-1/2 space-y-5 mt-2 border-2 border-neutral-200 bg-light-100 rounded-md origin-top-right ease-bounce duration-300 
           ${glanceProfile ? 'visible scale-100 opacity-100' : 'invisible scale-0 opacity-0'}`}
         >
           <p className='font-work text-lg text-center text-secondary'>
@@ -213,7 +213,7 @@ const NavBar = () => {
           <Ham task={() => setSideBar(!sideBar)} activeStatus={sideBar ? 'active' : ''} />
         </div>
 
-        <div className={`sidebar z-40 fixed h-full min-h-screen w-full flex flex-col items-center justify-start bg-light-100 left-0 top-0 ease-bounce duration-500 ${sideBar ? 'transorm-3d-sidebar-active' : 'transorm-3d-sidebar'}`}>
+        <div className={`sidebar z-40 relative min-h-screen w-full flex flex-col items-center justify-start bg-light-100 left-0 top-0 ease-bounce duration-500 ${sideBar ? 'transorm-3d-sidebar-active' : 'transorm-3d-sidebar'}`}> 
           <ul className='flex-col text-dark w-full p-5 space-y-4'>
             {renderLinks(true)}
           </ul>

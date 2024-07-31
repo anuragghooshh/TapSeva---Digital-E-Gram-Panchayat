@@ -13,6 +13,13 @@ interface ApplicationContextInterface {
         rejectedApplications: number;
     };
     setFiltersAndSorts: (filters: object, sorts: object) => Promise<void>;
+    filters: {
+        status?: 'Approved' | 'Pending' | 'Rejected' | '' | undefined;
+    };
+    sorts: {
+        sortBy?: string;
+        order?: 'asc' | 'desc' | '' | undefined;
+    };
 }
 
 const ApplicationContext = React.createContext<ApplicationContextInterface>({
@@ -27,6 +34,8 @@ const ApplicationContext = React.createContext<ApplicationContextInterface>({
         rejectedApplications: 0,
     },
     setFiltersAndSorts: () => Promise.resolve(),
+    filters: {},
+    sorts: {},
 });
 
 export default ApplicationContext;

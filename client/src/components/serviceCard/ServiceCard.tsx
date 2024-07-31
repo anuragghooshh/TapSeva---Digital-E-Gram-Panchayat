@@ -16,13 +16,18 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ _id, serviceName, serviceDescription, DownloadableForm }: ServiceCardProps) => {
   const { isLoggedIn, userType } = React.useContext(AuthContext);
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [ref, inView] = useInView(
+    {
+      threshold: 0.01,
+      triggerOnce: true,
+    }
+  );
 
   const serviceCardForUsers = () => {
     return (
       <div ref={ref} className={
-        "w-full bg-light-100 border-2 border-gray-100 rounded-md mx-auto p-6 md:p-8 flex flex-col gap-8 justify-between h-full transform transition-transform ease-bounce duration-200" + 
-        ` ${inView ? 'scale-100' : 'scale-90'}`
+        "w-full bg-light-100 border-2 border-neutral-200 rounded-md mx-auto p-6 md:p-8 flex flex-col gap-8 justify-between h-full transform transition-all ease-bounce duration-500 " + 
+        `${inView ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-1/3'}`
       }>
         <div className="flex flex-col font-work space-y-4">
           <h3 className="text-lg md:text-xl font-medium text-dark">{serviceName}</h3>
@@ -46,8 +51,17 @@ const ServiceCard = ({ _id, serviceName, serviceDescription, DownloadableForm }:
   }
 
   const serviceCardForAdmins = () => {
+    const [ref, inView] = useInView({ 
+      threshold: 0.01,
+      triggerOnce: true, 
+    });
+
+
     return (
-      <div className="w-full bg-light-100 border border-neutral-200 rounded-md mx-auto p-6 md:p-8 flex flex-col gap-8 justify-between h-full">
+      <div ref={ref} className={
+        "w-full bg-light-100 border-2 border-neutral-200 rounded-md mx-auto p-6 md:p-8 flex flex-col gap-8 justify-between h-full transform transition-all ease-bounce duration-500 " +
+        `${inView ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-1/3'}`
+      }>
         <div className="flex flex-col font-work space-y-4">
           <h3 className="text-lg md:text-xl font-medium text-dark">{serviceName}</h3>
           <p className="text-sm md:text-base text-dark">{serviceDescription}</p>

@@ -61,7 +61,10 @@ const ApplicationCard: React.FC<ApplicationInterface> = ({ _id, userId, serviceN
 
   const [loading, setLoading] = React.useState(true);
   const [allDetails, setAllDetails] = React.useState(false);
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [ref, inView] = useInView({ 
+    threshold: 0.01,
+    triggerOnce: true, 
+  });
 
 
   const viewMoreDetails = () => {
@@ -202,8 +205,8 @@ const ApplicationCard: React.FC<ApplicationInterface> = ({ _id, userId, serviceN
   return (
     <>
       <div ref={ref} className={
-        "bg-light-100 w-full max-w-7xl border-2 border-gray-100 mx-auto mt-5 p-6 sm:p-8 md:p-10 space-y-8 md:space-y-10 rounded-md transform transition-transform ease-bounce duration-200 " +
-        `${inView ? 'scale-100' : 'scale-90'}`
+        "bg-light-100 w-full max-w-7xl border-2 border-neutral-200 mx-auto mt-5 p-6 sm:p-8 md:p-10 space-y-8 md:space-y-10 rounded-md transform transition-all ease-bounce duration-500 " +
+        `${inView ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-1/3'}`
       }>
         {applicationContent()}
         <div className="flex flex-col lg:flex-row gap-4 font-work">

@@ -8,7 +8,10 @@ import { useInView } from 'react-intersection-observer';
 const UpdateCard: React.FC<UpdateInterface> = ({ update, date, _id }) => {
     const [isConfModalOpen, setIsConfModalOpen] = React.useState(false);
     const { setUpdates } = React.useContext(UpdateContext);
-    const [ref, inView] = useInView({ threshold: 0.1 });
+    const [ref, inView] = useInView({ 
+        threshold: 0.01,
+        triggerOnce: true, 
+    });
 
 
     const handleDelete = async () => {
@@ -35,8 +38,8 @@ const UpdateCard: React.FC<UpdateInterface> = ({ update, date, _id }) => {
 
     return (
         <div ref={ref} className={
-            "p-5 bg-light-100 border-2 border-gray-100 rounded-lg transform transition-transform ease-bounce duration-200" +
-            ` ${inView ? 'scale-100' : 'scale-90'}`
+            "p-5 bg-light-100 border-2 border-neutral-200 rounded-lg transform transition-all ease-bounce duration-500 " +
+            `${inView ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-1/3'}`
         }>
             <div className="flex flex-col space-y-4 font-work">
                 <p className="text-base md:text-lg font-medium text-dark">

@@ -6,35 +6,35 @@ import Dropdown from '../../components/dropdown/Dropdown'
 
 const Applications = () => {
   // Fetching applications from the context
-  const { applications, setFiltersAndSorts } = React.useContext(ApplicationContext);
+  const { applications, setFiltersAndSorts, filters, sorts } = React.useContext(ApplicationContext);
 
   // Filtering functions
 
   const filterByApproved = () => {
     const newFilter = { status: 'Approved' };
-    setFiltersAndSorts(newFilter, {});
+    setFiltersAndSorts(newFilter, sorts);
   }
 
   const filterByPending = () => {
     const newFilter = { status: 'Pending' };
-    setFiltersAndSorts(newFilter, {});
+    setFiltersAndSorts(newFilter, sorts);
   }
 
   const filterByRejected = () => {
     const newFilter = { status: 'Rejected' };
-    setFiltersAndSorts(newFilter, {});
+    setFiltersAndSorts(newFilter, sorts);
   }
 
   // Sorting functions
 
   const sortByCreatedAtDesc = () => {
     const newSort = { sortBy: 'createdAt', order: 'desc' };
-    setFiltersAndSorts({}, newSort);
+    setFiltersAndSorts(filters, newSort);
   }
 
   const sortByCreatedAtAsc = () => {
     const newSort = { sortBy: 'createdAt', order: 'asc' };
-    setFiltersAndSorts({}, newSort);
+    setFiltersAndSorts(filters, newSort);
   }
 
   return (
@@ -46,14 +46,20 @@ const Applications = () => {
       <section className="section">
         <div className='max-w-dsktp mx-auto flex gap-3 justify-end'>
           <Dropdown>
-            <Dropdown.Toggle>Sort By</Dropdown.Toggle>
+            <Dropdown.Toggle>
+              {
+                sorts.order && sorts.sortBy ?
+                  sorts.order === 'asc' ? 'Sort : Oldest First' : 'Sort : Newest First'
+                : 'Sort'
+              }
+            </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item onClick={sortByCreatedAtDesc}>Newest First</Dropdown.Item>
               <Dropdown.Item onClick={sortByCreatedAtAsc}>Oldest First</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown>
-            <Dropdown.Toggle>Filter</Dropdown.Toggle>
+            <Dropdown.Toggle>{filters.status ? `Filter : ${filters.status}` : 'Filter'}</Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item onClick={filterByApproved}>Approved</Dropdown.Item>
               <Dropdown.Item onClick={filterByPending}>Pending</Dropdown.Item>

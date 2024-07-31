@@ -8,7 +8,7 @@ interface DropdownProps {
     onClick?: () => void;
 }
 
-const dropDownCommonStyle = 'px-6 min-h-14 min-w-36 w-full md:w-auto';
+const dropDownCommonStyle = 'px-6 min-h-14 min-w-36 w-full';
 
 const DropdownToggle: React.FC<DropdownProps> = ({ children }) => {
     const { setIsOpen, isOpen } = React.useContext(DropdownContext);
@@ -26,7 +26,7 @@ const DropdownToggle: React.FC<DropdownProps> = ({ children }) => {
     }
 
     return (
-        <button className={`${dropDownCommonStyle} relative border border-neutral-300 flex items-center justify-between rounded-md`} onClick={toggle} onMouseEnter={open} onMouseLeave={close}>
+        <button className={`${dropDownCommonStyle} relative border border-neutral-300 flex items-center gap-3 capitalize justify-between rounded-md`} onClick={toggle} onMouseEnter={open} onMouseLeave={close}>
             {children}
             {
                 isOpen ? <FaAngleUp /> : <FaAngleDown />
@@ -70,7 +70,7 @@ const DropdownItem: React.FC<DropdownProps> = ({ onClick, children }) => {
     }
 
     return (
-        <button className={`${dropDownCommonStyle} text-dark hover:bg-primary hover:text-light-100`} onClick={handleClick}>
+        <button className={`${dropDownCommonStyle} w-full text-dark hover:bg-primary hover:text-light-100`} onClick={handleClick}>
             {children}
         </button>
     )

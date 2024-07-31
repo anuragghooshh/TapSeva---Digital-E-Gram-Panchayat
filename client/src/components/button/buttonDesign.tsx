@@ -2,7 +2,7 @@ const buttonCommonStyle = 'h-min min-w-32 font-regular font-work text-sm md:text
 const buttonAnimation = 'transition-transform duration-200 ease-bounce'
 
 export const buttonDesign: { [key: string]: string } = {
-  stroked: `${buttonCommonStyle} ${buttonAnimation} border border-gray-800`,
+  stroked: `${buttonCommonStyle} ${buttonAnimation} border border-dark`,
   stroked_dark: `${buttonCommonStyle} ${buttonAnimation} border border-dark text-dark`,
   stroked_light: `${buttonCommonStyle} ${buttonAnimation} border border-light-100 text-light-100`,
   stroked_color: `${buttonCommonStyle} ${buttonAnimation} border border-secondary text-secondary`,
