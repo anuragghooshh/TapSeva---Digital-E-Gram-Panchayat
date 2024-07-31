@@ -51,7 +51,7 @@ exports.createService = async (req, res) => {
       applicants : 0
     });
 
-    await newService.save();
+    await newService.save(); 
 
     const services = await service.find();
     res.json(services);
