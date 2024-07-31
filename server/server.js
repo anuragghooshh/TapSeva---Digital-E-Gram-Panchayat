@@ -11,7 +11,7 @@ app.use(express.json({ extended: false }));
 
 app.use(
   cors({
-    origin: "https://tap-seva-digital-e-gram-panchayat-api.vercel.app/",
+    origin: "https://tap-seva-digital-e-gram-panchayat-api.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })

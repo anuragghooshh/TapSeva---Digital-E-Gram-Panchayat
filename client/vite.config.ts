@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://tap-seva-digital-e-gram-panchayat-api.vercel.app/",
+        target: "https://tap-seva-digital-e-gram-panchayat-api.vercel.app",
         changeOrigin: true,
         secure: false,
       },
