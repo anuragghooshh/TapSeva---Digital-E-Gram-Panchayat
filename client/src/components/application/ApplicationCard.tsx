@@ -3,7 +3,10 @@ import Button from '../button/Button'
 import AuthContext from '../../contexts/auth/AuthContext';
 import ApplicationContext from '../../contexts/application/ApplicationContext';
 import ApplicationInterface from '../../interfaces/ApplicationInterface';
-import '../../styles/applicationCard.css';
+import { CgClose } from 'react-icons/cg';
+import { BiCheck } from 'react-icons/bi';
+import { useInView } from 'react-intersection-observer';
+import Confirmation from '../confirmation/Confirmation';
 
 interface ApplicationDetailsInterface extends ApplicationInterface {
   user: {
@@ -18,11 +21,13 @@ interface ApplicationDetailsInterface extends ApplicationInterface {
 }
 
 const ApplicationCard: React.FC<ApplicationInterface> = ({ _id, userId, serviceName, createdAt, status, message, currentOccupation, serviceId }) => {
-  const { userType } = React.useContext(AuthContext);
+  const [isConfModalOpen, setIsConfModalOpen] = React.useState(false);
 
+  // Auth Context
+  const { userType, isLoggedIn } = React.useContext(AuthContext);
 
   // Update application status
-  const { updateApplication } = React.useContext(ApplicationContext);
+  const { updateApplication, withdrawApplication } = React.useContext(ApplicationContext);
 
   const approve = () => {
     updateApplication(_id, 'Approved');
@@ -56,7 +61,8 @@ const ApplicationCard: React.FC<ApplicationInterface> = ({ _id, userId, serviceN
 
   const [loading, setLoading] = React.useState(true);
   const [allDetails, setAllDetails] = React.useState(false);
-  const [error, setError] = React.useState(null);
+  const [ref, inView] = useInView({ threshold: 0.1 });
+
 
   const viewMoreDetails = () => {
     try {
@@ -90,10 +96,8 @@ const ApplicationCard: React.FC<ApplicationInterface> = ({ _id, userId, serviceN
           setApplicationDetails(tempApplicationDetails);
         })
       setLoading(false);
-      console.log("YES CLICKED")
-
     } catch (error) {
-      setError(error as React.SetStateAction<null>);
+      console.error('Error:', error);
     } finally {
       setLoading(false);
     }
@@ -108,97 +112,133 @@ const ApplicationCard: React.FC<ApplicationInterface> = ({ _id, userId, serviceN
     }
   }
 
+  const handleWithdraw = () => {
+    withdrawApplication(_id);
+    setIsConfModalOpen(false);
+  }
+
   const applicationContent = () => {
     return (
-      <div className={`grid details gap-4 ${!loading ? 'viewAll' : null}`}>
+      <div className={
+        `
+          grid grid-cols-1 md:grid-cols-3 gap-5
+          ${!loading ? 'viewAll' : null}
+        `
+      }>
         {userType === 'admin' && (
-          <div className="user-id">
-            <h4 className="font-work text-base font-medium text-gray-700">User ID</h4>
-            <p className="font-work text-base md:text-lg font-semibold text-gray-900 truncate">{userId}</p>
+          <div className="user-id md:col-span-3 lg:col-span-1">
+            <h4 className="font-work text-base font-medium text-neutral-500">User ID</h4>
+            <p className="font-work text-base md:text-lg font-semibold text-dark truncate">{userId}</p>
           </div>
         )}
-        <div className="application-id">
-          <h4 className="font-work text-base font-medium text-gray-700">Application ID</h4>
-          <p className="font-work text-base md:text-lg font-semibold text-gray-900 truncate">{_id}</p>
+        <div className="application-id md:col-span-3 lg:col-span-1">
+          <h4 className="font-work text-base font-medium text-neutral-500">Application ID</h4>
+          <p className="font-work text-base md:text-lg font-semibold text-dark truncate">{_id}</p>
         </div>
         <div className="application-date">
-          <h4 className="font-work text-base font-medium text-gray-700">Application Date</h4>
-          <p className="font-work text-base md:text-lg font-semibold text-gray-900">{new Date(createdAt).toDateString()}</p>
+          <h4 className="font-work text-base font-medium text-neutral-500">Application Date</h4>
+          <p className="font-work text-base md:text-lg font-semibold text-dark">{new Date(createdAt).toDateString()}</p>
         </div>
-        <div className="service-name">
-          <h4 className="font-work text-base font-medium text-gray-700">Service Name</h4>
-          <p className="font-work text-base md:text-lg font-semibold text-gray-900">{serviceName}</p>
+        <div className="service-name md:col-span-2 lg:col-span-1">
+          <h4 className="font-work text-base font-medium text-neutral-500">Service Name</h4>
+          <p className="font-work text-base md:text-lg font-semibold text-dark">{serviceName}</p>
         </div>
         <div className="status">
-          <h4 className="font-work text-base font-medium text-gray-700">Status</h4>
+          <h4 className="font-work text-base font-medium text-neutral-500">Status</h4>
           <p className={`font-work text-base md:text-lg font-semibold ${status === "Approved" ? "text-positive-400" : status === "Rejected" ? "text-negative-400" : "text-dark"}`}>{status}</p>
         </div>
         {!loading && (
           <>
-            <div className="message">
-              <h4 className="font-work text-base font-medium text-gray-700">Message</h4>
-              <p className="font-work text-base md:text-lg font-semibold text-gray-900">{message}</p>
+            <div className="message md:col-span-2">
+              <h4 className="font-work text-base font-medium text-neutral-500">Message</h4>
+              <p className="font-work text-base md:text-lg font-semibold text-dark">{message}</p>
             </div>
             <div className="current-occupation">
-              <h4 className="font-work text-base font-medium text-gray-700">Current Occupation</h4>
-              <p className="font-work text-base md:text-lg font-semibold text-gray-900">{currentOccupation}</p>
+              <h4 className="font-work text-base font-medium text-neutral-500">Current Occupation</h4>
+              <p className="font-work text-base md:text-lg font-semibold text-dark">{currentOccupation}</p>
             </div>
-            <div className="user-details">
-              <h4 className="text-base font-medium text-gray-700 mb-5">User Details</h4>
-              <div className="grid gap-4">
-                <div className="user-name">
-                  <h5 className="font-work text-base font-medium text-gray-700">Name</h5>
-                  <p className="font-work text-base md:text-lg font-semibold text-gray-900">{applicationDetails.user.name}</p>
+            <div className="user-details md:col-span-3 mt-5">
+              <h4 className="text-base font-medium text-neutral-500 mb-5 after:h-0.5 after:w-full after:bg-gray-100 after:block after:mt-3">User Details</h4>
+              <div className="grid gap-5 grid-cols-2 md:grid-cols-3">
+                <div className="user-name col-span-2">
+                  <h5 className="font-work text-base font-medium text-neutral-500">Name</h5>
+                  <p className="font-work text-base md:text-lg font-semibold text-dark">{applicationDetails.user.name}</p>
                 </div>
                 <div className="sex">
-                  <h5 className="font-work text-base font-medium text-gray-700">Sex</h5>
-                  <p className="font-work text-base md:text-lg font-semibold text-gray-900">{applicationDetails.user.sex}</p>
-                </div>
-                <div className="user-address">
-                  <h5 className="font-work text-base font-medium text-gray-700">Address</h5>
-                  <p className="font-work text-base md:text-lg font-semibold text-gray-900">{applicationDetails.user.address}</p>
-                </div>
-                <div className="user-aadhaar">
-                  <h5 className="font-work text-base font-medium text-gray-700">Aadhaar Number</h5>
-                  <p className="font-work text-base md:text-lg font-semibold text-gray-900">{applicationDetails.user.aadhaarNo}</p>
+                  <h5 className="font-work text-base font-medium text-neutral-500">Sex</h5>
+                  <p className="font-work text-base md:text-lg font-semibold text-dark">{applicationDetails.user.sex}</p>
                 </div>
                 <div className="user-dob">
-                  <h5 className="font-work text-base font-medium text-gray-700">Date of Birth</h5>
-                  <p className="font-work text-base md:text-lg font-semibold text-gray-900">{new Date(applicationDetails.user.dob).toDateString()}</p>
+                  <h5 className="font-work text-base font-medium text-neutral-500">Date of Birth</h5>
+                  <p className="font-work text-base md:text-lg font-semibold text-dark">{new Date(applicationDetails.user.dob).toDateString()}</p>
                 </div>
+                <div className="user-aadhaar col-span-2 md:col-span-1">
+                  <h5 className="font-work text-base font-medium text-neutral-500">Aadhaar Number</h5>
+                  <p className="font-work text-base md:text-lg font-semibold text-dark">{applicationDetails.user.aadhaarNo}</p>
+                </div>
+
                 <div className="user-marital-status">
-                  <h5 className="font-work text-base font-medium text-gray-700">Marital Status</h5>
-                  <p className="font-work text-base md:text-lg font-semibold text-gray-900">{applicationDetails.user.maritalStatus}</p>
+                  <h5 className="font-work text-base font-medium text-neutral-500">Marital Status</h5>
+                  <p className="font-work text-base md:text-lg font-semibold text-dark">{applicationDetails.user.maritalStatus}</p>
+                </div>
+                <div className="user-address col-span-2 md:col-span-3">
+                  <h5 className="font-work text-base font-medium text-neutral-500">Address</h5>
+                  <p className="font-work text-base md:text-lg font-semibold text-dark">{applicationDetails.user.address}</p>
                 </div>
               </div>
             </div>
           </>
         )}
-        <button onClick={toggleAllDetails} className='underline cursor-pointer font-work text-dark view-more text-left'>{loading ? "View More" : "View Less"}</button>
+        {
+          isLoggedIn && userType !== 'villager' && (
+            <button onClick={toggleAllDetails} className='underline cursor-pointer font-work text-dark view-more text-left'>{loading ? "View More" : "View Less"}</button>
+          )
+        }
       </div>
     )
   }
 
 
   return (
-    <div className="application-card w-full max-w-7xl border border-neutral-300 mx-auto mt-5 p-6 sm:p-8 md:p-10 space-y-8 md:space-y-10 rounded-md">
-      {applicationContent()}
-      <div className="flex flex-col md:flex-row gap-4 font-work">
-        <p className="w-full md:basis-3/6 text-base md:text-lg text-gray-800 font-work">
-          Please visit your nearest panchayat office to retrieve your documents by mentioning your User ID.
-        </p>
-        <div className="w-full md:basis-3/6 flex flex-col md:flex-row items-end justify-end gap-2 md:gap-4">
-          {userType === 'admin' ? (
-            <>
-              <Button color='negative' onClick={reject}>Reject</Button>
-              <Button color='positive' onClick={approve}>Approve</Button>
-            </>
-          ) : (
-            <Button>Withdraw</Button>
-          )}
+    <>
+      <div ref={ref} className={
+        "bg-light-100 w-full max-w-7xl border-2 border-gray-100 mx-auto mt-5 p-6 sm:p-8 md:p-10 space-y-8 md:space-y-10 rounded-md transform transition-transform ease-bounce duration-200 " +
+        `${inView ? 'scale-100' : 'scale-90'}`
+      }>
+        {applicationContent()}
+        <div className="flex flex-col lg:flex-row gap-4 font-work">
+          {
+            isLoggedIn && userType == 'villager' && status == 'Approved' && (
+              <p className="w-full text-base md:text-lg text-gray-800 font-work">
+                Please visit your nearest panchayat office to acquire your documents by mentioning your User ID.
+              </p>
+            )
+          }
+          <div className="w-full grid gap-2 md:flex md:items-end md:justify-end">
+            {userType != 'villager' ? (
+              status === 'Pending' ? (
+                <>
+                  <Button color='negative' onClick={reject}>Reject<CgClose /></Button>
+                  <Button color='positive' onClick={approve}>Approve<BiCheck /></Button>
+                </>
+              ) : (
+                <Button design='stroked' color='disabled'>{status}</Button>
+              )
+            ) : status === 'Pending' ? (<Button color='dark' onClick={() => { setIsConfModalOpen(true) }}>Withdraw</Button>) : (
+              <Button design='stroked' color='disabled'>{status}</Button>
+            )
+            }
+          </div>
         </div>
       </div>
-    </div>
+      <Confirmation
+        isOpen={isConfModalOpen}
+        title='Withdraw Application'
+        message='Are you sure you want to withdraw your application?'
+        onConfirm={handleWithdraw}
+        onCancel={() => { setIsConfModalOpen(false) }}
+      />
+    </>
   )
 }
 

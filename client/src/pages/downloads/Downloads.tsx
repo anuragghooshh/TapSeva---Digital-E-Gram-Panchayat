@@ -30,7 +30,7 @@ const Downloads = () => {
         <Hero.Title>Downloads</Hero.Title>
         <Hero.Subtitle>Download printable service forms which can be submitted offline to the Panchayat.</Hero.Subtitle>
       </Hero>
-      <section className="py-10 md:py-16 lg:py-20" >
+      <section className="section" >
         <div className='max-w-dsktp mx-auto' >
           <Tabs>
             {
@@ -56,15 +56,15 @@ const Downloads = () => {
                         serviceName={service.service_name}
                         serviceDescription={service.description}
                         serviceType={service.category}
-                        DownloadableForm={service.DownloadableForm !== 'NA'}
+                        DownloadableForm={service.DownloadableForm !== 'NA' ? service.DownloadableForm : null}
                         _id={service._id}
                       />
                     ))
                   }
                 </div>
               ) : (
-                <div className="text-center">
-                  <h1 className="text-xl font-semibold text-gray-700">No Services Available</h1>
+                <div className="text-center min-h-40 grid place-items-center">
+                  <h1 className="text-2xl md:text-3xl lg:text-4xl font-gyst font-semibold text-neutral-300">No such downloads available</h1>
                 </div>
               )
             }

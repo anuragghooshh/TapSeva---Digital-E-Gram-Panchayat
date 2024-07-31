@@ -12,7 +12,6 @@
   ;
 }
 
-/* Responsive adjustments */
 @media (max-width: 1024px) {
   .overview {
     grid-template-areas:

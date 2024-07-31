@@ -6,8 +6,11 @@ import Hero from '../../components/hero/Hero';
 import ServiceCard from '../../components/serviceCard/ServiceCard';
 import ServiceContext from '../../contexts/service/ServiceContext';
 import servicesBG from '../../assets/images/servicesBG.jpg';
+import ServiceForm from '../../components/forms/ServiceForm/ServiceForm';
+import AuthContext from '../../contexts/auth/AuthContext';
 
 const ServicesLayout = () => {
+    const { userType } = React.useContext(AuthContext);
     const [searchParams] = useSearchParams();
     const categoryFilter = searchParams.get('category');
 
@@ -30,23 +33,28 @@ const ServicesLayout = () => {
         <div className='page' id='services'>
             <Hero imgSrc={servicesBG}>
                 <Hero.Title>Services</Hero.Title>
-                <Hero.Subtitle>Choose from a wide range of services to make your life easier.</Hero.Subtitle>
+                <Hero.Subtitle>Find helpful services to make life simpler and better.</Hero.Subtitle>
             </Hero>
-            <section className="py-10 md:py-16 lg:py-20">
+            <section className="section">
                 <div className='max-w-dsktp mx-auto'>
-                    <Tabs>
+                    <div className='flex justify-end items-end flex-col gap-5 lg:flex-row lg:justify-between'>
+                        <Tabs>
+                            {
+                                tabsData.map((tab, index) => (
+                                    <Tabs.Tab
+                                        key={index}
+                                        name={tab.label}
+                                        path={tab.path}
+                                    >
+                                        {tab.label}
+                                    </Tabs.Tab>
+                                ))
+                            }
+                        </Tabs>
                         {
-                            tabsData.map((tab, index) => (
-                                <Tabs.Tab
-                                    key={index}
-                                    name={tab.label}
-                                    path={tab.path}
-                                >
-                                    {tab.label}
-                                </Tabs.Tab>
-                            ))
+                            userType === 'admin' && <ServiceForm />
                         }
-                    </Tabs>
+                    </div>
                     <div className='max-w-dsktp mx-auto mt-16 lg:mt-20'>
                         {filteredServices.length > 0 ?
                             (
@@ -58,15 +66,15 @@ const ServicesLayout = () => {
                                                 serviceName={service.service_name}
                                                 serviceDescription={service.description}
                                                 serviceType={service.category}
-                                                DownloadableForm={service.DownloadableForm !== 'NA'}
+                                                DownloadableForm={service.DownloadableForm !== 'NA' ? service.DownloadableForm : null}
                                                 _id={service._id}
                                             />
                                         ))
                                     }
                                 </div>
                             ) : (
-                                <div className="text-center">
-                                    <h1 className="text-xl font-semibold text-gray-700">No Services Available</h1>
+                                <div className="text-center min-h-40 grid place-items-center">
+                                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-gyst font-semibold text-neutral-300">No such services available</h1>
                                 </div>
                             )
                         }

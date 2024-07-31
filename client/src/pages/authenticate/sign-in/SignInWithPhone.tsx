@@ -11,16 +11,16 @@ const SignInWithPhone = () => {
           <InputAndLabel>
             <div className='flex justify-between'>
               <InputAndLabel.Label htmlFor='phone'>Phone</InputAndLabel.Label>
-              <Link to="email" className='text-xs underline font-work text-dark' >Log In with email instead</Link>
+              <Link title='Log In with Email Instead' to="email" className='text-xs underline font-work text-dark' replace={true} >Log In with email instead</Link>
             </div>
-            <InputAndLabel.Input type='tel' placeholder='Enter your phone number' id='phone' name='phone' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
+            <InputAndLabel.Input type='tel' placeholder='Enter your phone number' id='phone' name='phone' required={true} value='' onChange={function (_e: React.ChangeEvent<HTMLInputElement>): void {
               throw new Error('Function not implemented.')
             }} />
           </InputAndLabel>
           <p className='text-xs font-work text-gray-300' >Enter your mobile number and we'll send you an OTP to confirm it's you. Then enter it below.</p>
         </div>
         <div className='space-y-2'>
-          <Button>Send OTP</Button>
+          <Button color='dark'>Send OTP</Button>
           <div className='space-x-1'>
             <p className='inline text-xs font-work text-gray-300'>Didn't receive?</p>
             <button className='text-xs underline font-work text-dark' >Resend</button>
@@ -31,13 +31,13 @@ const SignInWithPhone = () => {
       <div className='space-y-5'>
         <InputAndLabel>
           <InputAndLabel.Label htmlFor='otp' >Enter your OTP</InputAndLabel.Label>
-          <InputAndLabel.Input type='text' placeholder='Write here' id='otp' name='otp' required={true} value='' onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
+          <InputAndLabel.Input type='text' placeholder='Write here' id='otp' name='otp' required={true} value='' onChange={function (_e: React.ChangeEvent<HTMLInputElement>): void {
             throw new Error('Function not implemented.')
           }} />
         </InputAndLabel>
         <div className='grid grid-cols-1 gap-5 lg:flex'>
           <Button design='stroked' >Clear</Button>
-          <Button>Verify and Log In</Button>
+          <Button color='disabled'>Verify and Log In</Button>
         </div>
       </div>
     </form>

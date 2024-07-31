@@ -15,6 +15,8 @@ import Applications from "./pages/applications/Applications"
 import Profile from "./pages/profile/Profile"
 import Dashboard from "./pages/dashboard/Dashboard"
 import AuthContext from "./contexts/auth/AuthContext"
+import Users from "./pages/users/Users"
+import Updates from "./pages/updates/Updates"
 
 function App() {
   const { isLoggedIn, userType } = React.useContext(AuthContext);
@@ -35,6 +37,14 @@ function App() {
     </>
   );
 
+  const adminRoutes = userType === 'admin' && (
+    <Route path="users" element={<Users />} />
+  );
+
+  const adminAndStaffRoutes = (userType === 'admin' || userType === 'staff') && (
+    <Route path="updates" element={<Updates/>} />
+  );
+
   const authRoutes = !isLoggedIn && (
     <Route path="auth" element={<AuthLayout />}>
       <Route path="signin" element={<SignInLayout />}>
@@ -48,9 +58,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={userType !== 'admin' ? <Home /> : <Dashboard />} />
+        <Route index element={userType == 'villager' ? <Home /> : <Dashboard />} />
         {publicRoutes}
         {privateRoutes}
+        {adminRoutes}
+        {adminAndStaffRoutes}
       </Route>
       {authRoutes}
     </Routes>

@@ -5,6 +5,7 @@ interface ApplicationContextInterface {
     applications: ApplicationInterface[];
     createApplication: (applicationData: any) => void;
     updateApplication: (applicationId: string, status: string) => void;
+    withdrawApplication: (applicationId: string) => void;
     applicationStats: {
         totalApplications: number;
         pendingApplications: number;
@@ -18,6 +19,7 @@ const ApplicationContext = React.createContext<ApplicationContextInterface>({
     applications: [],
     createApplication: () => { },
     updateApplication: () => { },
+    withdrawApplication: () => { },
     applicationStats: {
         totalApplications: 0,
         pendingApplications: 0,

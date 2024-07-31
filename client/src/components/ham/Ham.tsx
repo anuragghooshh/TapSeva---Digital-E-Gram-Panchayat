@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../styles/ham.css';
 
 interface HamProps {
     task(e: any): void,
@@ -8,8 +7,8 @@ interface HamProps {
 
 const Ham: React.FC<HamProps> = ({ task, activeStatus }) => {
     return (
-        <button id="ham" title='Ham' onClick={task} className={activeStatus}>
-            <div></div>
+        <button id="ham" title='Ham' onClick={task} className={`${activeStatus} after:bg-primary before:bg-primary`}>
+            <div className='bg-primary'></div>
         </button>
     );
 }

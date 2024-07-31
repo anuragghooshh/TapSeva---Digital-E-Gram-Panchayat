@@ -2,7 +2,7 @@ const User = require("../models/user");
 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find({ role: { $ne: "admin" } }).select(
+    const users = await User.find().select(
       "-password"
     ); // Exclude password field
     res.json(users);
@@ -12,25 +12,14 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-exports.updateUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updateData = req.body;
-    const user = await User.findByIdAndUpdate(id, updateData, {
-      new: true,
-    }).select("-password");
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
-
 exports.deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
+
     await User.findByIdAndDelete(id);
-    res.json({ msg: "User deleted" });
+
+    const newUsers = await User.find().select("-password");
+    res.json(newUsers);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

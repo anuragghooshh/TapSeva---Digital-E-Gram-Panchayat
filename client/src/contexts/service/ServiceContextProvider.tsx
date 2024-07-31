@@ -3,7 +3,7 @@ import ServiceContext from './ServiceContext';
 import ServiceInterface from '../../interfaces/ServiceInterface';
 import AuthContext from '../auth/AuthContext';
 
-interface ServiceContextInterface {
+interface ServiceContextProviderInterface {
     children: React.ReactNode;
 }
 
@@ -12,8 +12,8 @@ interface ServiceCategory {
     count: number;
 }
 
-const ServiceContextProvider: React.FC<ServiceContextInterface> = ({ children }) => {
-    // const { userType, isLoggedIn } = React.useContext(AuthContext);
+const ServiceContextProvider: React.FC<ServiceContextProviderInterface> = ({ children }) => {
+    const { userType, isLoggedIn } = React.useContext(AuthContext);
 
     const [services, setServices] = React.useState<ServiceInterface[]>([]);
     const [servicesStats, setServicesStats] = React.useState<ServiceCategory[]>([]);
@@ -40,18 +40,17 @@ const ServiceContextProvider: React.FC<ServiceContextInterface> = ({ children })
             then(data => {
                 const tempStats = [...data];
                 setServicesStats(tempStats);
-                console.log(tempStats)
             }).
             catch(err => console.log('Error Fetching Services Stats: ', err));
     }
 
     React.useEffect(() => {
         fetchServices();
-        fetchStats();
+        isLoggedIn && userType !== 'villager' && fetchStats();
     }, []);
 
     return (
-        <ServiceContext.Provider value={{ services, servicesStats }} >
+        <ServiceContext.Provider value={{ services, servicesStats, setServices }} >
             {children}
         </ServiceContext.Provider>
     )

@@ -16,11 +16,11 @@ export default {
         navdsktp : "6rem",
       },
       padding:{
-        navdsktp : "7.25rem",
+        nav : "7.25rem",
         navmob : "6rem"
       },
       minHeight: {
-        hero : "calc(100vh - 6rem)",
+        hero : "calc(100vh - 6rem - 2.5rem)",
         footer : "30rem",
       },
       maxWidth:{
@@ -43,22 +43,23 @@ export default {
           300 : "#7F8D4F",
         },
         positive: {
-          100: "#C8E69A",
-          200: "#B2D77A",
-          300: "#95BD59",
-          400: "#84A94D",
+          100: "#E4F0C1",
+          200: "#C7E28D",
+          300: "#90ad51",
+          400: "#7f993d",
         },
         negative: {
-          100: "#FFC9C9",
-          200: "#F5AEAE",
-          300: "#F09696",
-          400: "#DB6464",
+          100: "#F0C4B1",
+          200: "#E5A08A",
+          300: "#D17A5B",
+          400: "#c2564a",
         },
         neutral: {
           100: "#F2F2F2",
           200: "#E6E6E6",
           300: "#D9D9D9",
           400: "#BFBFBF",
+          500: "#737373",
         },
       },
       borderRadius: {
@@ -76,9 +77,13 @@ export default {
         work: ["Work Sans", "sans-serif"],
       },
       translate:{
-        nav : "calc(-100% - 1.25rem)"
+        nav : "calc(-100% - 1.25rem)",
+        sidebar : "6rem"
       }
     },
+    transitionTimingFunction: {
+      bounce : "cubic-bezier(.68,-0.15,.41,.96)"
+    }
   },
   plugins: [],
 };

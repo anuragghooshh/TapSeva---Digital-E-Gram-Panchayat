@@ -3,22 +3,10 @@ import Hero from '../../components/hero/Hero'
 import ApplicationCard from '../../components/application/ApplicationCard'
 import ApplicationContext from '../../contexts/application/ApplicationContext'
 import Dropdown from '../../components/dropdown/Dropdown'
-import ApplicationDetailsModal from './ApplicationDetailsModal'
-
-interface SortState {
-  sortBy: string;
-  order: string;
-}
-
-interface FilterState {
-  status: string;
-}
 
 const Applications = () => {
   // Fetching applications from the context
   const { applications, setFiltersAndSorts } = React.useContext(ApplicationContext);
-
-  const [selectedApplicationId, setSelectedApplicationId] = React.useState<string | null>(null);
 
   // Filtering functions
 
@@ -53,10 +41,10 @@ const Applications = () => {
     <div className='page' id='applications'>
       <Hero design='clean'>
         <Hero.Title>Applications</Hero.Title>
-        <Hero.Subtitle>Applications</Hero.Subtitle>
+        <Hero.Subtitle>View all the applications below</Hero.Subtitle>
       </Hero>
-      <section className="py-10 md:py-16 lg:py-20">
-        <div className='max-w-dsktp mx-auto flex space-x-5 justify-end'>
+      <section className="section">
+        <div className='max-w-dsktp mx-auto flex gap-3 justify-end'>
           <Dropdown>
             <Dropdown.Toggle>Sort By</Dropdown.Toggle>
             <Dropdown.Menu>
@@ -75,28 +63,29 @@ const Applications = () => {
         </div>
         <div className='max-w-dsktp mx-auto' >
           {
-            applications.map((application) => (
-              <ApplicationCard
-                key={application._id}
-                userId={application.userId}
-                serviceName={application.serviceName}
-                serviceId={application.serviceId}
-                createdAt={application.createdAt}
-                status={application.status}
-                _id={application._id}
-                currentOccupation={application.currentOccupation}
-                message={application.message}
-              />
-            ))
-          }
-          {
-            selectedApplicationId && (
-              <ApplicationDetailsModal applicationId={selectedApplicationId} closeModal={() => setSelectedApplicationId(null)} />
+            applications.length > 0 ? (
+              applications.map((application) => (
+                <ApplicationCard
+                  key={application._id}
+                  userId={application.userId}
+                  serviceName={application.serviceName}
+                  serviceId={application.serviceId}
+                  createdAt={application.createdAt}
+                  status={application.status}
+                  _id={application._id}
+                  currentOccupation={application.currentOccupation}
+                  message={application.message}
+                />
+              ))
+            ) : (
+              <div className="text-center min-h-40 grid place-items-center">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-gyst font-semibold text-neutral-300">No such applications</h1>
+              </div>
             )
           }
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   )
 }
 

@@ -1,6 +1,5 @@
 const Application = require("../models/application");
 const Service = require("../models/service");
-const User = require("../models/user");
 
 exports.createApplication = async (req, res) => {
   const { message, currentOccupation, serviceId, serviceName } = req.body;
@@ -31,10 +30,14 @@ exports.getUserApplications = async (req, res) => {
   const userId = req.user.id;
   const { status, sortBy, order = "asc" } = req.query;
 
+  console.log(userId);
+
   let query = {};
+
+  query.userId = userId;
+
   if (status) {
     query.status = status;
-    query.userId = userId;
   }
 
   // Build sort object
@@ -77,15 +80,13 @@ exports.updateApplication = async (req, res) => {
   const { applicationId, status } = req.body;
 
   try {
-    const application = await Application.findOneAndUpdate(
+    await Application.findOneAndUpdate(
       { _id: applicationId },
       { status: status }
     );
 
-    if (application) {
-      const allApplications = await Application.find();
-      res.json(allApplications);
-    }
+    res.json({ message: "Application updated" });
+
   } catch (error) {
     res.status(500).json({ error: "Error updating application" });
   }
@@ -127,9 +128,19 @@ exports.getApplicationById = async (req, res) => {
       return res.status(404).json({ error: "Application not found" });
     }
     res.json(application);
-    console.log(application);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Error getting application" });
+  }
+};
+
+exports.deleteApplication = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Application.findByIdAndDelete(id);
+    res.json({ message: "Application deleted" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Error deleting application" });
   }
 };

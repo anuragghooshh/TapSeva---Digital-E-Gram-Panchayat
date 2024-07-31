@@ -4,7 +4,7 @@ import SignInWithGoogle from '../../../components/signInWithGoogle/SignInWithGoo
 
 const SignInLayout = () => {
     return (
-        <section className="py-10" id='signIn'>
+        <section className="lg:py-20 md:py-16 py-12" id='signIn'>
             <div className='max-w-dsktp mx-auto flex flex-col-reverse lg:flex-row border-2 border-gray-100 rounded-md overflow-hidden'>
                 <Outlet />
                 <div 

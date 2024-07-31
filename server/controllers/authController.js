@@ -1,4 +1,3 @@
-// const admin = require("../config/firebase");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -83,7 +82,6 @@ const registerUser = async (req, res) => {
 // };
 
 const googleAuth = async (req, res) => {
-  console.log("Backend Started");
   const { idToken } = req.body;
 
   try {
@@ -116,13 +114,5 @@ const googleAuth = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
-
-//Test
-// const googleAuth = async (req, res) =>{
-//   res.send({
-//     status : "Backend Working"
-//   });
-//   console.log("Backend Working")
-// }
 
 module.exports = { registerUser, googleAuth };

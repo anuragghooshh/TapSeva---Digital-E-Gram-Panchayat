@@ -36,3 +36,28 @@ exports.getServicesStats = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+
+exports.createService = async (req, res) => {
+  try{
+    const {service_name, description, category, DownloadableForm}  = req.body;
+
+    const newService = new service({
+      service_name : service_name,
+      description : description,
+      category : category,
+      DownloadableForm : DownloadableForm ? DownloadableForm : "NA",
+      featured : false,
+      applicants : 0
+    });
+
+    await newService.save();
+
+    const services = await service.find();
+    res.json(services);
+
+  }catch(err){
+    console.error("Error creating service:", err);
+    res.status(500).json({message: "Server Error"});
+  }
+}

@@ -8,23 +8,25 @@ interface DropdownProps {
     onClick?: () => void;
 }
 
-const dropDownCommonStyle = 'px-6 min-h-14 min-w-36';
+const dropDownCommonStyle = 'px-6 min-h-14 min-w-36 w-full md:w-auto';
 
 const DropdownToggle: React.FC<DropdownProps> = ({ children }) => {
     const { setIsOpen, isOpen } = React.useContext(DropdownContext);
 
     const open = () => {
         setIsOpen(true);
-        console.log('open');
     }
 
     const close = () => {
         setIsOpen(false);
-        console.log('close');
+    }
+
+    const toggle = () => {
+        isOpen ? close() : open();
     }
 
     return (
-        <button className={`${dropDownCommonStyle} relative border flex items-center justify-between rounded-md`} onMouseEnter={open} onMouseLeave={close}>
+        <button className={`${dropDownCommonStyle} relative border border-neutral-300 flex items-center justify-between rounded-md`} onClick={toggle} onMouseEnter={open} onMouseLeave={close}>
             {children}
             {
                 isOpen ? <FaAngleUp /> : <FaAngleDown />
@@ -38,18 +40,16 @@ const DropdownMenu: React.FC<DropdownProps> = ({ children }) => {
 
     const open = () => {
         setIsOpen(true);
-        console.log('open');
     }
 
     const close = () => {
         setIsOpen(false);
-        console.log('close');
     }
 
     return (
         isOpen ? (
             <div className='flex flex-col absolute left-0 pt-4' onMouseEnter={open} onMouseLeave={close}>
-                <div className='bg-gray-100 border shadow-lg rounded-md overflow-hidden'>
+                <div className='bg-light-100 border border-neutral-300 rounded-md overflow-hidden z-40'>
                     {children}
                 </div>
             </div>
@@ -58,8 +58,19 @@ const DropdownMenu: React.FC<DropdownProps> = ({ children }) => {
 }
 
 const DropdownItem: React.FC<DropdownProps> = ({ onClick, children }) => {
+    const { setIsOpen } = React.useContext(DropdownContext);
+
+    const close = () => {
+        setIsOpen(false);
+    }
+
+    const handleClick = () => {
+        onClick && onClick();
+        close();
+    }
+
     return (
-        <button className={`${dropDownCommonStyle} text-dark hover:bg-primary hover:text-light-100`} onClick={onClick}>
+        <button className={`${dropDownCommonStyle} text-dark hover:bg-primary hover:text-light-100`} onClick={handleClick}>
             {children}
         </button>
     )
@@ -71,24 +82,10 @@ const Dropdown: React.FC<DropdownProps> & {
     Item: React.FC<DropdownProps>;
 } = ({ children }) => {
 
-    const { setIsOpen } = React.useContext(DropdownContext);
-    const [hover, setHover] = React.useState(false);
-
-
-    const open = () => {
-        setIsOpen(true);
-        console.log('open');
-    }
-
-    const close = () => {
-        setIsOpen(false);
-        console.log('close');
-    }
-
     return (
         <DropdownContextProvider>
-            <div className='relative' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-                <div onMouseEnter={() => open} onMouseLeave={() => setHover(false)}>
+            <div className='relative w-full md:w-auto'>
+                <div>
                     {children}
                 </div>
             </div>

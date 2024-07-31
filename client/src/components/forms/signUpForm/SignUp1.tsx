@@ -9,7 +9,7 @@ const SignUp1: React.FC<SignUpProps> = ({ handleChange, input, errors }) => {
             <InputAndLabel required>
                 <InputAndLabel.Label htmlFor='name'>Name</InputAndLabel.Label>
                 <InputAndLabel.Input type='text' placeholder='Enter your Name' id='name' name='name' required={true} value={input.name} onChange={handleChange} />
-                {errors.name && <p className="text-red-500">{errors.name}</p>}
+                {errors.name && <p className="font-work text-negative-400 text-sm lg:text-base">{errors.name}</p>}
             </InputAndLabel>
             <InputAndLabel>
                 <InputAndLabel.Label htmlFor='sex'>Sex</InputAndLabel.Label>
@@ -19,17 +19,17 @@ const SignUp1: React.FC<SignUpProps> = ({ handleChange, input, errors }) => {
                     <InputAndLabel.Select.Option value='Female'>Female</InputAndLabel.Select.Option>
                     <InputAndLabel.Select.Option value='Other'>Other</InputAndLabel.Select.Option>
                 </InputAndLabel.Select>
-                { errors.sex && <p className="text-red-500">{errors.sex}</p> }
+                { errors.sex && <p className="font-work text-negative-400 text-sm lg:text-base">{errors.sex}</p> }
             </InputAndLabel>
                 <InputAndLabel>
                     <InputAndLabel.Label htmlFor='dob'>DOB</InputAndLabel.Label>
                     <InputAndLabel.Input type='date' placeholder='Enter your Date of Birth' id='dob' name='dob' required={true} value={input.dob} onChange={handleChange} />
-                    { errors.dob && <p className="text-red-500">{errors.dob}</p> }
+                    { errors.dob && <p className="font-work text-negative-400 text-sm lg:text-base">{errors.dob}</p> }
                 </InputAndLabel>
                 <InputAndLabel>
                     <InputAndLabel.Label htmlFor='address'>Address</InputAndLabel.Label>
                     <InputAndLabel.Input type='text' placeholder='Enter your Address' id='address' name='address' required={true} value={input.address} onChange={handleChange} />
-                    { errors.address && <p className="text-red-500">{errors.address}</p> }
+                    { errors.address && <p className="font-work text-negative-400 text-sm lg:text-base">{errors.address}</p> }
                 </InputAndLabel>
                 <InputAndLabel>
                     <InputAndLabel.Label htmlFor='maritalStatus'>Marital Status</InputAndLabel.Label>
@@ -40,7 +40,7 @@ const SignUp1: React.FC<SignUpProps> = ({ handleChange, input, errors }) => {
                         <InputAndLabel.Select.Option value='Divorced'>Divorced</InputAndLabel.Select.Option>
                         <InputAndLabel.Select.Option value='Widowed'>Widowed</InputAndLabel.Select.Option>
                     </InputAndLabel.Select>
-                    { errors.maritalStatus && <p className="text-red-500">{errors.maritalStatus}</p> }
+                    { errors.maritalStatus && <p className="font-work text-negative-400 text-sm lg:text-base">{errors.maritalStatus}</p> }
                 </InputAndLabel>
         </div>
     )

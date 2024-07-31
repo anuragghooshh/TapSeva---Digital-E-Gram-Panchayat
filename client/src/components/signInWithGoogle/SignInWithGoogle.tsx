@@ -9,12 +9,10 @@ const SignInWithGoogle = () => {
   const { loginWithGoogle } = React.useContext(AuthContext);
 
   const handleSignIn = async () => {
-    console.log("SIGN IN WITH GOOGLE PRESSED");
 
     try {
       const result = await signInWithPopup(auth, provider);
       const token = await result.user.getIdToken();
-      console.log('Token:', token);
 
       // Send the token to your backend
       const response = await fetch('/api/auth/google', {
@@ -28,7 +26,6 @@ const SignInWithGoogle = () => {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        console.log('Sign-in successful, token saved:', data.token);
         loginWithGoogle();
       } else {
         console.error('Error during sign-in:', data.msg);

@@ -44,10 +44,6 @@ const SignUpForm = () => {
             ...input,
             [event.target.name]: event.target.value,
         });
-        console.log({
-            ...input,
-            [event.target.name]: event.target.value,
-        })
     };
 
     const clear = () => {
@@ -101,7 +97,6 @@ const SignUpForm = () => {
         postData.password = input.password;
 
         try {
-            console.log(postData)
             const response = await fetch('/api/auth/signup', {
                 headers: {
                     'Content-Type': 'application/json',
@@ -113,9 +108,6 @@ const SignUpForm = () => {
             if (!response.ok) {
                 throw new Error('Failed to submit form');
             }
-
-            const result = await response.json();
-            console.log(result);
         } catch (error) {
             console.error('Error:', error);
         } finally {
@@ -132,8 +124,9 @@ const SignUpForm = () => {
         setStep(step - 1);
     };
 
-    const validateStep = (currentStep : number) => {
+    const validateStep = (currentStep: number) => {
         let newErrors = {} as any;
+        const cleanedAadhaarNo = input.aadhaarNo.replace(/\s+/g, '');
 
         if (currentStep === 1) {
             if (!input.name) newErrors.name = 'Required*';
@@ -143,7 +136,9 @@ const SignUpForm = () => {
         }
 
         if (currentStep === 2) {
-            if (!input.aadhaarNo || !/^\d{12}$/.test(input.aadhaarNo)) newErrors.aadhaarNo = 'Aadhaar number must be 12 digits';
+            if (!/^\d{12}$/.test(cleanedAadhaarNo)) {
+                newErrors.aadhaarNo = 'Aadhaar number must be 12 digits and formatted as XXXX XXXX XXXX';
+            }
             if (!input.email || !/\S+@\S+\.\S+/.test(input.email)) newErrors.email = 'Email is invalid';
             if (!input.phone || !/^\d{10}$/.test(input.phone)) newErrors.phone = 'Phone number must be 10 digits';
         }
@@ -167,27 +162,29 @@ const SignUpForm = () => {
 
     return (
         <form className='w-full basis-3/5 space-y-10 py-10 px-5 lg:px-12' onSubmit={handleSubmit}>
-            <div className="progressbar h-5 w-full bg-gray p-1 border">
-                <div className='h-full w-full bg-tertiary transition-transform ease-in-out duration-500'
-                    style={{
-                        transform: `scaleX(${progressWidth})`,
-                        transformOrigin: 'left',
-                    }}
-                />
+            <div>
+                <p className='font-work text-sm text-gray-200 mb-2'>Progress</p>
+                <div className="progressbar h-5 w-full bg-gray border rounded-full overflow-hidden">
+                    <div className='h-full w-full bg-tertiary transition-transform ease-in-out duration-500'
+                        style={{
+                            transform: `scaleX(${progressWidth})`,
+                            transformOrigin: 'left',
+                        }}
+                    />
+                </div>
             </div>
 
-            {step === 1 && <SignUp1 input={input} handleChange={handleChange} errors={errors}/>}
-            {step === 2 && <SignUp2 input={input} handleChange={handleChange} errors={errors}/>}
-            {step === 3 && <SignUp3 input={input} handleChange={handleChange} errors={errors}/>}
+            {step === 1 && <SignUp1 input={input} handleChange={handleChange} errors={errors} />}
+            {step === 2 && <SignUp2 input={input} handleChange={handleChange} errors={errors} />}
+            {step === 3 && <SignUp3 input={input} handleChange={handleChange} errors={errors} />}
 
-            <div className='grid grid-cols-1 w-full md:flex justify-end gap-5'>
+            <div className='grid grid-cols-1 w-full md:flex justify-end gap-3'>
                 {step > 1 && <Button design='stroked' onClick={prevStep}>Previous</Button>}
                 {step < 3 && <Button color='dark' onClick={nextStep}>Next</Button>}
-                {   step == 3 ? 
-                        <Button color='dark' type='submit'>Sign Up</Button> : 
+                {step == 3 ?
+                    <Button color='color' type='submit'>Sign Up</Button> :
                     null
                 }
-                {/* <button type='button' onClick={handleSubmit} className='bg-dark text-light px-5 py-2 rounded-lg'>Sign Up</button> */}
             </div>
         </form>
     )

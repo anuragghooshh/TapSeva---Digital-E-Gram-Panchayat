@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ApplicationContext from './ApplicationContext'
 import AuthContext from '../auth/AuthContext';
 import ApplicationInterface from '../../interfaces/ApplicationInterface';
@@ -51,7 +51,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
 
     // Set Filters and Sorts
     const setFiltersAndSorts = (filters: ApplicationFilterInterface, sorts: ApplicationSortInterface): Promise<void> => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, _reject) => {
             setFilters(filters)
             setSorts(sorts);
             resolve();
@@ -154,13 +154,12 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
                 console.log('Failed to create applications', data.msg);
             }
         } catch (err) {
-            console.log("Err creating application.", err)
+            console.log("Error creating application.", err)
         }
     }
 
     // Update application status
-    const updateApplication = async (applicationId: string, status: string) => {
-        console.log(`Updating application ${applicationId} with status ${status}`);
+    const updateApplication = React.useCallback(async (applicationId: string, status: string) => {
 
         const applicationDetails = {
             applicationId: applicationId,
@@ -168,25 +167,45 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         }
 
         try {
-            await fetch('/api/applications/update-status', {
+            const response = await fetch('/api/applications/update-status', {
                 method: 'put',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(applicationDetails),
-            }).
-                then((res) => res.json()).
-                then((data) => {
-                    const tempApplications = [...data];
-                    setApplications(tempApplications);
-                }).
-                catch((err) => {
-                    console.log('Error updating application status', err);
-                });
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
         } catch (err) {
             console.log('Error updating application status', err);
         }
-    }
+    }, []);
+
+    // Withdraw application
+
+    const withdrawApplication = React.useCallback(async (applicationId: string) => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`/api/applications/${applicationId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to withdraw application');
+            }
+
+        } catch (err) {
+            console.log('Error withdrawing application', err);
+        }
+    }, []);
 
     // Fetch application stats
     const fetchStats = React.useCallback(async () => {
@@ -220,20 +239,23 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
     React.useEffect(() => {
         if (isLoggedIn && userType === 'villager') {
             fetchApplications();
-        } else if (isLoggedIn && userType === 'admin') {
-            fetchAllApplications();
+            return;
         }
-    }, [isLoggedIn, userType, fetchAllApplications, fetchApplications]);
+        if (isLoggedIn && userType != 'villager') {
+            fetchAllApplications();
+            return;
+        }
+    }, [isLoggedIn, userType, updateApplication, withdrawApplication, fetchAllApplications, fetchApplications]);
 
     React.useEffect(() => {
-        if (isLoggedIn && userType === 'admin') {
+        if (isLoggedIn && userType != 'villager') {
             fetchStats();
         }
     }, [isLoggedIn, userType, fetchStats]);
 
     return (
         <ApplicationContext.Provider
-            value={{ applications, createApplication, updateApplication, applicationStats, setFiltersAndSorts }}
+            value={{ applications, createApplication, updateApplication, applicationStats, setFiltersAndSorts, withdrawApplication }}
         >
             {children}
         </ApplicationContext.Provider>
