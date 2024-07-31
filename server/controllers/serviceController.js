@@ -2,11 +2,7 @@ const service = require("../models/service");
 
 exports.getServices = async (req, res) => {
   try {
-    const { featured, category, DownloadableForm } = req.query;
-
-    const query = {};
-
-    const services = await service.find(query);
+    const services = await service.find();
     res.json(services);
   } catch (err) {
     console.error("Error getting services:", err);

@@ -29,7 +29,7 @@ const ServiceContextProvider: React.FC<ServiceContextProviderInterface> = ({ chi
         }
     };
 
-    const fetchStats = async () => {
+    const fetchStats = React.useCallback(async () => {
         await fetch(`${import.meta.env.VITE_API_URL}/api/services/stats`, {
             method: 'GET',
             headers: {
@@ -42,12 +42,15 @@ const ServiceContextProvider: React.FC<ServiceContextProviderInterface> = ({ chi
                 setServicesStats(tempStats);
             }).
             catch(err => console.log('Error Fetching Services Stats: ', err));
-    }
+    }, []);
 
     React.useEffect(() => {
         fetchServices();
-        isLoggedIn && userType !== 'villager' && fetchStats();
     }, []);
+
+    React.useEffect(() => {
+        isLoggedIn && userType !== 'villager' && fetchStats();
+    }, [isLoggedIn, userType, fetchStats]);
 
     return (
         <ServiceContext.Provider value={{ services, servicesStats, setServices }} >

@@ -22,6 +22,7 @@ const Downloads = () => {
     { label: 'Construction', path: '?category=Construction' },
     { label: 'Payments', path: '?category=Payments' },
     { label: 'Business Services', path: '?category=Business+Services' },
+    { label: 'Citizen Feedback', path: '?category=Citizen+Feedback' },
   ];
 
   return (

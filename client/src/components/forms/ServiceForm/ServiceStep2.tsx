@@ -34,10 +34,12 @@ const ServiceStep2: React.FC<ServiceStepProps> = ({ handleChange, input, errors 
                     required={true}
                 >
                     <InputAndLabel.Select.Option value='' disabled={true}>Select Category</InputAndLabel.Select.Option>
-                    <InputAndLabel.Select.Option value='General'>General</InputAndLabel.Select.Option>
+                    <InputAndLabel.Select.Option value='General Services'>General Services</InputAndLabel.Select.Option>
                     <InputAndLabel.Select.Option value='Citizen Services'>Citizen Services</InputAndLabel.Select.Option>
-                    <InputAndLabel.Select.Option value='Health'>Health</InputAndLabel.Select.Option>
-                    <InputAndLabel.Select.Option value='Education'>Education</InputAndLabel.Select.Option>
+                    <InputAndLabel.Select.Option value='Construction'>Construction</InputAndLabel.Select.Option>
+                    <InputAndLabel.Select.Option value='Payments'>Payments</InputAndLabel.Select.Option>
+                    <InputAndLabel.Select.Option value='Citizen Feedback'>Citizen Feedback</InputAndLabel.Select.Option>
+                    <InputAndLabel.Select.Option value='Business Services'>Business Services</InputAndLabel.Select.Option>
                 </InputAndLabel.Select>
                 {errors.category && <p className="font-work text-negative-400 text-sm lg:text-base">{errors.category}</p>}
             </InputAndLabel>

@@ -30,7 +30,6 @@ exports.getUserApplications = async (req, res) => {
   const userId = req.user.id;
   const { status, sortBy, order = "asc" } = req.query;
 
-  console.log(userId);
 
   let query = {};
 
@@ -86,7 +85,6 @@ exports.updateApplication = async (req, res) => {
     );
 
     res.json({ message: "Application updated" });
-
   } catch (error) {
     res.status(500).json({ error: "Error updating application" });
   }
@@ -137,10 +135,28 @@ exports.getApplicationById = async (req, res) => {
 exports.deleteApplication = async (req, res) => {
   try {
     const id = req.params.id;
-    await Application.findByIdAndDelete(id);
+
+    const deletedApplication = await Application.findByIdAndDelete(id);
+
+    if (!deletedApplication) {
+      return res.status(404).json({ error: "Application not found" });
+    }
+
+    const serviceId = deletedApplication.serviceId;
+
+    const updatedService = await Service.findByIdAndUpdate(
+      serviceId,
+      { $inc: { applicants: -1 } },
+      { new: true }
+    );
+
+    if (!updatedService) {
+      return res.status(404).json({ error: "Service not found" });
+    }
+
     res.json({ message: "Application deleted" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ error: "Error deleting application" });
   }
 };

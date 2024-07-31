@@ -1,5 +1,7 @@
 {
   "name": "tapseva",
+  "author": "Anurag Ghosh",
+  "description": "A fullstack project using React TS, Tailwind CSS, Express JS, Firebase, and MongoDB designed and developed by Anurag Ghosh.",
   "private": true,
   "version": "0.0.0",
   "type": "module",

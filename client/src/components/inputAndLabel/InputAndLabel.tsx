@@ -48,7 +48,7 @@ const Input: React.FC<InputProps> = ({ type, placeholder, id, name, required=fal
       required={required}
       value={value}
       onChange={onChange}
-      className="block rounded-sm w-full font-work text-dark py-3 px-4 sm:px-6 lg:px-7 bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+      className="block rounded-sm w-full font-work text-dark py-3 px-4 bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
     />
   )
 }
@@ -69,7 +69,7 @@ const TextArea: React.FC<TextAreaProps> = ({ placeholder, id, name, required, va
       required={required}
       value={value}
       onChange={onChange}
-      className="block w-full font-work text-dark py-3 px-4 sm:px-6 lg:px-7 bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+      className="block w-full font-work text-dark py-3 px-4 bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
     />
   )
 }
@@ -85,7 +85,7 @@ const Option: React.FC<OptionProps> = ({ children, value, disabled }) => {
     <option
       value={value}
       disabled={disabled ? disabled === true : false}
-      className="text-dark font-work py-2 px-3 sm:py-3 sm:px-5 lg:py-5 lg:px-7 bg-light"
+      className="text-dark font-work py-2 px-3 bg-light"
     >
       {children}
     </option>
@@ -107,7 +107,7 @@ const Select: React.FC<SelectProps> & { Option: React.FC<OptionProps> } = ({ chi
       id={id}
       value={value}
       onChange={onChange}
-      className="w-full rounded-sm font-work text-dark py-3 px-4 sm:px-6 lg:px-7 bg-gray-100 border border-tertiary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+      className="w-full rounded-sm font-work text-dark py-3 px-4 bg-gray-100 border border-tertiary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
     >
       {children}
     </select>
