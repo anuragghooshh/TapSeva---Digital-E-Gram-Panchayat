@@ -31,7 +31,7 @@ const Tab = ({ name, path, children }: TabProps) => {
     };
 
     return (
-        <button onClick={handleClick} className={`px-6 min-h-10 font-work flex items-center justify-center rounded-full ${ activeTab === name ? 'bg-secondary text-light-100' : 'bg-light-100 border text-secondary border-secondary'}`}>
+        <button onClick={handleClick} className={`px-6 min-h-10 font-work flex items-center justify-center rounded-full ${ activeTab === name ? 'bg-secondary text-light-100' : 'bg-light-100 border text-secondary border-secondary hover:bg-gray-100 button ease-bounce duration-200 transition-all'}`}>
             {children}
         </button>
     );

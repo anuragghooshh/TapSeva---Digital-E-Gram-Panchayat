@@ -3,10 +3,11 @@ import Hero from '../../components/hero/Hero'
 import ApplicationCard from '../../components/application/ApplicationCard'
 import ApplicationContext from '../../contexts/application/ApplicationContext'
 import Dropdown from '../../components/dropdown/Dropdown'
+import ApplicationCardSkeleton from '../../components/application/ApplicationCardSkeleton'
 
 const Applications = () => {
   // Fetching applications from the context
-  const { applications, setFiltersAndSorts, filters, sorts } = React.useContext(ApplicationContext);
+  const { applications, setFiltersAndSorts, filters, sorts, loading } = React.useContext(ApplicationContext);
 
   // Filtering functions
 
@@ -50,7 +51,7 @@ const Applications = () => {
               {
                 sorts.order && sorts.sortBy ?
                   sorts.order === 'asc' ? 'Sort : Oldest First' : 'Sort : Newest First'
-                : 'Sort'
+                  : 'Sort'
               }
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -69,7 +70,9 @@ const Applications = () => {
         </div>
         <div className='max-w-dsktp mx-auto' >
           {
-            applications.length > 0 ? (
+            loading ? (
+              <ApplicationCardSkeleton count={3} />
+            ) : applications.length > 0 ? (
               applications.map((application) => (
                 <ApplicationCard
                   key={application._id}

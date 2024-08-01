@@ -14,34 +14,47 @@ interface ServiceCategory {
 
 const ServiceContextProvider: React.FC<ServiceContextProviderInterface> = ({ children }) => {
     const { userType, isLoggedIn } = React.useContext(AuthContext);
-
+    const [loading, setLoading] = React.useState(false);
     const [services, setServices] = React.useState<ServiceInterface[]>([]);
     const [servicesStats, setServicesStats] = React.useState<ServiceCategory[]>([]);
 
     const fetchServices = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services`);
+            setLoading(true);
+
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
             const data = await response.json();
+
             const tempServices = [...data];
+
             setServices(tempServices);
+
+            setLoading(false);
         } catch (err: any) {
             console.log('Error Fetching Services: ', err);
         }
     };
 
     const fetchStats = React.useCallback(async () => {
-        await fetch(`${import.meta.env.VITE_API_URL}/api/services/stats`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).
-            then(response => response.json()).
-            then(data => {
-                const tempStats = [...data];
-                setServicesStats(tempStats);
-            }).
-            catch(err => console.log('Error Fetching Services Stats: ', err));
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/services/stats`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const result = await response.json();
+            const tempStats = [...result];
+            setServicesStats(tempStats);
+        } catch (err: any) {
+            console.log('Error Fetching Stats: ', err);
+        }
     }, []);
 
     React.useEffect(() => {
@@ -53,7 +66,7 @@ const ServiceContextProvider: React.FC<ServiceContextProviderInterface> = ({ chi
     }, [isLoggedIn, userType, fetchStats]);
 
     return (
-        <ServiceContext.Provider value={{ services, servicesStats, setServices }} >
+        <ServiceContext.Provider value={{ services, servicesStats, setServices, loading }} >
             {children}
         </ServiceContext.Provider>
     )

@@ -20,6 +20,7 @@ interface ApplicationContextInterface {
         sortBy?: string;
         order?: 'asc' | 'desc' | '' | undefined;
     };
+    loading: boolean;
 }
 
 const ApplicationContext = React.createContext<ApplicationContextInterface>({
@@ -36,6 +37,7 @@ const ApplicationContext = React.createContext<ApplicationContextInterface>({
     setFiltersAndSorts: () => Promise.resolve(),
     filters: {},
     sorts: {},
+    loading: false,
 });
 
 export default ApplicationContext;

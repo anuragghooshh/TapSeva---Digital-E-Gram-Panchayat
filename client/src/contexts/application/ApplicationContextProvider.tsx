@@ -49,6 +49,8 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
         order: undefined
     });
 
+    const [loading, setLoading] = React.useState(false);
+
     // Set Filters and Sorts
     const setFiltersAndSorts = (filters: ApplicationFilterInterface, sorts: ApplicationSortInterface): Promise<void> => {
         return new Promise((resolve, _reject) => {
@@ -63,6 +65,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
     const fetchApplications = React.useCallback(async () => {
         const token = localStorage.getItem('token');
         try {
+            setLoading(true);
             const query = new URLSearchParams();
 
             // Add filters to query params
@@ -86,6 +89,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
 
             const data = await response.json();
             const tempApplications = [...data];
+            setLoading(false);
 
             if (response.ok) {
                 setApplications(tempApplications);
@@ -100,6 +104,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
     // Fetch all applications for admin
     const fetchAllApplications = React.useCallback(async () => {
         try {
+            setLoading(true);
             const query = new URLSearchParams();
 
             // Add filters to query params
@@ -122,6 +127,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
 
             const data = await response.json();
             const tempApplications = [...data];
+            setLoading(false);
 
             if (response.ok) {
                 setApplications(tempApplications);
@@ -255,7 +261,7 @@ const ApplicationContextProvider: React.FC<ApplicationContextProvider> = ({ chil
 
     return (
         <ApplicationContext.Provider
-            value={{ applications, createApplication, updateApplication, applicationStats, setFiltersAndSorts, withdrawApplication, filters, sorts }}
+            value={{ applications, createApplication, updateApplication, applicationStats, setFiltersAndSorts, withdrawApplication, filters, sorts, loading }}
         >
             {children}
         </ApplicationContext.Provider>

@@ -9,6 +9,8 @@ import ApplicationContextProvider from './contexts/application/ApplicationContex
 import StartFromTop from './components/startFromTop/StartFromTop';
 import TitleUpdater from './components/titleUpdater/TitleUpdater';
 import Disclaimer from './components/disclaimer/Disclaimer';
+import { SkeletonTheme } from 'react-loading-skeleton';
+import "react-loading-skeleton/dist/skeleton.css";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -19,7 +21,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <ServiceContextProvider>
           <ApplicationContextProvider>
             <StartFromTop />
-            <App />
+            <SkeletonTheme baseColor='#B0C38F' highlightColor='#EDF4E6'>
+              <App />
+            </SkeletonTheme>
           </ApplicationContextProvider>
         </ServiceContextProvider>
       </AuthContextProvider>

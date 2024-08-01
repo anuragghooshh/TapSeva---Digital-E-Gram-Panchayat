@@ -8,13 +8,14 @@ import ServiceContext from '../../contexts/service/ServiceContext';
 import servicesBG from '../../assets/images/servicesBG.jpg';
 import ServiceForm from '../../components/forms/ServiceForm/ServiceForm';
 import AuthContext from '../../contexts/auth/AuthContext';
+import ServiceCardSkeleton from '../../components/serviceCard/ServiceCardSkeleton';
 
 const ServicesLayout = () => {
     const { userType } = React.useContext(AuthContext);
     const [searchParams] = useSearchParams();
     const categoryFilter = searchParams.get('category');
 
-    const { services } = React.useContext(ServiceContext);
+    const { services, loading } = React.useContext(ServiceContext);
 
     const filteredServices = categoryFilter
         ? services.filter(service => service.category === categoryFilter)
@@ -57,28 +58,24 @@ const ServicesLayout = () => {
                         }
                     </div>
                     <div className='max-w-dsktp mx-auto mt-16 lg:mt-20'>
-                        {filteredServices.length > 0 ?
-                            (
-                                <div className='grid-cols-1 grid gap-5 md:grid-cols-2'>
-                                    {
-                                        filteredServices.map((service, index) => (
-                                            <ServiceCard
-                                                key={index}
-                                                serviceName={service.service_name}
-                                                serviceDescription={service.description}
-                                                serviceType={service.category}
-                                                DownloadableForm={service.DownloadableForm !== 'NA' ? service.DownloadableForm : null}
-                                                _id={service._id}
-                                            />
-                                        ))
-                                    }
-                                </div>
-                            ) : (
-                                <div className="text-center min-h-40 grid place-items-center">
-                                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-gyst font-semibold text-neutral-300">No such services available</h1>
-                                </div>
-                            )
-                        }
+                        <div className='grid-cols-1 grid gap-5 md:grid-cols-2'>
+                            {
+                                loading ? (
+                                    <ServiceCardSkeleton count={6} />
+                                ) : (
+                                    filteredServices.map((service, index) => (
+                                        <ServiceCard
+                                            key={index}
+                                            serviceName={service.service_name}
+                                            serviceDescription={service.description}
+                                            serviceType={service.category}
+                                            DownloadableForm={service.DownloadableForm !== 'NA' ? service.DownloadableForm : null}
+                                            _id={service._id}
+                                        />
+                                    ))
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
             </section>

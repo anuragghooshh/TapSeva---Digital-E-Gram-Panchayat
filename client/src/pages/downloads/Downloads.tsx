@@ -5,11 +5,12 @@ import Tabs from '../../components/tabs/Tabs';
 import { useSearchParams } from 'react-router-dom';
 import ServiceContext from '../../contexts/service/ServiceContext';
 import downloadsBG from '../../assets/images/downloadsBG.jpg';
+import ServiceCardSkeleton from '../../components/serviceCard/ServiceCardSkeleton';
 
 const Downloads = () => {
   const [searchParams] = useSearchParams();
   const categoryFilter = searchParams.get('category');
-  const { services } = React.useContext(ServiceContext);
+  const { services, loading } = React.useContext(ServiceContext);
 
   const displayedServices = categoryFilter ?
     services.filter(service => service.category === categoryFilter && service.DownloadableForm != 'NA')
@@ -47,28 +48,28 @@ const Downloads = () => {
             }
           </Tabs>
           <div className='max-w-dsktp mx-auto mt-16 lg:mt-20'>
-            {displayedServices.length > 0 ?
-              (
-                <div className='grid-cols-1 grid gap-5 md:grid-cols-2'>
-                  {
-                    displayedServices.map((service, index) => (
-                      <ServiceCard
-                        key={index}
-                        serviceName={service.service_name}
-                        serviceDescription={service.description}
-                        serviceType={service.category}
-                        DownloadableForm={service.DownloadableForm !== 'NA' ? service.DownloadableForm : null}
-                        _id={service._id}
-                      />
-                    ))
-                  }
-                </div>
-              ) : (
-                <div className="text-center min-h-40 grid place-items-center">
-                  <h1 className="text-2xl md:text-3xl lg:text-4xl font-gyst font-semibold text-neutral-300">No such downloads available</h1>
-                </div>
-              )
-            }
+            <div className='max-w-dsktp mx-auto mt-16 lg:mt-20 grid-cols-1 grid gap-5 md:grid-cols-2' >
+              {
+                loading ? (
+                  <ServiceCardSkeleton count={6} />
+                ) : displayedServices.length > 0 ? (
+                  displayedServices.map((service, index) => (
+                    <ServiceCard
+                      key={index}
+                      serviceName={service.service_name}
+                      serviceDescription={service.description}
+                      serviceType={service.category}
+                      DownloadableForm={service.DownloadableForm !== 'NA' ? service.DownloadableForm : null}
+                      _id={service._id}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center min-h-40 grid place-items-center">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-gyst font-semibold text-neutral-300">No such downloads available</h1>
+                  </div>
+                )
+              }
+            </div>
           </div>
         </div>
       </section>

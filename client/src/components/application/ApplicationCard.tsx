@@ -205,7 +205,7 @@ const ApplicationCard: React.FC<ApplicationInterface> = ({ _id, userId, serviceN
   return (
     <>
       <div ref={ref} className={
-        "bg-light-100 w-full max-w-7xl border-2 border-neutral-200 mx-auto mt-5 p-6 sm:p-8 md:p-10 space-y-8 md:space-y-10 rounded-md transform transition-all ease-bounce duration-500 " +
+        "bg-light-100 w-full max-w-dsktp border-2 border-neutral-200 mx-auto mt-5 p-6 sm:p-8 md:p-10 space-y-8 md:space-y-10 rounded-md transform transition-all ease-bounce duration-500 " +
         `${inView ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-1/3'}`
       }>
         {applicationContent()}

@@ -6,10 +6,11 @@ import ServiceContext from '../../contexts/service/ServiceContext';
 import Hero from '../../components/hero/Hero';
 import UpdateInterface from '../../interfaces/UpdateInterface';
 import fetchUpdates from '../../services/FetchUpdates';
+import ServiceCardSkeleton from '../../components/serviceCard/ServiceCardSkeleton';
 
 const Home = () => {
     const [updates, setUpdates] = React.useState<UpdateInterface[]>([]);
-    const { services } = React.useContext(ServiceContext);
+    const { services, loading } = React.useContext(ServiceContext);
     const featuredServices = services.filter(service => service.featured === true);
 
     React.useEffect(() => {
@@ -33,16 +34,20 @@ const Home = () => {
                 </div>
                 <div className='max-w-dsktp mx-auto mt-16 lg:mt-20 grid-cols-1 grid gap-5 md:grid-cols-2' >
                     {
-                        featuredServices.map((service: any, index: number) => (
-                            <ServiceCard
-                                _id={service._id}
-                                key={index}
-                                serviceName={service.service_name} 
-                                serviceDescription={service.description}
-                                serviceType={service.category}
-                                DownloadableForm={service.DownloadableForm != 'NA' ? service.DownloadableForm : null}
-                            />
-                        ))
+                        loading ? (
+                            <ServiceCardSkeleton count={6} />
+                        ) : (
+                            featuredServices.map((service, index) => (
+                                <ServiceCard
+                                    key={index}
+                                    serviceName={service.service_name}
+                                    serviceDescription={service.description}
+                                    serviceType={service.category}
+                                    DownloadableForm={service.DownloadableForm !== 'NA' ? service.DownloadableForm : null}
+                                    _id={service._id}
+                                />
+                            ))
+                        )
                     }
                 </div>
             </section>
