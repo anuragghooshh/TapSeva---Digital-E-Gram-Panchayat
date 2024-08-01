@@ -10,16 +10,15 @@ interface HeroProps {
 const HeroTitle: React.FC<HeroProps> = ({ children }) => {
     const lettersRef = React.useRef<(HTMLSpanElement | null)[]>([]);
 
-    // Convert children to string and split into words and characters
     const textArray = React.Children.toArray(children)
         .flatMap(child =>
             typeof child === 'string'
-                ? child.split(/(\s+)/) // Split by spaces while keeping spaces in the array
+                ? child.split(/(\s+)/)
                 : React.isValidElement(child) && child.type === 'br'
                     ? ['\n']
                     : []
         )
-        .filter(Boolean); // Remove any empty strings
+        .filter(Boolean);
 
     React.useEffect(() => {
         lettersRef.current = lettersRef.current.slice(0, textArray.length);

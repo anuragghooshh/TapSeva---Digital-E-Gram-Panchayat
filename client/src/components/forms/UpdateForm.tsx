@@ -69,7 +69,7 @@ const UpdateForm = () => {
 
     return (
         <div>
-            <button className='w-14 h-14 fixed bottom-10 right-5 bg-primary shadow-md text-light-100 text-lg grid place-items-center rounded-full ease-bounce duration-200 button' onClick={() => setIsModalOpen(true)} color='color'>
+            <button className='w-14 h-14 fixed bottom-10 right-5 bg-primary shadow-md text-light-100 text-lg grid place-items-center rounded-full ease-bounce duration-200 button z-50' onClick={() => setIsModalOpen(true)} color='color'>
                 <BiAddToQueue/>
             </button>
             <Modal isOpen={isModalOpen}>
