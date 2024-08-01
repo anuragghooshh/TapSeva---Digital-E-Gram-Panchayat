@@ -3,6 +3,7 @@ import Button from '../../button/Button'
 import SignUp1 from './SignUp1';
 import SignUp2 from './SignUp2';
 import SignUp3 from './SignUp3';
+import { useNavigate } from 'react-router-dom';
 
 export interface SignUpProps {
     input: {
@@ -23,6 +24,8 @@ export interface SignUpProps {
 
 
 const SignUpForm = () => {
+    const navigate = useNavigate();
+
     const [input, setInput] = React.useState({
         name: '',
         sex: '',
@@ -64,15 +67,20 @@ const SignUpForm = () => {
     const validate = () => {
         let newErrors = {} as any;
 
-        if (!input.name) newErrors.name = 'Name is required';
-        if (!input.dob) newErrors.dob = 'Date of Birth is required';
-        if (!input.sex) newErrors.sex = 'You must enter your sex';
-        if (!input.address) newErrors.address = 'Address is required';
-        if (!input.maritalStatus) newErrors.maritalStatus = 'Marital status is required';
-        if (!input.aadhaarNo || !/^\d{12}$/.test(input.aadhaarNo)) newErrors.aadhaarNo = 'Aadhaar number must be 12 digits';
-        if (!input.email || !/\S+@\S+\.\S+/.test(input.email)) newErrors.email = 'Email is invalid';
-        if (!input.phone || !/^\d{10}$/.test(input.phone)) newErrors.phone = 'Phone number must be 10 digits';
-        if (!input.password || input.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+        if (input.name == "") newErrors.name = 'Name is required';
+        if (input.dob == "") newErrors.dob = 'Date of Birth is required';
+        if (input.sex == "") newErrors.sex = 'You must enter your sex';
+        if (input.address == "") newErrors.address = 'Address is required';
+        if (input.maritalStatus == "") newErrors.maritalStatus = 'Marital status is required';
+
+        const strippedAadhaarNo = input.aadhaarNo.replace(/\s+/g, '');
+        if (!(/^\d{12}$/.test(strippedAadhaarNo) && strippedAadhaarNo.length === 12)) {
+            newErrors.aadhaarNo = 'Aadhaar number must be 12 digits';
+        }
+
+        if (input.email == "" || !/\S+@\S+\.\S+/.test(input.email)) newErrors.email = 'Email is invalid';
+        if (input.phone == "" || !/^\d{10}$/.test(input.phone)) newErrors.phone = 'Phone number must be 10 digits';
+        if (input.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
         if (input.password !== input.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
 
         setErrors(newErrors);
@@ -96,6 +104,7 @@ const SignUpForm = () => {
         postData.phone = input.phone;
         postData.password = input.password;
 
+
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
                 headers: {
@@ -112,6 +121,8 @@ const SignUpForm = () => {
             console.error('Error:', error);
         } finally {
             clear();
+            setStep(1);
+            navigate('/');
         }
     };
 
@@ -130,13 +141,14 @@ const SignUpForm = () => {
 
         if (currentStep === 1) {
             if (!input.name) newErrors.name = 'Required*';
+            if (!input.sex) newErrors.sex = 'Required*';
             if (!input.dob) newErrors.dob = 'Date of Birth is required';
             if (!input.address) newErrors.address = 'Address is required';
             if (!input.maritalStatus) newErrors.maritalStatus = 'Marital status is required';
         }
 
         if (currentStep === 2) {
-            if (!/^\d{12}$/.test(cleanedAadhaarNo)) {
+            if (!(/^\d{12}$/.test(cleanedAadhaarNo) && cleanedAadhaarNo.length === 12)) {
                 newErrors.aadhaarNo = 'Aadhaar number must be 12 digits and formatted as XXXX XXXX XXXX';
             }
             if (!input.email || !/\S+@\S+\.\S+/.test(input.email)) newErrors.email = 'Email is invalid';

@@ -16,6 +16,7 @@ const registerUser = async (req, res) => {
     phone,
   } = req.body;
 
+
   try {
     let user = await User.findOne({ email });
     if (user) {
@@ -34,7 +35,6 @@ const registerUser = async (req, res) => {
       password: password,
       role: "villager",
     });
-
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
