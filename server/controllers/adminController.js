@@ -14,7 +14,10 @@ exports.getUsers = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
+    console.log("Provoked")
     const { id } = req.params;
+
+    console.log(id);
 
     await User.findByIdAndDelete(id);
 

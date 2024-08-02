@@ -54,7 +54,7 @@ const HeroTitle: React.FC<HeroProps> = ({ children }) => {
 
 const HeroSubTitle: React.FC<HeroProps> = ({ children }) => {
     return (
-        <p className='font-work font-medium text-center text-base md:text-lg'>
+        <p className='font-work text-dark font-medium text-center text-sm md:text-base'>
             {children}
         </p>
     )
@@ -72,7 +72,7 @@ const Hero: React.FC<HeroProps> & {
     `;
 
     const divClasses = `
-        w-full px-5 flex flex-col space-y-5 mx-auto rounded-md items-center justify-center
+        w-full px-5 flex flex-col space-y-10 mx-auto rounded-md items-center justify-center
         ${design === 'clean'
             ? 'text-dark py-5'
             : imgSrc

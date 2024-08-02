@@ -64,7 +64,7 @@ const Downloads = () => {
                     />
                   ))
                 ) : (
-                  <div className="text-center min-h-40 grid place-items-center">
+                  <div className="md:col-span-2 text-center min-h-40 grid place-items-center">
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-gyst font-semibold text-neutral-300">No such downloads available</h1>
                   </div>
                 )

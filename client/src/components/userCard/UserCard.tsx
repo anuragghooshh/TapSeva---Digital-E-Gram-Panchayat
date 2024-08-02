@@ -16,7 +16,7 @@ const UserCard: React.FC<userCardProps> = ({ user }) => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/updates/${user._id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/users/${user._id}`, {
                 method: 'DELETE',
             });
 
@@ -84,12 +84,12 @@ const UserCard: React.FC<userCardProps> = ({ user }) => {
                 </div>
             </div>
             <div className="flex gap-4 items-center justify-end">
-                <button
+                {/* <button
                     className="h-10 w-10 flex items-center justify-center bg-primary rounded-full text-white text-xl"
                     aria-label="Edit"
                 >
                     <BiEdit />
-                </button>
+                </button> */}
                 <button
                     className="h-10 w-10 flex items-center justify-center bg-negative-400 rounded-full text-white text-xl"
                     aria-label="Delete"

@@ -10,6 +10,8 @@ interface UserContextInterface {
 const UserContextProvider: React.FC<UserContextInterface> = ({ children }) => {
     const [users, setUsers] = React.useState<UserDataInterface[]>([]);
 
+    
+    
     React.useEffect(() => {
         fetchUsers().then((data) => {
             setUsers(data);
