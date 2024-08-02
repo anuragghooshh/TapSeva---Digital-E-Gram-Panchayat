@@ -8,9 +8,9 @@ import { useInView } from 'react-intersection-observer';
 const UpdateCard: React.FC<UpdateInterface> = ({ update, date, _id }) => {
     const [isConfModalOpen, setIsConfModalOpen] = React.useState(false);
     const { setUpdates } = React.useContext(UpdateContext);
-    const [ref, inView] = useInView({ 
+    const [ref, inView] = useInView({
         threshold: 0.01,
-        triggerOnce: true, 
+        triggerOnce: true,
     });
 
 
@@ -37,34 +37,36 @@ const UpdateCard: React.FC<UpdateInterface> = ({ update, date, _id }) => {
     }
 
     return (
-        <div ref={ref} className={
-            "p-5 bg-light-100 border-2 border-neutral-200 rounded-lg transform transition-all ease-bounce duration-500 " +
-            `${inView ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-1/3'}`
-        }>
-            <div className="flex flex-col space-y-4 font-work">
-                <p className="text-base md:text-lg font-medium text-dark">
-                    <span className="text-sm md:text-base block text-neutral-500">Update</span> {update}
-                </p>
-                <p className="text-base md:text-lg font-medium text-dark">
-                    <span className="text-sm md:text-base block text-neutral-500">Created At</span> {new Date(date ?? "").toDateString()}
-                </p>
+        <div>
+            <div ref={ref} className={
+                "p-5 bg-light-100 border-2 border-neutral-200 rounded-lg transform transition-all ease-bounce duration-500 " +
+                `${inView ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-1/3'}`
+            }>
+                <div className="flex flex-col space-y-4 font-work">
+                    <p className="text-base md:text-lg font-medium text-dark">
+                        <span className="text-sm md:text-base block text-neutral-500">Update</span> {update}
+                    </p>
+                    <p className="text-base md:text-lg font-medium text-dark">
+                        <span className="text-sm md:text-base block text-neutral-500">Created At</span> {new Date(date ?? "").toDateString()}
+                    </p>
+                </div>
+                <div className="flex gap-4 items-center justify-end">
+                    <button
+                        className="h-10 w-10 flex items-center justify-center bg-negative-400 rounded-full text-light-100 text-xl"
+                        aria-label="Delete"
+                        onClick={() => { setIsConfModalOpen(true) }}
+                    >
+                        <TbTrash />
+                    </button>
+                </div>
             </div>
-            <div className="flex gap-4 items-center justify-end">
-                <button
-                    className="h-10 w-10 flex items-center justify-center bg-negative-400 rounded-full text-light-100 text-xl"
-                    aria-label="Delete"
-                    onClick={() => { setIsConfModalOpen(true) }}
-                >
-                    <TbTrash />
-                </button>
-                <Confirmation
-                    isOpen={isConfModalOpen}
-                    title='Delete Update'
-                    message='Are you sure you want to delete this update?'
-                    onConfirm={handleDelete}
-                    onCancel={() => { setIsConfModalOpen(false) }}
-                />
-            </div>
+            <Confirmation
+                isOpen={isConfModalOpen}
+                title='Delete Update'
+                message='Are you sure you want to delete this update?'
+                onConfirm={handleDelete}
+                onCancel={() => { setIsConfModalOpen(false) }}
+            />
         </div>
     );
 };

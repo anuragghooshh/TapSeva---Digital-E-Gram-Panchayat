@@ -9,7 +9,7 @@ const ListOfUpdates: React.FC = () => {
   const { updates } = React.useContext(UpdateContext);
   return (
     updates.length > 0 ?
-      <div>
+      <div className='space-y-3'>
         {
           updates.map((update) => (
             <UpdateCard
