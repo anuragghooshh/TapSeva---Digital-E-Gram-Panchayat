@@ -54,7 +54,7 @@ const HeroTitle: React.FC<HeroProps> = ({ children }) => {
 
 const HeroSubTitle: React.FC<HeroProps> = ({ children }) => {
     return (
-        <p className='font-work text-dark font-medium text-center text-sm md:text-base'>
+        <p className='font-work font-medium text-center text-sm md:text-base'>
             {children}
         </p>
     )

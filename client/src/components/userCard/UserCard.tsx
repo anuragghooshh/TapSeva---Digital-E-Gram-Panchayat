@@ -1,6 +1,5 @@
 import React from 'react'
 import UserDataInterface from '../../interfaces/UserDataInterface';
-import { BiEdit } from 'react-icons/bi';
 import { TbTrash } from 'react-icons/tb';
 import Confirmation from '../confirmation/Confirmation';
 import UserContext from '../../contexts/user/UserContext';

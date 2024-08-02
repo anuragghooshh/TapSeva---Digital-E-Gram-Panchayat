@@ -23,7 +23,7 @@ const Home = () => {
     return (
         <div className='page w-full' id='home'>
             <Hero imgSrc={heroBg} size='fill'>
-                <Hero.Title>Empowering Your Village<br />with Digital Convenience.</Hero.Title>
+                <Hero.Title>Welcome to Your Digital Village Where<br/>Community Services Are at Your Fingertips</Hero.Title>
                 <Button color='light' link={true} path='services' design='stroked'>Browse Services</Button>
             </Hero>
             <section className="section-lg">
